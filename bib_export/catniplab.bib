@@ -1,10 +1,11 @@
 % Encoding: UTF-8
 
 @Unpublished{Zhao2019a,
-  title         = "Streaming Variational Monte Carlo",
-  author        = "Zhao, Yuan and Nassar, Josue and Jordan, Ian and Bugallo,
-                   M{\'o}nica and Park, Il Memming",
-  abstract      = "Nonlinear state-space models are powerful tools to describe
+  author        = {Zhao, Yuan and Nassar, Josue and Jordan, Ian and Bugallo, M{\'o}nica and Park, Il Memming},
+  title         = {Streaming Variational {M}onte {C}arlo},
+  month         = jun,
+  year          = {2019},
+  abstract      = {Nonlinear state-space models are powerful tools to describe
                    dynamical structures in complex time series. In a streaming
                    setting where data are processed one sample at a time,
                    simultaneously inferring the state and their nonlinear
@@ -18,12 +19,74 @@
                    framework can efficiently infer a posterior over the
                    dynamics using sparse Gaussian processes. Constant time
                    complexity per sample makes our approach amenable to online
-                   learning scenarios and suitable for real-time applications.",
-  month         =  jun,
-  year          =  2019,
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "1906.01549"
+                   learning scenarios and suitable for real-time applications.},
+  archiveprefix = {arXiv},
+  eprint        = {1906.01549},
+  primaryclass  = {stat.ML},
+}
+
+@Conference{Sokol2019c,
+  author    = {Piotr Sokol and Ian Jordan and Il Memming Park},
+  title     = {Information geometry at initialization and beyond},
+  booktitle = {DeepMath},
+  year      = {2019},
+  url       = {https://www.deepmath-conference.com},
+}
+
+@Conference{Sokol2019b,
+  author    = {Piotr Sokol and Il Memming Park},
+  title     = {Limit Cycle Neural Networks Have Infinite Memory},
+  booktitle = {DeepMath},
+  year      = {2019},
+  url       = {https://www.deepmath-conference.com},
+}
+
+@Unpublished{Sokol2019a,
+    author = "Piotr Sokol and Ian Jordan and Eben Kadile and Il Memming Park",
+    title = "Numerically stable gradient descent inspired by neural dynamics",
+    abstract = "The operating regimes of biological neural systems universally exhibit (possibly metastable) attractor dynamics including oscillations and quasi-oscillations. Following large perturbations, biological neural activity tends to decay over time. We describe a surprising consequence of general biological neural dynamics on the trainability of artificial recurrent and feed-forward neural networks. Artificial recurrent neural networks are commonly optimized using gradient descent, however, their training remains challenging. Part of the difficulty is the numerical instability of the backpropagated gradient. Considering the discrete-time neural network as an approximation of its continuous-time counterpart, we show the stability of the continuous backpropagation for a broad class of neural networks with bounded activation functions. We then discuss numerical solutions via efficient and numerically stable discretizations that preserve optimality conditions. This gives insight into gradient explosion in a much wider class of networks, suggesting that it is in fact a numerical instability inherent to the chosen discretization of the implied continuous time system. Our framework suggests new strategies to initialize, train, and examine machine learning systems.",
+  booktitle = {53rd Asilomar Conference on Signals, Systems and Computers},
+  year      = {2019},
+  note	    = "invited; to appear"
+}
+
+@InProceedings{Nassar2019a,
+  author    = {Josue Nassar and Scott Linderman and Il Memming Park and Monica Bugallo},
+  title     = {Tree-structured locally linear dynamics model to uproot Bayesian neural data analysis},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  year      = {2019},
+}
+
+@InProceedings{Nassar2018b,
+  author        = {Josue Nassar and Scott W. Linderman and Monica Bugallo and Il Memming Park},
+  title         = {Tree-Structured Recurrent Switching Linear Dynamical Systems for Multi-Scale Modeling},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2019},
+  month         = nov,
+  abstract      = {Many real-world systems studied are governed by complex, nonlinear dynamics. By modeling these dynamics, we can gain insight into how these systems work, make predictions about how they will behave, and develop strategies for controlling them. While there are many methods for modeling nonlinear dynamical systems, existing techniques face a trade off between offering interpretable descriptions and making accurate predictions. Here, we develop a class of models that aims to achieve both simultaneously, smoothly interpolating between simple descriptions and more complex, yet also more accurate models. Our probabilistic model achieves this multi-scale property through a hierarchy of locally linear dynamics that jointly approximate global nonlinear dynamics. We call it the tree-structured recurrent switching linear dynamical system. To fit this model, we present a fully-Bayesian sampling procedure using Polya-Gamma data augmentation to allow for fast and conjugate Gibbs sampling. Through a variety of synthetic and real examples, we show how these models outperform existing methods in both interpretability and predictive capability.},
+  archiveprefix = {arXiv},
+  day           = {30},
+  eprint        = {1811.12386},
+  keywords      = {neural-dynamics, statistical-neuroscience},
+  url           = {https://openreview.net/forum?id=HkzRQhR9YX},
+  code          = {https://github.com/catniplab/tree_structured_rslds},
+}
+
+@InProceedings{Mofakham2019b,
+  author    = {Sima Mofakham and Adam Fry and Joseph Adachi and Nathan Winans and Justine Liang and Bradley Ashcroft and Himanshu Sharma and Susan Fiore and Il Memming Park and Charles Mikell},
+  title     = {Electrophysiological prognostication of functional cortical integrity after traumatic brain injury},
+  booktitle = {American Association of Neurological Surgeons ({AANS})},
+  year      = {2019},
+  note      = {(submitted)},
+  abstract  = {Whether and how consciousness returns after severe traumatic brain injury (TBI) is not clear, mainly due to our lack of understanding of how consciousness arises. Previous studies revealed that correlated activity across a distributed network of cortical cells, the frontoparietal network (FPN), is required for return of consciousness. But data on the transition from coma to wakefulness are sparse. To address this gap, we performed depth electrode recordings of the anterior cingulate gyrus (ACC) and dorsolateral prefrontal cortex (DLPFC) along with simultaneous scalp EEG recording in patients recovering from coma after TBI. We sought to extract predictive electrophysiological biomarkers of regaining consciousness after traumatic brain injury. Methods: In this study one healthy control (epilepsy) and five comatose traumatic brain injury patients with GCS < 8 and with no major brain structural abnormalities were enrolled. Upon obtaining informed consent by a legally authorized representative, we implanted a seizure monitoring stereotactic (10-contact) depth electrode spanning from DLPFC to ACC. To probe the functional integrity of cortical webs we administered repetitive single-pulse stimulation to ACC and DLPFC (100 μS, 1 Hz stimulation, 100 reps). Cortico-cortical evoked potentials (CCEPs) were recorded both via the implanted depth electrode and scalp contacts. Results: We found that recovery of consciousness is associated with increasing amplitude and complexity of CCEPs in DLFPC. While all patients had increased amplitude over time, patients who recovered developed polyphasic, complex waveforms, as measured by zero crossing and permutation entropy (n = 5). The patients who did not recover (n = 2) had large-amplitude, but simple-waveform CCEP responses. Conclusion: The characteristics of the evoked responses to electrical stimulation may be a useful surrogate measurement of the integrity of cortical networks required for consciousness. CCEPs potentially be used as an indicator of integrity of cortex to predict outcome after TBI.},
+  owner     = {memming},
+}
+
+@InProceedings{Mofakham2019a,
+  author    = {Sima Mofakham and Adam Fry and Joseph Adachi and Bradley Ashcroft and Nathan Winans and Justine Liang and Himanshu Sharma and Susan Fiore and Il Memming Park and Charles Mikell},
+  title     = {Recovery of consciousness after traumatic brain injury: Biomarkers and a mechanistic model},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  year      = {2019},
 }
 
 @Unpublished{Jordan2019a,
@@ -55,48 +118,10 @@
   eprint        = "1906.01005"
 }
 
-@InProceedings{Nassar2019a,
-  author    = {Josue Nassar and Scott Linderman and Il Memming Park and Monica Bugallo},
-  title     = {Tree-structured locally linear dynamics model to uproot Bayesian neural data analysis},
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  year      = {2019},
-}
-
-@InProceedings{Nassar2018b,
-  author        = {Josue Nassar and Scott W. Linderman and Monica Bugallo and Il Memming Park},
-  title         = {Tree-Structured Recurrent Switching Linear Dynamical Systems for Multi-Scale Modeling},
-  booktitle     = {International Conference on Learning Representations (ICLR)},
-  year          = {2019},
-  month         = nov,
-  abstract      = {Many real-world systems studied are governed by complex, nonlinear dynamics. By modeling these dynamics, we can gain insight into how these systems work, make predictions about how they will behave, and develop strategies for controlling them. While there are many methods for modeling nonlinear dynamical systems, existing techniques face a trade off between offering interpretable descriptions and making accurate predictions. Here, we develop a class of models that aims to achieve both simultaneously, smoothly interpolating between simple descriptions and more complex, yet also more accurate models. Our probabilistic model achieves this multi-scale property through a hierarchy of locally linear dynamics that jointly approximate global nonlinear dynamics. We call it the tree-structured recurrent switching linear dynamical system. To fit this model, we present a fully-Bayesian sampling procedure using Polya-Gamma data augmentation to allow for fast and conjugate Gibbs sampling. Through a variety of synthetic and real examples, we show how these models outperform existing methods in both interpretability and predictive capability.},
-  archiveprefix = {arXiv},
-  day           = {30},
-  eprint        = {1811.12386},
-  keywords      = {neural-dynamics, statistical-neuroscience},
-  url           = {https://openreview.net/forum?id=HkzRQhR9YX},
-  code          = {https://github.com/catniplab/tree_structured_rslds},
-}
-
-@InProceedings{Mofakham2019b,
-  author    = {Sima Mofakham and Adam Fry and Joseph Adachi and Nathan Winans and Justine Liang and Bradley Ashcroft and Himanshu Sharma and Susan Fiore and Il Memming Park and Charles Mikell},
-  title     = {Electrophysiological prognostication of functional cortical integrity after traumatic brain injury},
-  booktitle = {American Association of Neurological Surgeons (AANS)},
-  year      = {2019},
-  note      = {(submitted)},
-  owner     = {memming},
-}
-
-@InProceedings{Mofakham2019a,
-  author    = {Sima Mofakham and Adam Fry and Joseph Adachi and Bradley Ashcroft and Nathan Winans and Justine Liang and Himanshu Sharma and Susan Fiore and Il Memming Park and Charles Mikell},
-  title     = {Recovery of consciousness after traumatic brain injury: Biomarkers and a mechanistic model},
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  year      = {2019},
-}
-
 @Article{Hocker2019a,
   author    = {David Hocker and Il Memming Park},
   title     = {Myopic control of neural dynamics},
-  journal   = {PLOS Computational Biology},
+  journal   = {{PLOS} Computational Biology},
   year      = {2019},
   abstract  = {Manipulating the dynamics of neural systems through targeted stimulation is a frontier of research and clinical neuroscience; however, the control schemes considered for neural systems are mismatched for the unique needs of manipulating neural dynamics. An appropriate control method should respect the variability in neural systems, incorporating moment to moment ``input'' to the neural dynamics and behaving based on the current neural state, irrespective of the past trajectory. We propose such a controller under a nonlinear state-space feedback framework that steers one dynamical system to function as through it were another dynamical system entirely. This ``myopic'' controller is formulated through a novel variant of a model reference control cost that manipulates dynamics in a step-wise manner, omitting the need to pre-calculate a rigid and computationally costly neural feedback control solution. To demonstrate the breadth of this control's utility, two examples with distinctly different applications in neuroscience are studied. First an unhealthy motor-like system containing an unwanted beta-oscillation spiral attractor is controlled to function as a healthy motor system, a relevant clinical example for neurological disorders. Second, we show the myopic control's utility to probe the causal dynamics of cognitive processes by transforming a winner-take-all decision-making system to operate as a robust neural integrator of evidence.},
   doi       = {10.1371/journal.pcbi.1006854},
@@ -407,13 +432,13 @@ and in real neural data.},
   year = {2015}
 }
 
-@INPROCEEDINGS{Wu2015b,
-  author = {Anqi Wu and Il Memming Park and Jonathan Pillow},
-  title = {Convolutional spike-triggered covariance analysis for neural subunit
-	models},
+@InProceedings{Wu2015b,
+  author    = {Anqi Wu and Il Memming Park and Jonathan Pillow},
+  title     = {Convolutional spike-triggered covariance analysis for neural subunit models},
   booktitle = {Advances in Neural Information Processing Systems (NIPS)},
-  year = {2015},
-  owner = {memming}
+  year      = {2015},
+  owner     = {memming},
+  url       = {https://papers.nips.cc/paper/5962-convolutional-spike-triggered-covariance-analysis-for-neural-subunit-models},
 }
 
 @InProceedings{Wu2015a,
