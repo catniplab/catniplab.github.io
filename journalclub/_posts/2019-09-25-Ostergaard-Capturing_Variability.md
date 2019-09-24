@@ -4,8 +4,8 @@ title:  Capturing Spike Variability in Noisy Izhikevich Neurons Using Point Proc
 category: journalclub
 olddate: September 25, 2019
 ---
- 
-*Jacob Østergaard, Mark A. Kramer, Uri T. Eden*. Neural Computation (2017) 
+
+*Jacob Ostergaard, Mark A. Kramer, Uri T. Eden*. Neural Computation (2017)
 [(Neural Computation)](https://doi.org/10.1162/neco_a_01030)
 [(local cache)]({{site.url}}/journalclub/JCpapers/Capturing_Variability.pdf)
 
