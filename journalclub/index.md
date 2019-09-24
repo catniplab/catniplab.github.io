@@ -24,14 +24,14 @@ Journal club meetings currently take place on Wednesdays at 3:00 pm in the IACS 
 - September 11th: Braden Brinkman
 - September 18th: Canceled
 - September 25th: Logan Becker
-- October 2nd: Piotr Sokol
+- October 2nd: Tong Liang
 - October 9th: Tianshu Li
 - October 16th: Josue Nassar
 - October 23rd:
 - October 30th: Ian D. Jordan
 - November 6th: Canceled
 - November 13th: Sayontan Ghosh
-- November 20th: Tong Liang
+- November 20th: Piotr Sokol 
 - November 27th: Canceled
 - December 4th:
 
