@@ -25,7 +25,7 @@ Journal club meetings currently take place on Wednesdays at 3:00 pm in the IACS 
 - September 18th: Canceled
 - September 25th: Logan Becker
 - October 2nd: Tong Liang
-- October 9th: Tianshu Li
+- October 9th: Diego Arribas 
 - October 16th: Josue Nassar
 - October 23rd:
 - October 30th: Ian D. Jordan
