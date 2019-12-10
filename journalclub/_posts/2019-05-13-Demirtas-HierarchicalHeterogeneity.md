@@ -4,8 +4,8 @@ title:  Hierarchical Heterogeneity across Human Cortex Shapes Large-Scale Neural
 category: journalclub
 olddate: May 13, 2019
 ---
- 
-*Murat Demirtas, Joshua B. Burt, Markus Helmer, Jie Lisa Ji, Brendan D. Adkinson, Matthew F. Glasser, David C. Van Essen, Stamatios N. Sotiropoulos, Alan Anticevic, John D. Murray*. Neuron (2019) 
+
+*Murat Demirtas, Joshua B. Burt, Markus Helmer, Jie Lisa Ji, Brendan D. Adkinson, Matthew F. Glasser, David C. Van Essen, Stamatios N. Sotiropoulos, Alan Anticevic, John D. Murray*. Neuron (2019)
 [(Neuron)](http://www.sciencedirect.com/science/article/pii/S0896627319300443)
 [(local cache)]({{site.url}}/journalclub/JCpapers/HierarchicalHeterogeneity.pdf)
 
