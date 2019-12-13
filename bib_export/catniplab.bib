@@ -41,13 +41,14 @@
   url       = {https://www.deepmath-conference.com},
 }
 
-@Unpublished{Sokol2019a,
-    author = "Piotr Sokol and Ian Jordan and Eben Kadile and Il Memming Park",
-    title = "Numerically stable gradient descent inspired by neural dynamics",
-    abstract = "The operating regimes of biological neural systems universally exhibit (possibly metastable) attractor dynamics including oscillations and quasi-oscillations. Following large perturbations, biological neural activity tends to decay over time. We describe a surprising consequence of general biological neural dynamics on the trainability of artificial recurrent and feed-forward neural networks. Artificial recurrent neural networks are commonly optimized using gradient descent, however, their training remains challenging. Part of the difficulty is the numerical instability of the backpropagated gradient. Considering the discrete-time neural network as an approximation of its continuous-time counterpart, we show the stability of the continuous backpropagation for a broad class of neural networks with bounded activation functions. We then discuss numerical solutions via efficient and numerically stable discretizations that preserve optimality conditions. This gives insight into gradient explosion in a much wider class of networks, suggesting that it is in fact a numerical instability inherent to the chosen discretization of the implied continuous time system. Our framework suggests new strategies to initialize, train, and examine machine learning systems.",
+@InProceedings{Sokol2019a,
+  author    = {Piotr Sokol and Ian Jordan and Eben Kadile and Il Memming Park},
+  title     = {Adjoint dynamics of stable limit cycle neural networks},
   booktitle = {53rd Asilomar Conference on Signals, Systems and Computers},
   year      = {2019},
-  note	    = "invited; to appear"
+  abstract  = {Exploding and vanishing gradient are both major problems often faced when an artificial neural network is trained with gradient descent. Inspired by the ubiquity and robustness of nonlinear oscillations in biological neural systems, we investigate the properties of their artificial counterpart, the stable limit cycle neural networks. Using a continuous time dynamical system interpretation of neural networks and backpropagation, we show that stable limit cycle neural networks have non-exploding gradients, and at least one effective non-vanishing gradient dimension. We conjecture that limit cycles can support the learning of long temporal dependence in both biological and artificial neural networks.
+},
+  keywords  = {limit cycle; backpropagation},
 }
 
 @InProceedings{Nassar2019a,
@@ -77,7 +78,6 @@
   title     = {Electrophysiological prognostication of functional cortical integrity after traumatic brain injury},
   booktitle = {American Association of Neurological Surgeons ({AANS})},
   year      = {2019},
-  note      = {(submitted)},
   abstract  = {Whether and how consciousness returns after severe traumatic brain injury (TBI) is not clear, mainly due to our lack of understanding of how consciousness arises. Previous studies revealed that correlated activity across a distributed network of cortical cells, the frontoparietal network (FPN), is required for return of consciousness. But data on the transition from coma to wakefulness are sparse. To address this gap, we performed depth electrode recordings of the anterior cingulate gyrus (ACC) and dorsolateral prefrontal cortex (DLPFC) along with simultaneous scalp EEG recording in patients recovering from coma after TBI. We sought to extract predictive electrophysiological biomarkers of regaining consciousness after traumatic brain injury. Methods: In this study one healthy control (epilepsy) and five comatose traumatic brain injury patients with GCS < 8 and with no major brain structural abnormalities were enrolled. Upon obtaining informed consent by a legally authorized representative, we implanted a seizure monitoring stereotactic (10-contact) depth electrode spanning from DLPFC to ACC. To probe the functional integrity of cortical webs we administered repetitive single-pulse stimulation to ACC and DLPFC (100 μS, 1 Hz stimulation, 100 reps). Cortico-cortical evoked potentials (CCEPs) were recorded both via the implanted depth electrode and scalp contacts. Results: We found that recovery of consciousness is associated with increasing amplitude and complexity of CCEPs in DLFPC. While all patients had increased amplitude over time, patients who recovered developed polyphasic, complex waveforms, as measured by zero crossing and permutation entropy (n = 5). The patients who did not recover (n = 2) had large-amplitude, but simple-waveform CCEP responses. Conclusion: The characteristics of the evoked responses to electrical stimulation may be a useful surrogate measurement of the integrity of cortical networks required for consciousness. CCEPs potentially be used as an indicator of integrity of cortex to predict outcome after TBI.},
   owner     = {memming},
 }
