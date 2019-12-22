@@ -1,5 +1,53 @@
 % Encoding: UTF-8
 
+@InProceedings{Sokol2018a,
+  author        = {Piotr Sokol and Il Memming Park},
+  title         = {Information geometry of orthogonal initializations and training},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2020},
+  abstract      = {Recently mean field theory has been successfully used to analyze properties of
+wide, random neural networks. It gave rise to a prescriptive theory for initializing
+feed-forward neural networks with orthogonal weights, which ensures that both the
+forward propagated activations and the backpropagated gradients are near `2 isometries
+and as a consequence training is orders of magnitude faster. Despite strong
+empirical performance, the mechanisms by which critical initializations confer an
+advantage in the optimization of deep neural networks are poorly understood. Here
+we show a novel connection between the maximum curvature of the optimization
+landscape (gradient smoothness) as measured by the Fisher information matrix
+(FIM) and the spectral radius of the input-output Jacobian, which partially explains
+why more isometric networks can train much faster. Furthermore, given that orthogonal
+weights are necessary to ensure that gradient norms are approximately
+preserved at initialization, we experimentally investigate the benefits of maintaining
+orthogonality throughout training, and we conclude that manifold optimization of
+weights performs well regardless of the smoothness of the gradients. Moreover,
+we observe a surprising yet robust behavior of highly isometric initializations—
+even though such networks have a lower FIM condition number at initialization,
+and therefore by analogy to convex functions should be easier to optimize, experimentally
+they prove to be much harder to train with stochastic gradient descent.
+We propose an explanation for this phenomenon by exploting connections between
+Fisher geometry and the recently introduced Neural Tangent Kernel.},
+  archiveprefix = {arXiv},
+  day           = {9},
+  eprint        = {1810.03785},
+  keywords      = {deep-learning, machine-learning, mean-field},
+  posted-at     = {2018-10-10 15:14:09},
+  url           = {https://openreview.net/forum?id=rkg1ngrFPr},
+}
+
+@Unpublished{Zhao2019b,
+  author        = {Yuan Zhao and Jacob L. Yates and Aaron Levi and Alex Huk and Il Memming Park},
+  title         = {Stimulus-choice (mis)alignment in middle temporal cortex},
+  note          = {(under review)},
+  year          = {2019},
+  abstract      = {For stimuli near perceptual threshold, the trial-by-trial activity of single neurons in many sensory areas is correlated with the animal's perceptual report. This phenomenon has often been attributed to feedforward readout of the neural activity by the downstream decision-making circuits. The interpretation of choice-correlated activity is quite ambiguous, but its meaning can be better understood in the light of population-wide correlations among sensory neurons. Using a statistical nonlinear dimensionality reduction technique on single-trial ensemble recordings from the middle temporal area during perceptual-decision-making, we extracted low-dimensional neural trajectories that captured the population-wide fluctuations. We dissected the particular contributions of sensory-driven versus choice-correlated activity in the low-dimensional population code. We found that the neural trajectories strongly encoded the direction of the stimulus in single dimension with a temporal signature similar to that of single MT neurons. If the downstream circuit were optimally utilizing this information, choice-correlated signals should be aligned with this stimulus encoding dimension. Surprisingly, we found that a large component of the choice information resides in the subspace orthogonal to the stimulus representation inconsistent with the optimal readout view. This misaligned choice information allows the feedforward sensory information to coexist with the decision-making process. The time course of these signals suggest that this misaligned contribution likely is feedback from the downstream areas. We hypothesize that this non-corrupting choice-correlated feedback might be related to learning or reinforcing sensory-motor relations in the sensory population.},
+  archiveprefix = {bioRxiv},
+  doi           = {10.1101/884189},
+  journal       = {bioRxiv},
+  pages         = {884189+},
+  url		= {https://www.biorxiv.org/content/10.1101/2019.12.20.884189v1},
+  publisher     = {Cold Spring Harbor Labs Journals},
+}
+
 @Unpublished{Zhao2019a,
   author        = {Zhao, Yuan and Nassar, Josue and Jordan, Ian and Bugallo, M{\'o}nica and Park, Il Memming},
   title         = {Streaming Variational {M}onte {C}arlo},
@@ -23,6 +71,7 @@
   archiveprefix = {arXiv},
   eprint        = {1906.01549},
   primaryclass  = {stat.ML},
+  note = {(in preperation)},
 }
 
 @Conference{Sokol2019c,
@@ -116,7 +165,8 @@
   year          =  2019,
   archivePrefix = "arXiv",
   primaryClass  = "cs.LG",
-  eprint        = "1906.01005"
+  eprint        = "1906.01005",
+  note = {(in preperation)},
 }
 
 @Article{Hocker2019a,
@@ -145,38 +195,6 @@
   title     = {Accessing neural states in real time: recursive variational Bayesian dual estimation},
   booktitle = {Computational and Systems Neuroscience ({COSYNE})},
   year      = {2018},
-}
-
-@Unpublished{Sokol2018a,
-  author        = {Piotr Sokol and Il Memming Park},
-  title         = {Information geometry of orthogonal initializations and training},
-  note          = {(under review)},
-  month         = oct,
-  year          = {2018},
-  abstract      = {Recently mean field theory has been successfully used to analyze properties
-of wide, random neural networks. It has given rise to a prescriptive theory for
-initializing neural networks, which ensures that the \$\ell\_2\$ norm of the
-backpropagated gradients is bounded, and training is orders of magnitude
-faster. Despite the strong empirical performance of this class of
-initializations, the mechanisms by which they confer an advantage in the
-optimization of deep neural networks are poorly understood. Here we show a
-novel connection between the maximum curvature of the optimization landscape
-(gradient smoothness) as measured by the Fisher information matrix and the
-maximum singular value of the input-output Jacobian. Our theory partially
-explains why neural networks that are more isometric can train much faster.
-Furthermore, we experimentally investigate the benefits of maintaining
-orthogonality throughout training, from which we conclude that manifold
-constrained optimization of weights performs better regardless of the
-smoothness of the gradients. Finally we show that critical orthogonal
-initializations do not trivially give rise to a mean field limit of
-pre-activations for each layer.},
-  archiveprefix = {arXiv},
-  day           = {9},
-  eprint        = {1810.03785},
-  journal       = {ArXiv e-prints},
-  keywords      = {deep-learning, machine-learning},
-  posted-at     = {2018-10-10 15:14:09},
-  url           = {http://arxiv.org/abs/1810.03785},
 }
 
 @InProceedings{Nassar2018a,
@@ -272,7 +290,8 @@ We showcase TrSLDS' potential of inferring low-dimensional interpretable dynamic
   year          =  2017,
   archivePrefix = "arXiv",
   primaryClass  = "stat.ML",
-  eprint        = "1707.09049"
+  eprint        = "1707.09049",
+  note = {(under review)}
 }
 
 @InProceedings{Zhao2017b,
