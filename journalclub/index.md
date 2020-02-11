@@ -21,7 +21,21 @@ Journal club meetings currently take place on Wednesdays at 3:00 pm in the IACS 
 # 2019 Fall Schedule
 - February 5th: Il Memming Park
 - February 12th: Ian Jordan
-- TBA
+- February 19th: cancelled, Piotr is giving a talk at IACS at noon
+- February 26th: cancelled, COSYNE
+- March 4th: Piotr
+- March 11th: Josue
+- March 18th:  cancelled, spring break
+- March 25th: Yuan
+- April 1st: Giancarlo
+- April 8th: Braden
+- April 15th: Jacob
+- April 22nd: Tong
+- April 29th: Matt
+- May 6th: Tianshu
+- May 13th: Eben
+- May 20th: Diego
+- May 27th: Craig
 
 
 You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.google.com/document/d/17SuoVIIDbCae5GnxSHGO5BW2zbVP6wBCbaGGfgFLAOQ/edit?usp%3Dsharing&sa=D&ust=1472068897083000&usg=AFQjCNF5f_dZMloe4l3jWOm_mhxe7utbqw) to be discussed.
