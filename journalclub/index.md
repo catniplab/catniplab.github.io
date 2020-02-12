@@ -14,7 +14,7 @@ As the tools in experiments neuroscience are rapidly developing, this is an impo
 * recent advances in theoretical neuroscience
 * popular theories in neuroscience
 
-Journal club meetings currently take place on Wednesdays at 3:00 pm in the IACS Seminar Room.
+Journal club meetings currently take place on Wednesdays at 2:30 pm in the IACS Seminar Room.
 
 **Join the club** by joining the [SBU Computational Neuroscience Google Group](https://groups.google.com/d/forum/sbu-computational-neuroscience/join)
 
