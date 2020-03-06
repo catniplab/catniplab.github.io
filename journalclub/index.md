@@ -18,7 +18,7 @@ Journal club meetings currently take place on Wednesdays at 2:30 pm in the IACS 
 
 **Join the club** by joining the [SBU Computational Neuroscience Google Group](https://groups.google.com/d/forum/sbu-computational-neuroscience/join)
 
-# 2019 Fall Schedule
+# 2020 Spring Schedule
 - February 5th: Il Memming Park
 - February 12th: Ian Jordan
 - February 19th: cancelled, Piotr is giving a talk at IACS at noon
