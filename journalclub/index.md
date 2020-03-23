@@ -17,6 +17,7 @@ As the tools in experiments neuroscience are rapidly developing, this is an impo
 Journal club meetings currently take place on Wednesdays at 2:30 pm in the IACS Seminar Room.
 
 **Join the club** by joining the [SBU Computational Neuroscience Google Group](https://groups.google.com/d/forum/sbu-computational-neuroscience/join)
+or directly via **Zoom** (meeting ID: 611 148 551)
 
 # 2020 Spring Schedule
 - February 5th: Il Memming Park
