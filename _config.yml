@@ -57,7 +57,7 @@ highlighter: rouge
 permalink: /:title/
 
 quiet:  false
-
+future: true
 # The release of Jekyll Now that you're using
 version: v1.1.0
 
