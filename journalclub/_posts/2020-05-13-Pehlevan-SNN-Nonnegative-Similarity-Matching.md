@@ -5,8 +5,8 @@ category: journalclub
 olddate: May 13, 2020
 ---
  
-*Cengiz Pehlevan*. None (2019) 
-[(None)]()
+*Cengiz Pehlevan*. ICASSP 2019 - 2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) (2019) 
+[(ICASSP 2019 - 2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP))]()
 [(local cache)]({{site.url}}/journalclub/JCpapers/Pehlevan - 2019 - A Spiking Neural Network with Local Learning Rules.pdf)
 
 #### Abstract
