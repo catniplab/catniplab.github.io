@@ -5,7 +5,7 @@ category: journalclub
 olddate: May 20, 2020
 ---
  
-*Eric Hart, Alexander C Huk, Emilio Salinas, Timothy E Behrens, Emilio Salinas, Albert Compte*. eLife (2020) 
+*Eric Hart, Alexander C Huk. eLife (2020) 
 [(eLife)](https://doi.org/10.7554/eLife.52460)
 [(local cache)]({{site.url}}/journalclub/JCpapers/Hart and Huk - Recurrent dynamics underlie persistent.pdf)
 
