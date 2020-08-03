@@ -64,6 +64,13 @@ permalink: /people/
 * Undergraduate student, Department of Mathematics, Stony Brook University
 * [Website](http://ebencowley.com/)
 
+{: .person-name }
+## Diego M Arribas
+![Diego Arribas](/images/diego.jpg){: .profile-photo }
+
+* Visiting scholar
+* PhD student, Biomedicine Research Institute of Buenos Aires
+
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 
