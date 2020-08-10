@@ -66,7 +66,7 @@ permalink: /people/
 
 {: .person-name }
 ## Diego M Arribas
-![Diego Arribas](/images/diego.jpg){: .profile-photo }
+![Diego Arribas](/images/diego2.jpg){: .profile-photo }
 
 * Visiting scholar
 * PhD student, Biomedicine Research Institute of Buenos Aires
