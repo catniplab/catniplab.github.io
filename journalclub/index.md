@@ -14,29 +14,12 @@ As the tools in experiments neuroscience are rapidly developing, this is an impo
 * recent advances in theoretical neuroscience
 * popular theories in neuroscience
 
-Journal club meetings currently take place on Wednesdays at 2:30 pm in the IACS Seminar Room.
+Journal club meetings currently take place on Wednesdays at 2 pm in via Zoom (see email for link).
 
 **Join the club** by joining the [SBU Computational Neuroscience Google Group](https://groups.google.com/d/forum/sbu-computational-neuroscience/join)
-or directly via **Zoom** (meeting ID: 611 148 551)
 
-# 2020 Spring Schedule
-- February 5th: Il Memming Park
-- February 12th: Ian Jordan
-- February 19th: cancelled, Piotr is giving a talk at IACS at noon
-- February 26th: cancelled, COSYNE
-- March 4th: Piotr
-- March 11th: Josue
-- March 18th:  cancelled, spring break
-- March 25th: Yuan
-- April 1st: Giancarlo
-- April 8th: Braden
-- April 15th: Jacob
-- April 22nd: Tong
-- April 29th: Matt
-- May 6th: Tianshu
-- May 13th: Eben
-- May 20th: Diego
-- May 27th: Craig
+# 2020 Fall Schedule
+- August 26th: Matt
 
 
 You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.google.com/document/d/17SuoVIIDbCae5GnxSHGO5BW2zbVP6wBCbaGGfgFLAOQ/edit?usp%3Dsharing&sa=D&ust=1472068897083000&usg=AFQjCNF5f_dZMloe4l3jWOm_mhxe7utbqw) to be discussed.
