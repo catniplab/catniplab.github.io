@@ -71,6 +71,12 @@ permalink: /people/
 * Visiting scholar
 * PhD student, Biomedicine Research Institute of Buenos Aires
 
+{: .person-name }
+## Matthew Dowling
+![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
+
+* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
+
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 
