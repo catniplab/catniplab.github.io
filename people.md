@@ -32,12 +32,6 @@ permalink: /people/
 * Postdoctoral Associate, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-current)
 
 {: .person-name }
-## Logan Becker
-![Logan Becker](/images/LoganBe2.jpg){: .profile-photo }
-
-* Masters Student, Department of Neurobiology and Behavior, Stony Brook University
-
-{: .person-name }
 ## Piotr Sokol
 ![Piotr as a dog with goggles](/images/Piotr_as_a_dog.jpg){: .profile-photo }
 
@@ -88,6 +82,12 @@ permalink: /people/
 # Past members
 
 {: .person-name }
+## Logan Becker
+![Logan Becker](/images/LoganBe2.jpg){: .profile-photo }
+
+* Masters Student, Department of Neurobiology and Behavior, Stony Brook University
+
+{: .person-name }
 ## Junyan Song
 ![Junyan Song](/images/Junyan.jpg){: .profile-photo }
 
@@ -120,6 +120,7 @@ permalink: /people/
 
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
 
+{: .person-name }
 ## Matthew Sun
 ![Matthew Sun](/images/Matthew_Sun.jpg){: .profile-photo }
 
@@ -127,6 +128,7 @@ permalink: /people/
 * Simons Summer Research Program (2015 summer)
 * Intel STS Semifinalist (2016)
 
+{: .person-name }
 ## Michael Li
 ![Michael Li](/images/Michael_Li.jpg){: .profile-photo }
 
@@ -134,6 +136,7 @@ permalink: /people/
 * Simons Summer Research Program (2015 summer)
 * Intel STS Finalist (2016)
 
+{: .person-name }
 ## Tzvia Pinkhasov
 ![Tzvia Pinkhasov](/images/Tzvia_Pinkhasov.jpg){: .profile-photo }
 
