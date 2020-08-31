@@ -8,7 +8,7 @@ permalink: /people/
 ## Principal Investigator: Il Memming Park
 ![I. Memming Park's photo](/images/Park.jpg){: .profile-photo }
 
-* Assistant Professor
+* Associate Professor
   * [Department of Neurobiology and Behavior (NBB; home)](https://medicine.stonybrookmedicine.edu/neurobiology)
   * [Center for Neural Circuit Dynamics (CNCD)](https://www.stonybrook.edu/cncd/)
   * [Institute for Advanced Computing Science (IACS)](http://www.iacs.stonybrook.edu/)
