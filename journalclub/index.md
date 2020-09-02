@@ -20,6 +20,22 @@ Journal club meetings currently take place on Wednesdays at 2 pm in via Zoom (se
 
 # 2020 Fall Schedule
 - August 26th: Matt
+- September 2nd: Diego Arribas
+- September 9th: Ayesha Vermani
+- September 16th: Conor McGrory
+- September 23rd: Yuan Zhao
+- September 30th: Tong Liang
+- October 7th: Jake Crosser
+- October 14th: Josue Nassar
+- October 21st:  Xiaoyu Yang
+- October 28th: Tianshu Li
+- November 4th: Ian Jordan
+- November 11th: No JC (Veteran's Day)
+- November 18th: Siddharth Paliwal
+- November 25th: No JC (Thanksgiving)
+- December 2nd: Piotr Sokol
+- December 9th: No JC (NeurIPS conference)
+
 
 
 You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.google.com/document/d/17SuoVIIDbCae5GnxSHGO5BW2zbVP6wBCbaGGfgFLAOQ/edit?usp%3Dsharing&sa=D&ust=1472068897083000&usg=AFQjCNF5f_dZMloe4l3jWOm_mhxe7utbqw) to be discussed.
