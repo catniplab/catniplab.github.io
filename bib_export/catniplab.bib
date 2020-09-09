@@ -1,13 +1,5 @@
 % Encoding: UTF-8
 
-@InProceedings{Kepple2020a,
-    author = {Daniel R. Kepple and Daewon Lee and Colin Prepscius and Volkan Isler and Il Memming Park and Daniel L. Lee},
-    title = {Jointly learning visual motion and confidence from local patches in event cameras},
-    year = {2020},
-    booktitle = {16th {E}uropean conference on computer vision ({ECCV}2020)},
-    note = {spotlight}
-}
-
 @InProceedings{Zhao2020a,
   author    = {Yuan Zhao and Josue Nassar and Il Memming Park},
   title     = {Real-time discovery of effective dynamics from streaming noisy neural observations},
@@ -28,6 +20,34 @@
   data           = {https://doi.org/10.6084/m9.figshare.11413182.v1},
   doi            = {10.1371/journal.pcbi.1007614},
   url            = {https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007614},
+}
+
+@Article{Zhao2017c,
+  title         = {Variational online learning of neural dynamics},
+  author        = "Zhao, Yuan and Park, Il Memming",
+  abstract      = "State space models provide an interpretable framework for
+                   complex time series by combining an intuitive dynamical
+                   system model with a probabilistic observation model. We
+                   developed a flexible online learning framework for latent
+                   nonlinear state dynamics and filtered latent states. Our
+                   method utilizes the stochastic gradient variational Bayes
+                   method to jointly optimize the parameters of the nonlinear
+                   dynamics, observation model, and the black-box recognition
+                   model. Unlike previous approaches, our framework can
+                   incorporate non-trivial observation noise models and has
+                   potential of inferring in real-time. We test our method on
+                   point process and Gaussian observations driven by continuous
+                   attractor dynamics and nonstationary systems, demonstrating
+                   its ability to recover the phase portrait, filtered
+                   trajectory, and produce long-term predictions for online
+                   machine learning.",
+  year          =  2020,
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.ML",
+  eprint        = "1707.09049",
+  doi		= {10.3389/fncom.2020.00071},
+  journal       = {Frontiers in Computational Neuroscience},
+  note          = {(accepted)}
 }
 
 @InProceedings{Sokol2018a,
@@ -84,6 +104,15 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   doi      = {10.1038/s41598-020-64766-y},
 }
 
+
+@InProceedings{Kepple2020a,
+    author = {Daniel R. Kepple and Daewon Lee and Colin Prepscius and Volkan Isler and Il Memming Park and Daniel L. Lee},
+    title = {Jointly learning visual motion and confidence from local patches in event cameras},
+    year = {2020},
+    booktitle = {16th {E}uropean conference on computer vision ({ECCV}2020)},
+    note = {spotlight}
+}
+
 @Article{Jordan2019b,
   author        = {Jordan, Ian D. and Park, Il Memming},
   journal       = {Entropy},
@@ -102,6 +131,42 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   primaryclass  = {q-bio.NC},
   publisher     = {Multidisciplinary Digital Publishing Institute},
   url           = {https://www.mdpi.com/1099-4300/22/5/537},
+}
+
+@Article{Dowling2020a,
+  author        = {Dowling, Matthew and Zhao, Yuan and Park, Il Memming},
+  title         = {Non-parametric generalized linear model},
+  year          = {2020},
+  month         = sep,
+  abstract      = {A fundamental problem in statistical neuroscience is to
+                   model how neurons encode information by analyzing
+                   electrophysiological recordings. A popular and widely-used
+                   approach is to fit the spike trains with an autoregressive
+                   point process model. These models are characterized by a set
+                   of convolutional temporal filters, whose subsequent analysis
+                   can help reveal how neurons encode stimuli, interact with
+                   each other, and process information. In practice a
+                   sufficiently rich but small ensemble of temporal basis
+                   functions needs to be chosen to parameterize the filters.
+                   However, obtaining a satisfactory fit often requires
+                   burdensome model selection and fine tuning the form of the
+                   basis functions and their temporal span. In this paper we
+                   propose a nonparametric approach for jointly inferring the
+                   filters and hyperparameters using the Gaussian process
+                   framework. Our method is computationally efficient taking
+                   advantage of the sparse variational approximation while
+                   being flexible and rich enough to characterize arbitrary
+                   filters in continuous time lag. Moreover, our method
+                   automatically learns the temporal span of the filter. For
+                   the particular application in neuroscience, we designed
+                   priors for stimulus and history filters useful for the spike
+                   trains. We compare and validate our method on simulated and
+                   real neural spike train data.},
+  archiveprefix = {arXiv},
+  arxivid       = {2009.01362},
+  eprint        = {2009.01362},
+  primaryclass  = {stat.ML},
+  url           = {http://arxiv.org/abs/2009.01362},
 }
 
 @Unpublished{Zhao2019a,
@@ -319,34 +384,6 @@ We showcase TrSLDS' potential of inferring low-dimensional interpretable dynamic
   owner     = {memming},
   timestamp = {2019.01.09},
   url       = {https://coms.events/ECRO2018/data/abstracts/en/abstract_0089.html},
-}
-
-@Article{Zhao2017c,
-  title         = {Variational online learning of neural dynamics},
-  author        = "Zhao, Yuan and Park, Il Memming",
-  abstract      = "State space models provide an interpretable framework for
-                   complex time series by combining an intuitive dynamical
-                   system model with a probabilistic observation model. We
-                   developed a flexible online learning framework for latent
-                   nonlinear state dynamics and filtered latent states. Our
-                   method utilizes the stochastic gradient variational Bayes
-                   method to jointly optimize the parameters of the nonlinear
-                   dynamics, observation model, and the black-box recognition
-                   model. Unlike previous approaches, our framework can
-                   incorporate non-trivial observation noise models and has
-                   potential of inferring in real-time. We test our method on
-                   point process and Gaussian observations driven by continuous
-                   attractor dynamics and nonstationary systems, demonstrating
-                   its ability to recover the phase portrait, filtered
-                   trajectory, and produce long-term predictions for online
-                   machine learning.",
-  year          =  2020,
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "1707.09049",
-  doi		= {10.3389/fncom.2020.00071},
-  journal       = {Frontiers in Computational Neuroscience},
-  note          = {(accepted)}
 }
 
 @InProceedings{Zhao2017b,
