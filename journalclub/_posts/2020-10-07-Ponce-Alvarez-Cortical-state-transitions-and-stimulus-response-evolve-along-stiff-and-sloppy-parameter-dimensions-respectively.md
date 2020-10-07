@@ -5,7 +5,7 @@ category: journalclub
 olddate: October 07, 2020
 ---
  
-*Adrian Ponce-Alvarez, Gabriela Mochol, Ainhoa Hermoso-Mendizabal, Jaime de la Rocha, Gustavo Deco, Michael J Frank, Brice Bathellier, Brice Bathellier, Matthias H Hennig, Mark D Humphries*. eLife (2020) 
+*Adrian Ponce-Alvarez, Gabriela Mochol, Ainhoa Hermoso-Mendizabal, Jaime de la Rocha, Gustavo Deco*. eLife (2020) 
 [(eLife)](https://doi.org/10.7554/eLife.53268)
 [(local cache)]({{site.url}}/journalclub/JCpapers/ponce-alvarezCorticalStateTransitions2020.pdf)
 
