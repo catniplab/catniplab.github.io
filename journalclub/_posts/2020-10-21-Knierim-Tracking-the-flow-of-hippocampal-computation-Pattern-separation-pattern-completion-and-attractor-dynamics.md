@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Tracking the flow of hippocampal computation\: Pattern separation, pattern completion, and attractor dynamics (2016)
+title:  Tracking the flow of hippocampal computation Pattern separation, pattern completion, and attractor dynamics (2016)
 category: journalclub
 olddate: October 21, 2020
 ---
