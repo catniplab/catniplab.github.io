@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  'Tracking the flow of hippocampal computation: Pattern separation, pattern completion, and attractor dynamics' (2016)
+title:  Tracking the flow of hippocampal computation Pattern separation, pattern completion, and attractor dynamics (2016)
 category: journalclub
 olddate: October 21, 2020
 ---
- 
-*James J. Knierim, Joshua P. Neunuebel*. Neurobiology of Learning and Memory (2016) 
+
+*James J. Knierim, Joshua P. Neunuebel*. Neurobiology of Learning and Memory (2016)
 [(Neurobiology of Learning and Memory)](http://www.sciencedirect.com/science/article/pii/S1074742715001884)
 [(local cache)]({{site.url}}/journalclub/JCpapers/knierimTrackingFlowHippocampal2016.pdf)
 
