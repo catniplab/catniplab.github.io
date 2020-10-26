@@ -318,9 +318,10 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
 
 @Article{Hocker2019a,
   author    = {David Hocker and Il Memming Park},
-  title     = {Myopic control of neural dynamics},
   journal   = {{PLOS} Computational Biology},
+  title     = {Myopic control of neural dynamics},
   year      = {2019},
+  month     = mar,
   abstract  = {Manipulating the dynamics of neural systems through targeted stimulation is a frontier of research and clinical neuroscience; however, the control schemes considered for neural systems are mismatched for the unique needs of manipulating neural dynamics. An appropriate control method should respect the variability in neural systems, incorporating moment to moment ``input'' to the neural dynamics and behaving based on the current neural state, irrespective of the past trajectory. We propose such a controller under a nonlinear state-space feedback framework that steers one dynamical system to function as through it were another dynamical system entirely. This ``myopic'' controller is formulated through a novel variant of a model reference control cost that manipulates dynamics in a step-wise manner, omitting the need to pre-calculate a rigid and computationally costly neural feedback control solution. To demonstrate the breadth of this control's utility, two examples with distinctly different applications in neuroscience are studied. First an unhealthy motor-like system containing an unwanted beta-oscillation spiral attractor is controlled to function as a healthy motor system, a relevant clinical example for neurological disorders. Second, we show the myopic control's utility to probe the causal dynamics of cognitive processes by transforming a winner-take-all decision-making system to operate as a robust neural integrator of evidence.},
   doi       = {10.1371/journal.pcbi.1006854},
   owner     = {memming},
@@ -361,9 +362,10 @@ We showcase TrSLDS' potential of inferring low-dimensional interpretable dynamic
 
 @Article{Kirschen2018a,
   author   = {Kirschen, Gregory W. and Ge, Shaoyu and Park, Il Memming},
-  title    = {Probability of viral labeling of neural stem cells {\it in vivo}},
   journal  = {Neuroscience Letters},
+  title    = {Probability of viral labeling of neural stem cells {\it in vivo}},
   year     = {2018},
+  month    = may,
   abstract = {In the neuroscience field over the past several decades, viral vectors have become powerful gene delivery systems to study neural populations of interest. For neural stem cell (NSC) biology, such viruses are often used to birth-date and track NSCs over developmental time in lineage tracing experiments. Yet, the probability of successful infection of a given stem cell in vivo remains unknown. This information would be helpful to inform investigators interested in titrating their viruses to selectively target sparsely-populated clusters of cells in the nervous system. Here, we describe a novel approach to calculate the probability of successful viral infection of NSCs using experimentally-derived cell cluster data from our newly-developed method to sparsely label adult NSCs, and a simple statistical derivation. Others interested in precisely defining their viral infection efficiency can use this method for a variety of basic and translational studies.},
   doi      = {10.1016/j.neulet.2018.05.016},
   keywords = {neural-stem-cells, probability-estimation},
@@ -726,23 +728,22 @@ and in real neural data.},
 }
 
 @Article{Archer2014a,
-  author        = {Archer, Evan and Park, Il Memming and Pillow, Jonathan},
-  title         = {{Bayes}ian Entropy Estimation for Countable Discrete Distributions},
-  journal       = {Journal of Machine Learning Research},
-  year          = {2014},
-  volume        = {15},
-  pages         = {2833--2868},
-  archiveprefix = {arXiv},
-  eprint        = {1302.0328},
-  keywords      = {bayesian, entropy-estimation, nonparametric-bayes, pitman-yor-process},
-  url           = {http://jmlr.org/papers/v15/archer14a.html},
-  abstract      = {We consider the problem of estimating Shannon's entropy $H$ from discrete data, in cases where the number of possible symbols is unknown or even countably infinite. The {Pitman-Yor} process, a generalization of Dirichlet process, provides a tractable prior distribution over the space of countably infinite discrete distributions, and has found major applications in Bayesian non-parametric statistics and machine learning. Here we show that it also provides a natural family of priors for Bayesian entropy estimation, due to the fact that moments of the induced posterior distribution over $H$ can be computed analytically. We derive formulas for the posterior mean (Bayes' least squares estimate) and variance under Dirichlet and {Pitman-Yor} process priors. Moreover, we show that a fixed Dirichlet or {Pitman-Yor} process prior implies a narrow prior distribution over $H$, meaning the prior strongly determines the entropy estimate in the under-sampled regime. We derive a family of continuous mixing measures such that the resulting mixture of {Pitman-Yor} processes produces an approximately flat prior over $H$. We show that the resulting {Pitman-Yor} Mixture ({PYM}) entropy estimator is consistent for a large class of distributions. We explore the theoretical properties of the resulting estimator, and show that it performs well both in simulation and in application to real data.},
+  author               = {Archer, Evan and Park, Il Memming and Pillow, Jonathan},
+  journal              = {Journal of Machine Learning Research},
+  title                = {{Bayes}ian Entropy Estimation for Countable Discrete Distributions},
+  year                 = {2014},
+  month                = oct,
+  pages                = {2833--2868},
+  volume               = {15},
+  abstract             = {We consider the problem of estimating Shannon's entropy $H$ from discrete data, in cases where the number of possible symbols is unknown or even countably infinite. The {Pitman-Yor} process, a generalization of Dirichlet process, provides a tractable prior distribution over the space of countably infinite discrete distributions, and has found major applications in Bayesian non-parametric statistics and machine learning. Here we show that it also provides a natural family of priors for Bayesian entropy estimation, due to the fact that moments of the induced posterior distribution over $H$ can be computed analytically. We derive formulas for the posterior mean (Bayes' least squares estimate) and variance under Dirichlet and {Pitman-Yor} process priors. Moreover, we show that a fixed Dirichlet or {Pitman-Yor} process prior implies a narrow prior distribution over $H$, meaning the prior strongly determines the entropy estimate in the under-sampled regime. We derive a family of continuous mixing measures such that the resulting mixture of {Pitman-Yor} processes produces an approximately flat prior over $H$. We show that the resulting {Pitman-Yor} Mixture ({PYM}) entropy estimator is consistent for a large class of distributions. We explore the theoretical properties of the resulting estimator, and show that it performs well both in simulation and in application to real data.},
   archiveprefix        = {arXiv},
   citeulike-article-id = {12071222},
   citeulike-linkout-0  = {http://arxiv.org/abs/1302.0328},
   day                  = {2},
   eprint               = {1302.0328},
+  keywords             = {bayesian, entropy-estimation, nonparametric-bayes, pitman-yor-process},
   primaryclass         = {cs.IT},
+  url                  = {http://jmlr.org/papers/v15/archer14a.html},
 }
 
 @INPROCEEDINGS{Yates2013b,
@@ -987,36 +988,18 @@ and in real neural data.},
   timestamp = {2010.02.20},
 }
 
-@ARTICLE{Li2012a,
-  author = {Lin Li and Il Memming Park and Austin Brockmeier and Badong Chen
-	and Sohan Seth and Joseph T. Francis and Justin C. Sanchez and Jos\'e
-	C. Pr\'incipe},
-  title = {Adaptive Inverse Control of Neural Spatiotemporal Spike Patterns
-	with a Reproducing Kernel {H}ilbert Space ({RKHS}) Framework},
-  journal = {IEEE Transactions on Neural Systems and Rehabilitation Engineering},
-  year = {2012},
-  volume = {21},
-  pages = {532--543},
-  number = {4},
-  doi = {10.1109/TNSRE.2012.2200300},
-  issn = {1534-4320},
-  keywords = {Hilbert spaces;MIMO systems;adaptive control;adaptive signal processing;bioelectric
-	phenomena;decoding;medical control systems;medical signal processing;multidimensional
-	signal processing;neurophysiology;nonlinear control systems;signal
-	representation;spatiotemporal phenomena;MIMO adaptive inverse control
-	scheme;Schoenberg kernel maps;adaptive inverse control;control procedure;decoding
-	accuracy;electrical stimulation;elicited system response;generalized
-	linear model;linear algorithm;multidimensional time-varying signal
-	representation;multiple-input multiple-output adaptive inverse control
-	scheme;neural perturbations;neural signal representation;neural spatiotemporal
-	spike patterns;neural stimulation;neural system plasticity;neurons;nonlinear
-	neural system control;population spiking activity;realistic synthetic
-	neural circuit;reproducing kernel Hilbert space framework;spike train
-	RKHS;spikernel model;spiking responses;standard control methodology;system
-	control problem;target system response;time-invariant homogeneous
-	model;Adaptation models;Decoding;Integrated circuit modeling;Kernel;MIMO;Timing;Vectors;Adaptive
-	inverse control;Schoenberg kernel;neural stimulation;spike timing
-	representations}
+@Article{Li2012a,
+  author   = {Lin Li and Il Memming Park and Austin Brockmeier and Badong Chen and Sohan Seth and Joseph T. Francis and Justin C. Sanchez and Jos\'e C. Pr\'incipe},
+  journal  = {IEEE Transactions on Neural Systems and Rehabilitation Engineering},
+  title    = {Adaptive Inverse Control of Neural Spatiotemporal Spike Patterns with a Reproducing Kernel {H}ilbert Space ({RKHS}) Framework},
+  year     = {2012},
+  issn     = {1534-4320},
+  month    = aug,
+  number   = {4},
+  pages    = {532--543},
+  volume   = {21},
+  doi      = {10.1109/TNSRE.2012.2200300},
+  keywords = {Hilbert spaces;MIMO systems;adaptive control;adaptive signal processing;bioelectric phenomena;decoding;medical control systems;medical signal processing;multidimensional signal processing;neurophysiology;nonlinear control systems;signal representation;spatiotemporal phenomena;MIMO adaptive inverse control scheme;Schoenberg kernel maps;adaptive inverse control;control procedure;decoding accuracy;electrical stimulation;elicited system response;generalized linear model;linear algorithm;multidimensional time-varying signal representation;multiple-input multiple-output adaptive inverse control scheme;neural perturbations;neural signal representation;neural spatiotemporal spike patterns;neural stimulation;neural system plasticity;neurons;nonlinear neural system control;population spiking activity;realistic synthetic neural circuit;reproducing kernel Hilbert space framework;spike train RKHS;spikernel model;spiking responses;standard control methodology;system control problem;target system response;time-invariant homogeneous model;Adaptation models;Decoding;Integrated circuit modeling;Kernel;MIMO;Timing;Vectors;Adaptive inverse control;Schoenberg kernel;neural stimulation;spike timing representations},
 }
 
 @ARTICLE{Li2011a,
@@ -1274,17 +1257,18 @@ ARTICLE{Paiva2008d,
   timestamp = {2008.10.08}
 }
 
-@ARTICLE{Paiva2009a,
-  author = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
-  title = {A Comparison of Binless Spike Train Measures},
-  journal = {Neural Computing \& Applications},
-  year = {2010},
-  volume = {19},
-  pages = {405--419},
-  doi = {10.1007/s00521-009-0307-6},
-  issue = {3},
-  owner = {memming},
-  timestamp = {2009.12.15}
+@Article{Paiva2009a,
+  author    = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
+  journal   = {Neural Computing \& Applications},
+  title     = {A Comparison of Binless Spike Train Measures},
+  year      = {2010},
+  month     = sep,
+  pages     = {405--419},
+  volume    = {19},
+  doi       = {10.1007/s00521-009-0307-6},
+  issue     = {3},
+  owner     = {memming},
+  timestamp = {2009.12.15},
 }
 
 @INPROCEEDINGS{Li2010a,
@@ -1497,17 +1481,16 @@ ARTICLE{Paiva2008d,
   timestamp = {2010.01.15}
 }
 
-@ARTICLE{Xu2008,
-  author = {Xu, Jian Wu and Paiva, Ant\'onio R. C. and Park, Il and Pr\'incipe,
-	Jos\'e C.},
-  title = {A Reproducing Kernel {H}ilbert Space Framework for Information-Theoretic
-	Learning},
-  journal = {IEEE Transactions on Signal Processing},
-  year = {2008},
-  volume = {56},
-  pages = {5891--5902},
-  number = {12},
-  abstract = {This paper provides a functional analysis perspective of information-theoretic
+@Article{Xu2008,
+  author               = {Xu, Jian Wu and Paiva, Ant\'onio R. C. and Park, Il and Pr\'incipe, Jos\'e C.},
+  journal              = {IEEE Transactions on Signal Processing},
+  title                = {A Reproducing Kernel {H}ilbert Space Framework for Information-Theoretic Learning},
+  year                 = {2008},
+  month                = aug,
+  number               = {12},
+  pages                = {5891--5902},
+  volume               = {56},
+  abstract             = {This paper provides a functional analysis perspective of information-theoretic
 	learning (ITL) by defining bottom-up a reproducing kernel Hilbert
 	space (RKHS) uniquely determined by the symmetric nonnegative definite
 	kernel function known as the cross-information potential (CIP). The
@@ -1523,10 +1506,9 @@ ARTICLE{Paiva2008d,
 	RKHS and kernel approaches interested in quantifying the statistics
 	of the projected data is also established.},
   citeulike-article-id = {3744103},
-  doi = {10.1109/TSP.2008.2005085},
-  keywords = {cnel, itl, rkhs},
-  posted-at = {2008-12-03 23:09:57},
-  priority = {0}
+  doi                  = {10.1109/TSP.2008.2005085},
+  keywords             = {cnel, itl, rkhs},
+  posted-at            = {2008-12-03 23:09:57},
 }
 
 @INPROCEEDINGS{Park2008b,
