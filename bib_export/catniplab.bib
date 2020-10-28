@@ -192,16 +192,36 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   arxivid       = {2009.01362},
   eprint        = {2009.01362},
   primaryclass  = {stat.ML},
-  url           = {http://arxiv.org/abs/2009.01362},
 }
 
 @InProceedings{Arribas2020a,
   author    = {Diego M. Arribas and Yuan Zhao and Il Memming Park},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   title     = {Rescuing neural spike train models from bad {MLE}},
-  year      = {2020},
-  note      = {(accepted)},
-  pdf       = {Arribas2020a_NeurIPS_preprint.pdf},
+  _pdf       = {Arribas2020a_NeurIPS_preprint.pdf},
+  abstract      = "The standard approach to fitting an autoregressive spike
+                   train model is to maximize the likelihood for one-step
+                   prediction. This maximum likelihood estimation (MLE) often
+                   leads to models that perform poorly when generating samples
+                   recursively for more than one time step. Moreover, the
+                   generated spike trains can fail to capture important
+                   features of the data and even show diverging firing rates.
+                   To alleviate this, we propose to directly minimize the
+                   divergence between neural recorded and model generated spike
+                   trains using spike train kernels. We develop a method that
+                   stochastically optimizes the maximum mean discrepancy
+                   induced by the kernel. Experiments performed on both real
+                   and synthetic neural data validate the proposed approach,
+                   showing that it leads to well-behaving models. Using
+                   different combinations of spike train kernels, we show that
+                   we can control the trade-off between different features
+                   which is critical for dealing with model-mismatch.",
+  month         =  oct,
+  year          =  2020,
+  archivePrefix = "arXiv",
+  eprint        = "2010.12362",
+  primaryClass  = "stat.ML",
+  arxivid       = "2010.12362"
 }
 
 @Unpublished{Zhao2019a,
