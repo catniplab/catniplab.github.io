@@ -5,7 +5,7 @@ category: journalclub
 olddate: December 02, 2020
 ---
  
-*Timo C. Wunderlich, Christian Pehle*. arXiv:2009.08378 [cs, q-bio] (2020) 
+*Timo C. Wunderlich, Christian Pehle*. Pre-print(2020) 
 [(arXiv:2009.08378 [cs, q-bio])](http://arxiv.org/abs/2009.08378)
 [(local cache)]({{site.url}}/journalclub/JCpapers/wunderlichEventPropBackpropagationExact2020.pdf)
 
