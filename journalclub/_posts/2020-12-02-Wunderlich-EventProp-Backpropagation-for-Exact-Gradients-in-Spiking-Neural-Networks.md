@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  EventProp: Backpropagation for Exact Gradients in Spiking Neural Networks (2020)
+title:  EventProp Backpropagation for Exact Gradients in Spiking Neural Networks (2020)
 category: journalclub
 olddate: December 02, 2020
 ---
