@@ -14,27 +14,25 @@ As the tools in experiments neuroscience are rapidly developing, this is an impo
 * recent advances in theoretical neuroscience
 * popular theories in neuroscience
 
-Journal club meetings currently take place on Wednesdays at 2 pm in via Zoom (see email for link).
+Journal club meetings currently take place on Wednesdays at 2:30 pm in via Zoom (see email for link).
 
 **Join the club** by joining the [SBU Computational Neuroscience Google Group](https://groups.google.com/d/forum/sbu-computational-neuroscience/join)
 
-# 2020 Fall Schedule
-- August 26th: Matt
-- September 2nd: Diego Arribas
-- September 9th: Ayesha Vermani
-- September 16th: Conor McGrory
-- September 23rd: Yuan Zhao
-- September 30th: Tong Liang
-- October 7th: Jake Crosser
-- October 14th: Josue Nassar
-- October 21st:  Xiaoyu Yang
-- October 28th: Tianshu Li
-- November 4th: Ian Jordan
-- November 11th: No JC (Veteran's Day)
-- November 18th: Siddharth Paliwal
-- November 25th: No JC (Thanksgiving)
-- December 2nd: Piotr Sokol
-- December 9th: No JC (NeurIPS conference)
+# 2021 Spring Schedule
+- February 3rd: Giancarlo La Camera
+- February 10th:
+- February 17th:
+- February 24th: No JC (COSYNE)
+- March 3rd:
+- March 10th:
+- March 17th:
+- March 24th:
+- March 31st:
+- April 7th:
+- April 14th:
+- April 21st:
+- April 28th:
+- May 5th:
 
 
 
