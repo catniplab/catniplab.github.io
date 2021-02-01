@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Computational Neuroscience Journal Club
+title: Computational Neuroscience Journal
 permalink: /journalclub/
 ---
 ## Computational and Theoretical Neuroscience Journal Club at Stony Brook University
@@ -36,19 +36,31 @@ Journal club meetings currently take place on Wednesdays at 2 pm in via Zoom (se
 - December 2nd: Piotr Sokol
 - December 9th: No JC (NeurIPS conference)
 
-
-
+For a list of previously presented journal club papers go [here](/jc_archive)
+{% comment %}
 You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.google.com/document/d/17SuoVIIDbCae5GnxSHGO5BW2zbVP6wBCbaGGfgFLAOQ/edit?usp%3Dsharing&sa=D&ust=1472068897083000&usg=AFQjCNF5f_dZMloe4l3jWOm_mhxe7utbqw) to be discussed.
+{% endcomment %}
 
-# Past/Current Papers
+# Current Papers 
+{% assign currentYear = site.time | date: '%Y' %}
+{% assign prevYear = currentYear | minus: 1 %}
+
 
 <div class="posts">
   {% for post in site.posts %}
 	{% if post.categories contains 'journalclub' %}
-    <article class="post">
-    {{post.olddate}}
-    <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-    </article>
+            {% if post.olddate contains {currentYear} %}
+                <article class="post">
+                {{post.olddate}}
+                <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                </article>
+             {% endif %}
+             {% if post.olddate contains {prevYear} %}
+                 <article class="post">
+                 {{post.olddate}}
+                 <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+                 </article>
+            {% endif %}
 	{% endif %}
   {% endfor %}
 </div>
