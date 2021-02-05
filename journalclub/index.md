@@ -20,19 +20,20 @@ Journal club meetings currently take place on Wednesdays at 2:30 pm in via Zoom 
 
 # 2021 Spring Schedule
 - February 3rd: Giancarlo La Camera
-- February 10th:
-- February 17th:
+- February 10th: Ayesha Vermani
+- February 17th: Memming Park
 - February 24th: No JC (COSYNE)
-- March 3rd:
-- March 10th:
-- March 17th:
-- March 24th:
-- March 31st:
-- April 7th:
-- April 14th:
-- April 21st:
-- April 28th:
-- May 5th:
+- March 3rd: Tong Liang
+- March 10th: Piotr Sokol
+- March 17th: Xiaoyu Yang
+- March 24th: Jake Crosser
+- March 31st: Yuan Zhao
+- April 7th: Ian Jordan
+- April 14th: Matthew Dowling
+- April 21st: Siddharth Paliwal
+- April 28th: Tianshu Li
+- May 5th: Braden Brinkman
+- May 12th: Josue Nassar
 
 
 
