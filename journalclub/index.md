@@ -36,7 +36,7 @@ Journal club meetings currently take place on Wednesdays at 2 pm in via Zoom (se
 - December 2nd: Piotr Sokol
 - December 9th: No JC (NeurIPS conference)
 
-For a list of previously presented journal club papers go [here](/jc_archive)
+[For a list of previously presented journal club papers go here](/jc_archive)
 {% comment %}
 You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.google.com/document/d/17SuoVIIDbCae5GnxSHGO5BW2zbVP6wBCbaGGfgFLAOQ/edit?usp%3Dsharing&sa=D&ust=1472068897083000&usg=AFQjCNF5f_dZMloe4l3jWOm_mhxe7utbqw) to be discussed.
 {% endcomment %}
