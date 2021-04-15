@@ -60,6 +60,13 @@ permalink: /people/
 * PhD student, Department of Electrical & Computer Engineering, Stony Brook University
 <br/><br/>[](http://twitter.com/matt_p_dowling) <a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
 
+{: .person-name }
+## Ayesha Vermani
+![Ayesha Vermani](/images/ayesha.jpg){: .profile-photo }
+
+* PhD student, Department of Neurobiology and Behavior, Stony Brook University
+<br/><br/>[](http://twitter.com/AyeshaVermani) <a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
+
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 
