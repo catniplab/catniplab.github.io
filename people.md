@@ -5,7 +5,7 @@ permalink: /people/
 ---
 
 {: .person-name }
-## Principal Investigator: Il Memming Park
+## Principal Investigator: Il Memming Park 
 ![I. Memming Park's photo](/images/Park.jpg){: .profile-photo }
 
 * Associate Professor
@@ -30,26 +30,51 @@ permalink: /people/
 ![Yuan Zhao](/images/Yuan.jpg){: .profile-photo }
 
 * Postdoctoral Associate, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-current)
+<br/><br/>[](http://twitter.com/yuanz271) <a href="https://twitter.com/yuanz271" class="twitter-follow-button" data-show-count="false">Follow @yuanz271</a>
 
 {: .person-name }
-## Piotr Sokol
+## Piotr Sokol 
 ![Piotr as a dog with goggles](/images/Piotr_as_a_dog.png){: .profile-photo }
 
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
-* [MannyDePresso@twitter](https://twitter.com/MannyDePresso)
+<br/><br/>[](http://twitter.com/MannyDePresso) <a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
 {: .person-name }
 ## Josue Nassar
 ![Josue Nassar](/images/Josue.jpg){: .profile-photo }
 
 * PhD student, Department of Electrical & Computer Engineering, Stony Brook University
-* Co-advised by Dr. Mónica F. Bugallo
+* Co-advised by Dr. Mónica F. Bugallo 
+<br/><br/>[](http://twitter.com/JosueNassar) <a href="https://twitter.com/JosueNassar" class="twitter-follow-button" data-show-count="false">Follow @JosueNassar</a>
 
 {: .person-name }
 ## Ian Jordan
 ![Ian Jordan](/images/idj.jpg){: .profile-photo }
 
 * PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
+
+{: .person-name }
+## Matthew Dowling
+![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
+
+* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
+<br/><br/>[](http://twitter.com/matt_p_dowling) <a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
+
+{: .person-name }
+## Ayesha Vermani
+![Ayesha Vermani](/images/ayesha.jpg){: .profile-photo }
+
+* PhD student, Department of Neurobiology and Behavior, Stony Brook University
+<br/><br/>[](http://twitter.com/AyeshaVermani) <a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
+
+## Future lab member
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+
+* This could be you!
+* [We are hiring]({% post_url 2015-4-21-Hiring %})!!
+----
+
+# Past members
 
 {: .person-name }
 ## Eben Kadile
@@ -64,22 +89,6 @@ permalink: /people/
 
 * Visiting scholar
 * PhD student, Biomedicine Research Institute of Buenos Aires
-
-{: .person-name }
-## Matthew Dowling
-![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
-
-* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
-
-## Future lab member
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
-
-* This could be you!
-* We are [hiring]({% post_url 2015-4-21-Hiring %})!!
-
-----
-
-# Past members
 
 {: .person-name }
 ## Logan Becker
