@@ -31,8 +31,8 @@ Journal club meetings currently take place on Wednesdays at 2:30 pm in via Zoom 
 - April 7th: Ian Jordan
 - April 14th: Matthew Dowling
 - April 21st: Siddharth Paliwal
-- April 28th: Tianshu Li
-- May 5th: Braden Brinkman
+- April 28th: No JC
+- May 5th: Tianshu Li
 - May 12th: Josue Nassar
 
 [For a list of previously presented journal club papers go here](/jc_archive)
