@@ -48,13 +48,13 @@ You can pick or [**suggest papers**](https://www.google.com/url?q=https://docs.g
 <div class="posts">
   {% for post in site.posts %}
 	{% if post.categories contains 'journalclub' %}
-            {% if post.olddate contains {currentYear} %}
+            {% if post.olddate contains currentYear %}
                 <article class="post">
                 {{post.olddate}}
                 <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
                 </article>
              {% endif %}
-             {% if post.olddate contains {prevYear} %}
+             {% if post.olddate contains prevYear %}
                  <article class="post">
                  {{post.olddate}}
                  <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
