@@ -71,6 +71,13 @@ permalink: /people/
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 * Master's student, Department of Neurobiology and Behavior, Stony Brook University
 
+{: .person-name }
+## Amy Feng
+![Amy Feng](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Regeneron STS Scholar (2022)
+* Pittsford Sutherland High School
+* Simons Summer Research Program (2021 summer)
+
 {% comment %}
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
@@ -102,7 +109,7 @@ permalink: /people/
 ## Diego M Arribas
 ![Diego Arribas](/images/diego.jpg){: .profile-photo }
 
-* Visiting scholar
+* Visiting scholar (2020)
 * PhD student, Biomedicine Research Institute of Buenos Aires
 
 {: .person-name }
