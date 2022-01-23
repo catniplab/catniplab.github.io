@@ -8,7 +8,9 @@ permalink: /people/
 ## Principal Investigator: Il Memming Park 
 ![I. Memming Park's photo](/images/Park.jpg){: .profile-photo }
 
-* Associate Professor
+* (*future*) Group Leader at Champalimaud Centre for the Unknown, Lisbon, Portugal
+* Co-founder of **RyvivyR**, a neurotech startup
+* Associate Professor at Stony Brook University, NY, USA
   * [Department of Neurobiology and Behavior (NBB; home)](https://medicine.stonybrookmedicine.edu/neurobiology)
   * [Center for Neural Circuit Dynamics (CNCD)](https://www.stonybrook.edu/cncd/)
   * [Institute for Advanced Computing Science (IACS)](http://www.iacs.stonybrook.edu/)
@@ -20,17 +22,8 @@ permalink: /people/
 * [memming@twitter](http://twitter.com/memming) <a href="https://twitter.com/memming" class="twitter-follow-button" data-show-count="false">Follow @memming</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 * [neurotree](http://neurotree.org/neurotree/tree.php?pid=48684)
-* [Blog](http://memming.wordpress.com)
-* [Calendar](/memmingCal)
 * 2010–2014 postdoc with Jonathan Pillow (UT Austin)
 * 2006–2010 PhD under José C. Príncipe (University of Florida)
-
-{: .person-name }
-## Yuan Zhao
-![Yuan Zhao](/images/Yuan.jpg){: .profile-photo }
-
-* Postdoctoral Associate, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-current)
-<br/><br/>[](http://twitter.com/yuanz271) <a href="https://twitter.com/yuanz271" class="twitter-follow-button" data-show-count="false">Follow @yuanz271</a>
 
 {: .person-name }
 ## Piotr Sokol 
@@ -50,6 +43,7 @@ permalink: /people/
 {: .person-name }
 ## Ian Jordan
 ![Ian Jordan](/images/idj.jpg){: .profile-photo }
+<br/><br/>[](http://twitter.com/IanDavidJordan) <a href="https://twitter.com/IanDavidJordan" class="twitter-follow-button" data-show-count="false">Follow @IanDavidJordan/a>
 
 * PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
 
@@ -67,14 +61,35 @@ permalink: /people/
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
 <br/><br/>[](http://twitter.com/AyeshaVermani) <a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
 
+{: .person-name }
+## Tushar Arora
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Master's student, Department of Neurobiology and Behavior, Stony Brook University
+
+{: .person-name }
+## Thomas Grunauer
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Master's student, Department of Neurobiology and Behavior, Stony Brook University
+
+{% comment %}
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 
 * This could be you!
 * [We are hiring]({% post_url 2015-4-21-Hiring %})!!
+{% endcomment %}
+
 ----
 
 # Past members
+
+{: .person-name }
+## Yuan Zhao
+![Yuan Zhao](/images/Yuan.jpg){: .profile-photo }
+
+* Research Scientist, Machine Learning Team, Functional Magnetic Resonance Imaging Facility, National Institute of Mental Health (NIMH) as of 2022
+* Postdoctoral Associate, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-2021)
+<br/><br/>[](http://twitter.com/yuanz271) <a href="https://twitter.com/yuanz271" class="twitter-follow-button" data-show-count="false">Follow @yuanz271</a>
 
 {: .person-name }
 ## Eben Kadile
@@ -94,19 +109,14 @@ permalink: /people/
 ## Logan Becker
 ![Logan Becker](/images/LoganBe2.jpg){: .profile-photo }
 
+* PhD student, University of Texas at Austin (as of 2020)
 * Masters Student, Department of Neurobiology and Behavior, Stony Brook University
-
-{: .person-name }
-## Junyan Song
-![Junyan Song](/images/Junyan.jpg){: .profile-photo }
-
-* PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
-* Co-advised by Dr. Pei Fen Kuan
 
 {: .person-name }
 ## Kathleen Esfahany
 ![Kathleen Esfahany](/images/kathleen.jpg){: .profile-photo }
 
+* MIT
 * Ward Melville High School
 * Simons Summer Research Program (2017 summer)
 * Intern Researcher (2017-2018)
@@ -116,6 +126,15 @@ permalink: /people/
 ![David Hocker](/images/Hocker.jpg){: .profile-photo }
 
 * Postdoctoral researcher, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-2017)
+
+{% comment %}
+
+{: .person-name }
+## Junyan Song
+![Junyan Song](/images/Junyan.jpg){: .profile-photo }
+
+* PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
+* Co-advised by Dr. Pei Fen Kuan
 
 {: .person-name }
 ## Isabel Siergiej
@@ -152,4 +171,4 @@ permalink: /people/
 * MSTP program, Stony Brook University
 * Rotation student (2015 summer)
 
-[//]: # # Former members
+{% endcomment %}
