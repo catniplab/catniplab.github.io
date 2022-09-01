@@ -6,6 +6,9 @@ permalink: /teaching/
 
 Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
+## Machine learning for neuroscience, a Cajal course (2023)
+* https://cajal-training.org/on-site/artificial-intelligence/
+
 ## Temporal Neural Data Analysis
 
 * Target audience: Graduate students in Neuroscience with basic probabilty and statistics background
