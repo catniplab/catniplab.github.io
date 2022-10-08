@@ -7,7 +7,7 @@ permalink: /teaching/
 Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
 ## Machine learning for neuroscience, a Cajal course (2023)
-* https://cajal-training.org/on-site/artificial-intelligence/
+* [website](https://cajal-training.org/on-site/artificial-intelligence/)
 
 ## Temporal Neural Data Analysis
 
@@ -16,9 +16,14 @@ Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
 ## Generalized Linear Model Outro
 
-* Target audience: NMA participatns who has gone through the [intro and tutorial](https://compneuro.neuromatch.io/tutorials/W1D4_GeneralizedLinearModels/W1D4_Intro.html)
+* Target audience: NMA participatns who has gone through the [intro and tutorial](https://compneuro.neuromatch.io/tutorials/W1D3_GeneralizedLinearModels/student/W1D3_Intro.html)
 * Neuroacademy lecture outro:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NXVG9ORBYXQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Recorded lecture: Principles of Neural Coding
+
+* Target audience: introductory graduate level course in neuroscience
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DlFxUEdGlmQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Introduction to Neural Computation (2020-2022)
 
@@ -27,3 +32,4 @@ Here are some teaching resources created by Dr. Park and the CATNIP lab.
 * [Syllabus 2021](/files/BIO347_syllabus_Fall_2021_web.pdf)
 * Final consciousness debate 2021:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Dv4s72FVkIU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
