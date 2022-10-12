@@ -6,8 +6,12 @@ permalink: /teaching/
 
 Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
-## Machine learning for neuroscience, a Cajal course (2023)
-* [website](https://cajal-training.org/on-site/artificial-intelligence/)
+## [Machine learning for neuroscience, a Cajal course (2023)](https://cajal-training.org/on-site/artificial-intelligence/)
+
+## Neural Latent State and Dynamics Inference Workshop
+
+* Target audience: neuroscientists with computational/statistical interest
+* [python notebooks](https://github.com/catniplab/latent_dynamics_workshop/)
 
 ## Temporal Neural Data Analysis
 
