@@ -8,7 +8,7 @@ permalink: /people/
 ## Principal Investigator: Il Memming Park 
 ![I. Memming Park's photo](/images/Park.jpg){: .profile-photo }
 
-* (*future*) Group Leader at Champalimaud Centre for the Unknown, Lisbon, Portugal
+* Group Leader at the **Champalimaud Centre for the Unknown**, Lisbon, Portugal
 * Co-founder of **RyvivyR**, a neurotech startup
 * Associate Professor at Stony Brook University, NY, USA
   * [Department of Neurobiology and Behavior (NBB; home)](https://medicine.stonybrookmedicine.edu/neurobiology)
@@ -33,16 +33,10 @@ permalink: /people/
 <br/><br/>[](http://twitter.com/MannyDePresso) <a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
 {: .person-name }
-## Josue Nassar
-![Josue Nassar](/images/Josue.jpg){: .profile-photo }
-
-* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
-* Co-advised by Dr. Mónica F. Bugallo 
-<br/><br/>[](http://twitter.com/JosueNassar) <a href="https://twitter.com/JosueNassar" class="twitter-follow-button" data-show-count="false">Follow @JosueNassar</a>
-
-{: .person-name }
 ## Ian Jordan
 ![Ian Jordan](/images/idj.jpg){: .profile-photo }
+* Postdoc (2022-2023), Neurobiology and Behavior, Stony Brook University
+* PhD (2018-2022), Applied Mathematics and Statistics, Stony Brook University
 <br/><br/>[](http://twitter.com/IanDavidJordan) <a href="https://twitter.com/IanDavidJordan" class="twitter-follow-button" data-show-count="false">Follow @IanDavidJordan/a>
 
 * PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
@@ -59,6 +53,7 @@ permalink: /people/
 ![Ayesha Vermani](/images/ayesha.jpg){: .profile-photo }
 
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
+* PhD student, Champalimaud Centre for the Unknown
 <br/><br/>[](http://twitter.com/AyeshaVermani) <a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
 
 {: .person-name }
@@ -67,16 +62,9 @@ permalink: /people/
 * Master's student, Department of Neurobiology and Behavior, Stony Brook University
 
 {: .person-name }
-## Thomas Grunauer
+## Ábel Ságodi
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
-* Master's student, Department of Neurobiology and Behavior, Stony Brook University
-
-{: .person-name }
-## Amy Feng
-![Amy Feng](/images/MRI_brain_outline_memming.png){: .profile-photo }
-* Regeneron STS Scholar (2022)
-* Pittsford Sutherland High School
-* Simons Summer Research Program (2021 summer)
+* PhD student, Champalimaud Centre for the Unknown
 
 {% comment %}
 ## Future lab member
@@ -89,6 +77,21 @@ permalink: /people/
 ----
 
 # Past members
+
+{: .person-name }
+## Josue Nassar
+![Josue Nassar](/images/Josue.jpg){: .profile-photo }
+
+* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
+* Co-advised by Dr. Mónica F. Bugallo 
+<br/><br/>[](http://twitter.com/JosueNassar) <a href="https://twitter.com/JosueNassar" class="twitter-follow-button" data-show-count="false">Follow @JosueNassar</a>
+
+{: .person-name }
+## Amy Feng
+![Amy Feng](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Regeneron STS Scholar (2022)
+* Pittsford Sutherland High School
+* Simons Summer Research Program (2021 summer)
 
 {: .person-name }
 ## Yuan Zhao
