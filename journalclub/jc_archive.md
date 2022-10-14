@@ -12,8 +12,7 @@ If you are interested in previous years' journal club activity look below to see
 <div class="posts">
   {% for post in site.posts %}
 	{% if post.categories contains 'journalclub' %}
-            {% if post.olddate contains {{ site.time | date: '%Y' }} %}
-            {% else %}
+            {% if post.olddate %}
                 <article class="post">
                 {{post.olddate}}
                 <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
