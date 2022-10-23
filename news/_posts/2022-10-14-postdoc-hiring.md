@@ -8,7 +8,7 @@ The [Neural Dynamics Lab](https://fchampalimaud.org/research/groups/memming-park
 Our broad goal is to obtain an effective systems-level description of relevant neural dynamics in the context of cognitive functions and dysfunctions, such as working memory, decision-making, motor control, and disorders of consciousness.
 
 The main technological objectives of the current project are to enable real-time interface with neural systems, so that we can (1) infer the internal state and dynamics during the experiments, and (2) improve the efficiency of data acquisition through active-learning.
-Specifically, we will deploy *meta-learning* approaches for a faster inference, and develop better *mathematical tools* based on dynamical systems to better describe the underlying neural computation.
+Specifically, we will exploit the shared structure of neural ensembles across datasets and deploy *meta-learning* approaches for a faster inference, and develop better *mathematical tools* based on dynamical systems that provides an interpretable description of underlying neural computation.
 The project will involve tight collaboration with experimental labs and related software/hardware systems.
 
 The two postdoc positions are supported by an NIH award titled "Adaptive statistical algorithms for learning and control of neural dynamics".
