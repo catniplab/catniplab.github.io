@@ -63,7 +63,7 @@ permalink: /people/
 
 {: .person-name }
 ## Ábel Ságodi
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+![Abel Sagodi](/images/Abel_Sagodi.jpg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
 
 {% comment %}
