@@ -63,7 +63,7 @@ permalink: /people/
 
 {: .person-name }
 ## Ábel Ságodi
-![Abel Sagodi](/images/Abel_Sagodi.jpg){: .profile-photo }
+![Abel Sagodi](/images/Abel_Sagodi_sq.jpg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
 
 {% comment %}
