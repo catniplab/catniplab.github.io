@@ -8,6 +8,11 @@ Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
 ## [Machine learning for neuroscience, a Cajal course (2023)](https://cajal-training.org/on-site/artificial-intelligence/)
 
+## Linear Dynamical System for Neuroscience
+
+* Target audience: Graduate students in Neuroscience with basic algebra and vector space background
+* [lecture material, notes, and code](https://github.com/memming/linear-algebra-and-dynamics-lectures)
+
 ## Neural Latent State and Dynamics Inference Workshop
 
 * Target audience: neuroscientists with computational/statistical interest
