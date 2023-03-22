@@ -15,7 +15,7 @@ See [research page](research) for details.
 
 ### Contact us
 
-[memming.park@research.fchampalimaud.edu](mailto:memming.park@research.fchampalimaud.org)
+[memming.park@research.fchampalimaud.org](mailto:memming.park@research.fchampalimaud.org)
 
 {% comment %}
 CATNIP Lab is a computational and statistical neuroscience group located in Stony Brook University.
