@@ -1,3 +1,37 @@
+@unpublished{Stone2023b,
+  title         = "Spectral learning of Bernoulli linear dynamical systems
+                   models for decision-making",
+  author        = "Stone, Iris R and Sagiv, Yotam and Park, Il Memming and
+                   Pillow, Jonathan W",
+  abstract      = "Latent linear dynamical systems with Bernoulli observations
+                   provide a powerful modeling framework for identifying the
+                   temporal dynamics underlying binary time series data, which
+                   arise in a variety of contexts such as binary
+                   decision-making and discrete stochastic processes such as
+                   binned neural spike trains. Here, we develop a spectral
+                   learning method for fast, efficient fitting of Bernoulli
+                   latent linear dynamical system (LDS) models. Our approach
+                   extends traditional subspace identification methods to the
+                   Bernoulli setting via a transformation of the first and
+                   second sample moments. This results in a robust, fixed-cost
+                   estimator that avoids the hazards of local optima and the
+                   long computation time of iterative fitting procedures like
+                   the expectation-maximization (EM) algorithm. In regimes
+                   where data is limited or assumptions about the statistical
+                   structure of the data are not met, we demonstrate that the
+                   spectral estimate provides a good initialization for
+                   Laplace-EM fitting. Finally, we show that the estimator
+                   provides substantial benefits to real world settings by
+                   analyzing data from mice performing a sensory
+                   decision-making task.",
+  month         =  mar,
+  year          =  2023,
+  archivePrefix = "arXiv",
+  eprint        = "2303.02060",
+  primaryClass  = "stat.ML",
+  arxivid       = "2303.02060"
+}
+
 @InProceedings{Stone2023a,
     author    = {Iris Stone and Yotam Sagiv and Il Memming Park and Jonathan W. Pillow},
     title     = {Spectral learning of Bernoulli latent dynamical system models for decision-making},
@@ -45,6 +79,7 @@
   author    = {Matthew Dowling and Yuan Zhao and Il Memming Park},
   booktitle     = {International Conference on Learning Representations (ICLR)},
   title     = {Real-time variational method for learning neural trajectory and its dynamics},
+  month      =  feb,
   year      = {2023},
   abstract  = {Latent variable models have become instrumental in computational neuroscience for reasoning about neural computation.  This has fostered the development of powerful offline algorithms for extracting latent neural trajectories from neural recordings.  However, despite the potential of real-time alternatives to give immediate feedback to experimentalists, and enhance experimental design, they have received markedly less attention.  In this work, we introduce the exponential family variational Kalman filter (eVKF), an online recursive Bayesian method aimed at inferring latent trajectories while simultaneously learning the dynamical system generating them.  eVKF works for arbitrary likelihoods and utilizes the constant base measure exponential family to model the latent state stochasticity. We derive a closed-form variational analog to the predict step of the Kalman filter which leads to a provably tighter bound on the ELBO compared to another online variational method. We validate our method on synthetic and real-world data, and, notably, show that it achieves competitive performance.},
   url       = {https://openreview.net/forum?id=M_MvkWgQSt},
