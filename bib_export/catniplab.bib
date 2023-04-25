@@ -81,6 +81,24 @@
   PMCID    = {10042117},
 }
 
+@InProceedings{Dowling2023c,
+  author    = {Matthew Dowling and Yuan Zhao and Il Memming Park},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  title     = {Linear time {GP}s for inferring latent trajectories from neural spike trains},
+  year      = {2023},
+  month     = Jul,
+  note      = {(accepted)},
+  abstract  = {Latent Gaussian process (GP) models are widely used in neuroscience to uncover hidden state evolutions from sequential observations, mainly in neural activity recordings. While latent GP models provide a principled and powerful solution in theory, the intractable posterior in non-conjugate settings necessitates approximate inference schemes, which may lack scalability. In this work, we propose cvHM, a general inference framework for latent GP models leveraging Hida-Matérn kernels and conjugate computation variational inference (CVI). With cvHM, we are able to perform variational inference of latent neural trajectories with linear time complexity for arbitrary likelihoods. The reparameterization of stationary kernels using Hida-Matérn GPs helps us connect the latent variable models that encode prior assumptions through dynamical systems to those that encode trajectory assumptions through GPs. In contrast to previous work, we use bidirectional information filtering, leading to a more concise implementation. Furthermore, we employ the Whittle approximate likelihood to achieve highly efficient hyperparameter learning.},
+  url       = {https://openreview.net/forum?id=1hWB5XEUMa},
+}
+
+@InProceedings{Dowling2023b,
+  author    = {Matthew Dowling and Yuan Zhao and Il Memming Park},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  title     = {The Exponential Family Variational Kalman Filter for Real-time Neural Dynamics},
+  year      = {2023},
+}
+
 @InProceedings{Dowling2023a,
   author    = {Matthew Dowling and Yuan Zhao and Il Memming Park},
   booktitle     = {International Conference on Learning Representations (ICLR)},
@@ -89,13 +107,6 @@
   year      = {2023},
   abstract  = {Latent variable models have become instrumental in computational neuroscience for reasoning about neural computation.  This has fostered the development of powerful offline algorithms for extracting latent neural trajectories from neural recordings.  However, despite the potential of real-time alternatives to give immediate feedback to experimentalists, and enhance experimental design, they have received markedly less attention.  In this work, we introduce the exponential family variational Kalman filter (eVKF), an online recursive Bayesian method aimed at inferring latent trajectories while simultaneously learning the dynamical system generating them.  eVKF works for arbitrary likelihoods and utilizes the constant base measure exponential family to model the latent state stochasticity. We derive a closed-form variational analog to the predict step of the Kalman filter which leads to a provably tighter bound on the ELBO compared to another online variational method. We validate our method on synthetic and real-world data, and, notably, show that it achieves competitive performance.},
   url       = {https://openreview.net/forum?id=M_MvkWgQSt},
-}
-
-@InProceedings{Dowing2023b,
-    author    = {Matthew Dowling and Yuan Zhao and Il Memming Park},
-    title     = {The Exponential Family Variational Kalman Filter for Real-time Neural Dynamics},
-    booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-    year      = {2023},
 }
 
 @Article{Zhao2019a,
