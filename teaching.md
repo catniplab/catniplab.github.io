@@ -25,7 +25,7 @@ Here are some teaching resources created by Dr. Park and the CATNIP lab.
 
 ## Generalized Linear Model Outro
 
-* Target audience: NMA participatns who has gone through the [intro and tutorial](https://compneuro.neuromatch.io/tutorials/W1D3_GeneralizedLinearModels/student/W1D3_Intro.html)
+* Target audience: NMA participants who have gone through the [intro and tutorial](https://compneuro.neuromatch.io/tutorials/W1D3_GeneralizedLinearModels/student/W1D3_Intro.html)
 * Neuroacademy lecture outro:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NXVG9ORBYXQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
