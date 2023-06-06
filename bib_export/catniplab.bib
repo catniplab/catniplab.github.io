@@ -87,7 +87,10 @@
   title     = {Linear time {GP}s for inferring latent trajectories from neural spike trains},
   year      = {2023},
   month     = Jul,
-  note      = {(accepted)},
+  arxivid       = "2306.01802",
+  archiveprefix = {arXiv},
+  eprint        = {2306.01802},
+  primaryclass  = {q-bio.NC},
   abstract  = {Latent Gaussian process (GP) models are widely used in neuroscience to uncover hidden state evolutions from sequential observations, mainly in neural activity recordings. While latent GP models provide a principled and powerful solution in theory, the intractable posterior in non-conjugate settings necessitates approximate inference schemes, which may lack scalability. In this work, we propose cvHM, a general inference framework for latent GP models leveraging Hida-Matérn kernels and conjugate computation variational inference (CVI). With cvHM, we are able to perform variational inference of latent neural trajectories with linear time complexity for arbitrary likelihoods. The reparameterization of stationary kernels using Hida-Matérn GPs helps us connect the latent variable models that encode prior assumptions through dynamical systems to those that encode trajectory assumptions through GPs. In contrast to previous work, we use bidirectional information filtering, leading to a more concise implementation. Furthermore, we employ the Whittle approximate likelihood to achieve highly efficient hyperparameter learning.},
   url       = {https://openreview.net/forum?id=1hWB5XEUMa},
 }
