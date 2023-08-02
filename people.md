@@ -28,7 +28,7 @@ permalink: /people/
 {: .person-name }
 ## Piotr Sokol 
 ![Piotr as a dog with goggles](/images/Piotr_as_a_dog.png){: .profile-photo }
-
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
 <br/><br/>[](http://twitter.com/MannyDePresso) <a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
@@ -65,6 +65,28 @@ permalink: /people/
 ## Ábel Ságodi
 ![Abel Sagodi](/images/Abel_Sagodi_sq.jpg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
+
+{: .person-name }
+## Carolina Filipe
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Research Support Technician, Champalimaud Centre for the Unknown
+
+{: .person-name }
+## André Mendonça
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+
+{: .person-name }
+## Yves Bernaerts
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+
+{: .person-name }
+## Hyungju Jeon
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* PhD student, Champalimaud Centre for the Unknown
+
+
 
 {% comment %}
 ## Future lab member
