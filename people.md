@@ -78,7 +78,7 @@ permalink: /people/
 
 {: .person-name }
 ## Yves Bernaerts
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+![Cartoon MRI head](/images/Yves.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 {: .person-name }
