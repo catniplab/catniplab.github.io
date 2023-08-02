@@ -11,7 +11,7 @@ To facilitate the scientific inference process, we develop __real-time machine l
 
 See [research page](research) for details.
 
-![CATNIP lab gathered around a whiteboard](/images/catnip_w_kathleen_2018.jpg)
+![CATNIP lab gathered around a whiteboard](/images/Parklabtunnel.jpg)
 
 ### Contact us
 
