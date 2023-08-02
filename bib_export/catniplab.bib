@@ -131,6 +131,17 @@ In Chapter 3 we analyze the relationship between the dimensionality of neural re
   primaryclass  = {stat.ML},
 }
 
+@MastersThesis{Arora2023a,
+  author   = {Tushar Arora},
+  school   = {Stony Brook University},
+  title    = {Exploring the expressive power of latent variable models},
+  year     = {2023},
+  month    = may,
+  abstract = {Advancements in neural recording technologies has allowed us to collect high di- mensional observations by recording thousands of neurons at the same time. How- ever, experimental evidence has shown that high dimensional neural activity may be confined to a manifold of much lower dimension [16, 26, 11, 51, 61]. This phenomenon has been observed for example in context dependent decision making tasks [42, 37], and delay modulated tasks [11]. Latent variable models (LVMs) are powerful models used to recover the low dimensional dynamics. Some popular variants of LVMs are factor analysis, state space models (SSM), principal component analysis (static SSM), etc. We will be concentrating on non-linear SSMs which are expressive enough to capture complex dynamics while remaining interpretable.
+Inferring dynamics from temporal data is integral to many applications in machine learning and neuroscience, but the complexity and expressive power of the dynamics model can vary. In Machine Learning applications, sequence models for language and video use large recurrent networks where the complexity of the dynamics model is tied to the dimensionality of the states and the number of the recurrent units. In these models increasing the state space and number of units helps increase the expressive power. Meanwhile for neuroscience applications, increasing the dimensionality of state space and recurrent units is not desired as the end goal is to understand the dynamics and the topological properties. Given the postulate that computations underlying high dimensional observations live on a low dimensional manifold, it is detrimental to have a large state space dimension. When using these methods, ideally we should be able to keep the dimensionality of the latent variables/hidden variables/factors low.
+In this work we show that (1) prediction measures for goodness of learned dynamics model is more informative quantification and should be the standard measure for testing generative models; (2) using dynamics model that decouple expressive power from state space dimensionality makes model selection easier, produce better long term predictions, and we claim it makes the model more interpretable.},
+}
+
 @Article{Zhao2019a,
   author        = {Zhao, Yuan and Nassar, Josue and Jordan, Ian and Bugallo, M{\'o}nica and Park, Il Memming},
   title         = {Streaming Variational {M}onte {C}arlo},
