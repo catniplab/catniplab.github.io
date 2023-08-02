@@ -68,7 +68,7 @@ permalink: /people/
 
 {: .person-name }
 ## Carolina Filipe
-![Cartoon MRI head](/images/Carolina.png){: .profile-photo }
+![Cartoon MRI head](/images/1.jpeg){: .profile-photo }
 * Research Support Technician, Champalimaud Centre for the Unknown
 
 {: .person-name }
