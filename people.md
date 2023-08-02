@@ -83,7 +83,7 @@ permalink: /people/
 
 {: .person-name }
 ## Hyungju Jeon
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+![Cartoon MRI head](/images/hyungju-jeon.jpeg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
 
 
