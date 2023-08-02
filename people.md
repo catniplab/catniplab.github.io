@@ -80,7 +80,7 @@ permalink: /people/
 ## Yves Bernaerts
 ![Cartoon MRI head](/images/Yves.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
-* <br/><br/>[](http://twitter.com/YvesBernaerts) <a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
+<br/><br/>[](http://twitter.com/YvesBernaerts) <a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
 
 {: .person-name }
 ## Hyungju Jeon
