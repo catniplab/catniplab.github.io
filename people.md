@@ -73,7 +73,7 @@ permalink: /people/
 
 {: .person-name }
 ## André Mendonça
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+![Cartoon MRI head](/images/Andre.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 {: .person-name }
@@ -100,6 +100,11 @@ permalink: /people/
 ----
 
 # Past members
+
+{: .person-name }
+## Margarida Santos
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Intern, Champalimaud Centre for the Unknown
 
 {: .person-name }
 ## Josue Nassar
