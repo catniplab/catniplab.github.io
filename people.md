@@ -4,6 +4,8 @@ title: People
 permalink: /people/
 ---
 
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 {: .person-name }
 ## Principal Investigator: Il Memming Park 
 ![I. Memming Park's photo](/images/20220516-Memming-Park-square.jpg){: .profile-photo }
@@ -19,27 +21,19 @@ permalink: /people/
 * 2006–2010 PhD under José C. Príncipe (University of Florida)
 
 {: .person-name }
-## Piotr Sokol 
+## Piotr Sokol
 ![Piotr as a dog with goggles](/images/Piotr_as_a_dog.png){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
-<br/><br/>[](http://twitter.com/MannyDePresso) <a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
-{: .person-name }
-## Ian Jordan
-![Ian Jordan](/images/idj.jpg){: .profile-photo }
-* Postdoc (2022-2023), Neurobiology and Behavior, Stony Brook University
-* PhD (2018-2022), Applied Mathematics and Statistics, Stony Brook University
-<br/><br/>[](http://twitter.com/IanDavidJordan) <a href="https://twitter.com/IanDavidJordan" class="twitter-follow-button" data-show-count="false">Follow @IanDavidJordan/a>
-
-* PhD student, Department of Applied Mathematics and Statistics, Stony Brook University
+<a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
 {: .person-name }
 ## Matthew Dowling
 ![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
-
 * PhD student, Department of Electrical & Computer Engineering, Stony Brook University
-<br/><br/>[](http://twitter.com/matt_p_dowling) <a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
+
+<a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
 
 {: .person-name }
 ## Ayesha Vermani
@@ -47,12 +41,8 @@ permalink: /people/
 
 * PhD student, Department of Neurobiology and Behavior, Stony Brook University
 * PhD student, Champalimaud Centre for the Unknown
-<br/><br/>[](http://twitter.com/AyeshaVermani) <a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
 
-{: .person-name }
-## Tushar Arora
-![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
-* Master's student, Department of Neurobiology and Behavior, Stony Brook University
+<a href="https://twitter.com/AyeshaVermani" class="twitter-follow-button" data-show-count="false">Follow @AyeshaVermani</a>
 
 {: .person-name }
 ## Ábel Ságodi
@@ -73,7 +63,8 @@ permalink: /people/
 ## Yves Bernaerts
 ![Cartoon MRI head](/images/Yves.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
-<br/><br/>[](http://twitter.com/YvesBernaerts) <a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
+
+<a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
 
 {: .person-name }
 ## Hyungju Jeon
@@ -95,9 +86,18 @@ permalink: /people/
 # Past members
 
 {: .person-name }
-## Margarida Santos
+## Ian Jordan
+![Ian Jordan](/images/idj.jpg){: .profile-photo }
+* Postdoc (2022-2023), Neurobiology and Behavior, Stony Brook University
+* PhD (2018-2022), Applied Mathematics and Statistics, Stony Brook University
+
+<a href="https://twitter.com/IanDavidJordan" class="twitter-follow-button" data-show-count="false">Follow @IanDavidJordan/a>
+
+{: .person-name }
+## Tushar Arora
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
-* Intern, Champalimaud Centre for the Unknown
+* Master's student, Department of Neurobiology and Behavior, Stony Brook University
+
 
 {: .person-name }
 ## Josue Nassar
@@ -105,7 +105,8 @@ permalink: /people/
 
 * PhD student, Department of Electrical & Computer Engineering, Stony Brook University
 * Co-advised by Dr. Mónica F. Bugallo 
-<br/><br/>[](http://twitter.com/JosueNassar) <a href="https://twitter.com/JosueNassar" class="twitter-follow-button" data-show-count="false">Follow @JosueNassar</a>
+
+<a href="https://twitter.com/JosueNassar" class="twitter-follow-button" data-show-count="false">Follow @JosueNassar</a>
 
 {: .person-name }
 ## Amy Feng
@@ -117,17 +118,16 @@ permalink: /people/
 {: .person-name }
 ## Yuan Zhao
 ![Yuan Zhao](/images/Yuan.jpg){: .profile-photo }
-
 * Research Scientist, Machine Learning Team, Functional Magnetic Resonance Imaging Facility, National Institute of Mental Health (NIMH) as of 2022
 * Postdoctoral Associate, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-2021)
-<br/><br/>[](http://twitter.com/yuanz271) <a href="https://twitter.com/yuanz271" class="twitter-follow-button" data-show-count="false">Follow @yuanz271</a>
+
+<a href="https://twitter.com/yuanz271" class="twitter-follow-button" data-show-count="false">Follow @yuanz271</a>
 
 {: .person-name }
 ## Eben Kadile
 ![Eben Kadile](/images/Eben.jpg){: .profile-photo }
 
 * Undergraduate student, Department of Mathematics, Stony Brook University
-* [Website](http://ebencowley.com/)
 
 {: .person-name }
 ## Diego M Arribas
@@ -147,6 +147,7 @@ permalink: /people/
 ## Kathleen Esfahany
 ![Kathleen Esfahany](/images/kathleen.jpg){: .profile-photo }
 
+* Harvard
 * MIT
 * Ward Melville High School
 * Simons Summer Research Program (2017 summer)
@@ -159,6 +160,11 @@ permalink: /people/
 * Postdoctoral researcher, [Department of Neurobiology and Behavior (NBB)](https://medicine.stonybrookmedicine.edu/neurobiology), Stony Brook University (2016-2017)
 
 {% comment %}
+
+{: .person-name }
+## Margarida Santos
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Intern, Champalimaud Centre for the Unknown
 
 {: .person-name }
 ## Junyan Song
