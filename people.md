@@ -20,18 +20,11 @@ permalink: /people/
 * 2010–2014 postdoc with Jonathan Pillow (UT Austin)
 * 2006–2010 PhD under José C. Príncipe (University of Florida)
 
-{: .person-name }
-## Piotr Sokol
-![Piotr as a dog with goggles](/images/Piotr_as_a_dog.png){: .profile-photo }
-* Postdoctoral researcher, Champalimaud Centre for the Unknown
-* PhD student, Department of Neurobiology and Behavior, Stony Brook University
-
-<a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
 {: .person-name }
 ## Matthew Dowling
 ![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
-* PhD student, Department of Electrical & Computer Engineering, Stony Brook University
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 <a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
 
@@ -54,14 +47,10 @@ permalink: /people/
 ![Cartoon MRI head](/images/1.jpeg){: .profile-photo }
 * Research Support Technician, Champalimaud Centre for the Unknown
 
-{: .person-name }
-## André Mendonça
-![Cartoon MRI head](/images/Andre.jpg){: .profile-photo }
-* Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 {: .person-name }
 ## Yves Bernaerts
-![Cartoon MRI head](/images/Yves.jpg){: .profile-photo }
+![Cartoon MRI head](/images/Yves-Bernaerts.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 <a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
@@ -70,8 +59,11 @@ permalink: /people/
 ## Hyungju Jeon
 ![Cartoon MRI head](/images/hyungju-jeon.jpeg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
-
-
+  
+{: .person-name }
+## Mahmoud Elmakki
+![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
+* Research Technician, Champalimaud Centre for the Unknown
 
 {% comment %}
 ## Future lab member
@@ -84,6 +76,19 @@ permalink: /people/
 ----
 
 # Past members
+{: .person-name }
+
+{: .person-name }
+## André Mendonça
+![Cartoon MRI head](/images/Andre.jpg){: .profile-photo }
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+  
+## Piotr Sokol
+![Piotr as a dog with goggles](/images/Piotr_as_a_dog.png){: .profile-photo }
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+* PhD student, Department of Neurobiology and Behavior, Stony Brook University
+
+<a href="https://twitter.com/MannyDePresso" class="twitter-follow-button" data-show-count="false">Follow @MannyDePresso</a>
 
 {: .person-name }
 ## Ian Jordan
