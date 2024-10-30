@@ -1,3 +1,23 @@
+@InProceedings{Vermani2024a,
+  author    = {Ayesha Vermani and Matthew Dowling and Hyungju Jeon and Ian Jordan and Josue Nassar and Yves Bernaerts and Yuan Zhao and Steven Van Vaerenbergh and Il Memming Park},
+  booktitle = {European Signal Processing Conference},
+  title     = {Real-time machine learning strategies for a new kind of neuroscience experiments},
+  year      = {2024},
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.ML",
+  eprint        = "2409.01280",
+}
+
+@InProceedings{Vermani2023b,
+  author    = {Ayesha Vermani and Il Memming Park and Josue Nassar},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  title     = {Leveraging Generative Models for Unsupervised Alignment of Neural Time Series Data},
+  year      = {2024},
+  month     = may,
+  abstract  = {Large scale inference models are widely used in neuroscience to extract latent representations from high-dimensional neural recordings. Due to the statistical heterogeneities between sessions and animals, a new model is trained from scratch to infer the underlying dynamics for each new dataset. This is computationally expensive and does not fully leverage all the available data. Moreover, as these models get more complex, they can be challenging to train. In parallel, it is becoming common to use pre-trained models in the machine learning community for few shot and transfer learning. One major hurdle that prevents the re-use of generative models in neuroscience is the complex spatio-temporal structure of neural dynamics within and across animals. Interestingly, the underlying dynamics identified from different datasets on the same task are qualitatively similar. In this work, we exploit this observation and propose a source-free and unsupervised alignment approach that utilizes the learnt dynamics and enables the re-use of trained generative models. We validate our approach on simulations and show the efficacy of the alignment on neural recordings from the motor cortex obtained during a reaching task.},
+  url       = {https://openreview.net/forum?id=9zhHVyLY4K},
+}
+
 @InProceedings{Sagodi2024a,
   title         = "Back to the Continuous Attractor",
   author        = "S\'agodi, \'Abel and Mart\'in-S\'anchez, Guillermo and Sok{\'o}{\l}, Piotr
@@ -33,6 +53,36 @@
   arxivid       = "2408.00109",
   eprint        = "2408.00109",
   url		= "https://openreview.net/forum?id=fvG6ZHrH0B",
+}
+
+@InProceedings{Park2024a,
+  author    = {Il Memming Park},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  title     = {Persistent activity bump on a ring without a continuous ring attractor},
+  year      = {2024},
+  abstract  = {We propose a robust recurrent memory mechanism for integrating and maintaining head direction without a ring attractor. The ring attractor is a popular theoretical mechanism for maintaining a continuous internal representation of a periodic variable. For instance, they are used to describe the neural dynamics underlying head direction cells, grid cells, and visual working memory. At the same time, it is well-known that mathematically, continuous attractors are prone to fine tuning, where small changes in the connectivity or biophysical parameters lead to the destruction of the mechanism. We describe an alternative, robust mechanism for working memory of a periodic variable using the theory of stable limit cycles. In particular, we detail a biophysical implementation that can explain the bump of activity observed over the ellipsoid body of insects. The content of working memory is stored in the relative phase difference between two independent oscillators, whose periods are constrained by conduction delay. A phase independent readout is achieved through a delay line and nonlinear coincidence detectors that can be mapped onto the readout system, i.e., the ellipsoid body. Our theory makes several strong predictions: the bump of activity on the ellipsoid body is tightly periodic on a short time scale, is robust to partial lesions, and exhibits small, consistent systematic drifts due to misadjustments within each animal. Furthermore, we investigate the impact of diffusion in information encoding and memory due to various noise sources.},
+}
+
+@InProceedings{Jeon2024b,
+  author    = {Hyungju Jeon and Il Memming Park},
+  booktitle = {European Signal Processing Conference},
+  title     = {Quantifying signal-to-noise ratio in neural latent trajectories via {F}isher information},
+  month         =  aug,
+  year      = {2024},
+  archivePrefix = "arXiv",
+  primaryClass  = "q-bio.NC",
+  eprint        = "2408.08752"
+}
+
+@Conference{Jeon2024a,
+  author    = {Hyungju Jeon and Matthew Dowling and Il Memming Park},
+  booktitle = {European Conference on Brain Stimulation},
+  title     = {Closed-loop active sensing for nonlinear system identification in attractor dynamics disorders},
+  year      = {2024},
+  note      = {(oral presentation)},
+  abstract  = {Neurological disorders pose multifaceted challenges for intervention due to their diverse root causes, ranging from cellular, pathogenic, or metabolic dysfunctions to more recently discovered disruptions in complex neuronal dynamics. While conventional treatment methods have demonstrated efficacy in conditions with known cellular or metabolic dysfunctions, they fall short in disorders arising from system-level dynamics disruptions, such as movement disorders, and psychiatric conditions like schizophrenia. However, identifying the underlying mechanisms of such disturbances in system-level dynamics is often hindered by modern data-driven challenges, particularly regarding the size of datasets. The sheer volume of neural recordings measuring the synchronous activity of thousands of neurons simultaneously can impede timely and efficient identification of underlying mechanisms.
+
+To address these challenges, we propose a real-time closed-loop active sensing for nonlinear system identification. Our approach aims to expedite the throughput of current experimental design paradigms and bridge the gap between traditional treatments and the complexities of brain-system dynamics. In particular, we employ Bayesian experimental design to accelerate inference of underlying neural dynamics and their changes by introducing structured perturbation to the system. We consider a synthetic test-bed mimicking neurological disorders characterized by the emergence of disease state attractors; then, we show how statistically informed interventions in the form of carefully chosen perturbations can be used to identify the dynamics of the attractor and restore regularity of the population level neural dynamics by driving the neural state away from disease state attractors.},
 }
 
 @InProceedings{Dowling2024b,
@@ -73,55 +123,6 @@
   eprint        = "2403.01371",
   arxivid       = "2403.01371",
   url           = "https://openreview.net/forum?id=Ln8ogihZ2S",
-}
-
-@InProceedings{Vermani2024a,
-  author    = {Ayesha Vermani and Matthew Dowling and Hyungju Jeon and Ian Jordan and Josue Nassar and Yves Bernaerts and Yuan Zhao and Steven Van Vaerenbergh and Il Memming Park},
-  booktitle = {European Signal Processing Conference},
-  title     = {Real-time machine learning strategies for a new kind of neuroscience experiments},
-  year      = {2024},
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "2409.01280",
-}
-
-@InProceedings{Vermani2023b,
-  author    = {Ayesha Vermani and Il Memming Park and Josue Nassar},
-  booktitle = {International Conference on Learning Representations (ICLR)},
-  title     = {Leveraging Generative Models for Unsupervised Alignment of Neural Time Series Data},
-  year      = {2024},
-  abstract  = {Large scale inference models are widely used in neuroscience to extract latent representations from high-dimensional neural recordings. Due to the statistical heterogeneities between sessions and animals, a new model is trained from scratch to infer the underlying dynamics for each new dataset. This is computationally expensive and does not fully leverage all the available data. Moreover, as these models get more complex, they can be challenging to train. In parallel, it is becoming common to use pre-trained models in the machine learning community for few shot and transfer learning. One major hurdle that prevents the re-use of generative models in neuroscience is the complex spatio-temporal structure of neural dynamics within and across animals. Interestingly, the underlying dynamics identified from different datasets on the same task are qualitatively similar. In this work, we exploit this observation and propose a source-free and unsupervised alignment approach that utilizes the learnt dynamics and enables the re-use of trained generative models. We validate our approach on simulations and show the efficacy of the alignment on neural recordings from the motor cortex obtained during a reaching task.},
-  url       = {https://openreview.net/forum?id=9zhHVyLY4K},
-}
-
-@InProceedings{Park2024a,
-  author    = {Il Memming Park},
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  title     = {Persistent activity bump on a ring without a continuous ring attractor},
-  year      = {2024},
-  abstract  = {We propose a robust recurrent memory mechanism for integrating and maintaining head direction without a ring attractor. The ring attractor is a popular theoretical mechanism for maintaining a continuous internal representation of a periodic variable. For instance, they are used to describe the neural dynamics underlying head direction cells, grid cells, and visual working memory. At the same time, it is well-known that mathematically, continuous attractors are prone to fine tuning, where small changes in the connectivity or biophysical parameters lead to the destruction of the mechanism. We describe an alternative, robust mechanism for working memory of a periodic variable using the theory of stable limit cycles. In particular, we detail a biophysical implementation that can explain the bump of activity observed over the ellipsoid body of insects. The content of working memory is stored in the relative phase difference between two independent oscillators, whose periods are constrained by conduction delay. A phase independent readout is achieved through a delay line and nonlinear coincidence detectors that can be mapped onto the readout system, i.e., the ellipsoid body. Our theory makes several strong predictions: the bump of activity on the ellipsoid body is tightly periodic on a short time scale, is robust to partial lesions, and exhibits small, consistent systematic drifts due to misadjustments within each animal. Furthermore, we investigate the impact of diffusion in information encoding and memory due to various noise sources.},
-}
-
-@InProceedings{Jeon2024b,
-  author    = {Hyungju Jeon and Il Memming Park},
-  booktitle = {European Signal Processing Conference},
-  title     = {Quantifying signal-to-noise ratio in neural latent trajectories via {F}isher information},
-  month         =  aug,
-  year      = {2024},
-  archivePrefix = "arXiv",
-  primaryClass  = "q-bio.NC",
-  eprint        = "2408.08752"
-}
-
-@Conference{Jeon2024a,
-  author    = {Hyungju Jeon and Matthew Dowling and Il Memming Park},
-  booktitle = {European Conference on Brain Stimulation},
-  title     = {Closed-loop active sensing for nonlinear system identification in attractor dynamics disorders},
-  year      = {2024},
-  note      = {(oral presentation)},
-  abstract  = {Neurological disorders pose multifaceted challenges for intervention due to their diverse root causes, ranging from cellular, pathogenic, or metabolic dysfunctions to more recently discovered disruptions in complex neuronal dynamics. While conventional treatment methods have demonstrated efficacy in conditions with known cellular or metabolic dysfunctions, they fall short in disorders arising from system-level dynamics disruptions, such as movement disorders, and psychiatric conditions like schizophrenia. However, identifying the underlying mechanisms of such disturbances in system-level dynamics is often hindered by modern data-driven challenges, particularly regarding the size of datasets. The sheer volume of neural recordings measuring the synchronous activity of thousands of neurons simultaneously can impede timely and efficient identification of underlying mechanisms.
-
-To address these challenges, we propose a real-time closed-loop active sensing for nonlinear system identification. Our approach aims to expedite the throughput of current experimental design paradigms and bridge the gap between traditional treatments and the complexities of brain-system dynamics. In particular, we employ Bayesian experimental design to accelerate inference of underlying neural dynamics and their changes by introducing structured perturbation to the system. We consider a synthetic test-bed mimicking neurological disorders characterized by the emergence of disease state attractors; then, we show how statistically informed interventions in the form of carefully chosen perturbations can be used to identify the dynamics of the attractor and restore regularity of the population level neural dynamics by driving the neural state away from disease state attractors.},
 }
 
 @InProceedings{Dowling2024a,
