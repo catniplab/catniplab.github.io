@@ -10,11 +10,11 @@ permalink: /people/
 ## Principal Investigator: Il Memming Park 
 ![I. Memming Park's photo](/images/20220516-Memming-Park-square.jpg){: .profile-photo }
 
-* Group Leader at the **Champalimaud Centre for the Unknown**, Lisbon, Portugal
+* **Group Leader** at the [Champalimaud Centre for the Unknown](https://fchampalimaud.org/), Lisbon, Portugal
 * Co-founder of **RyvivyR**, a neurotech startup
 * **Visiting Associate Professor** at Stony Brook University, NY, USA
 * [Google scholar](http://scholar.google.com/citations?user=CsmltusAAAAJ), [DBLP](http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/p/Park_0002:Il.html), [ORCID](http://orcid.org/0000-0002-4255-7750)
-* [LinkedIn](http://www.linkedin.com/in/memming), [memming@twitter](http://twitter.com/memming) 
+* [LinkedIn](http://www.linkedin.com/in/memming), [@memming.bsky.social](https://bsky.app/profile/memming.bsky.social), [memming@twitter/X](http://twitter.com/memming)
 * [neurotree](http://neurotree.org/neurotree/tree.php?pid=48684)
 * 2015-2023 Associate professor with tenure at Stony Brook Univeristy
 * 2010–2014 postdoc with Jonathan Pillow (UT Austin)
