@@ -50,7 +50,7 @@ permalink: /people/
 
 {: .person-name }
 ## Yves Bernaerts
-![Cartoon MRI head](Yves-Bernaerts.jpg){: .profile-photo }
+![Cartoon MRI head](/images/Yves-Bernaerts.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 <a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
