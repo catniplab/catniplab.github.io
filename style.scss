@@ -272,6 +272,18 @@ nav {
   }
 }
 
+// Callout-style blockquotes used for research-page taglines
+.page .entry blockquote.research-tagline {
+  margin: 0.5em 0;
+  padding: 0.6em 1.2em;
+  border-left: 4px solid $blue;
+  background-color: lighten($lightGray, 9%);
+  color: $darkerGray;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+}
+
 .wrapper-footer {
   margin-top: 50px;
   border-top: 1px solid #ddd;
