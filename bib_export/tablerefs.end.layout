@@ -6,7 +6,7 @@
     <div class="wrapper-footer">
       <div class="container">
         <footer class="footer">
-<a href="mailto:memming.park@stonybrook.edu"><i class="svg-icon email"></i></a>
+<a href="mailto:memming.park@research.fchampalimaud.org"><i class="svg-icon email"></i></a>
 <a href="http://github.com/catniplab"><i class="svg-icon github"></i></a>
 <small>Created by <a href="http://jabref.sourceforge.net">JabRef</a> on \format[CurrentDate]{dd/MM/yyyy}.</small>
         </footer>
