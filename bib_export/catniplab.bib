@@ -1,37 +1,51 @@
-@InProceedings{Liang2025a,
-    title={Symmetry-Regularized Learning of Continuous Attractor Dynamics},
-    author={Arthur Liang and \'Abel S\'agodi and Piotr Sok\'o\l},
-    booktitle={NeurIPS 2025 Workshop on Symmetry and Geometry in Neural Representations (NeurReps 2025)},
-    abstract={Neural population dynamics exhibit rich geometric structure, yet prevailing computational models often overlook this by primarily accounting for variability in the data. We show that incorporating prior knowledge about dynamical symmetries yields efficient and interpretable models. Focusing on ring attractor dynamics---canonical circuits that are approximately equivariant under planar rotations---we introduce a symmetry-regularized variational state space model. Our method augments the standard variational objective with a symmetry penalty, encouraging the learned dynamical system to respect rotational invariance. We demonstrate that this regularization preserves predictive performance while yielding parsimonious models with interpretable latent dynamics. This framework establishes a principled approach for embedding symmetry priors into neural dynamical system learning, highlighting how exploiting geometric structure can improve both scientific insight and model generalization.},
-    year={2025},
-    note={(4p extended abstract)},
-    private_url={https://openreview.net/forum?id=W8Gf7CYCo8},
+@PhdThesis{Vermani2025b,
+  author    = {Vermani, Ayesha},
+  title     = {Identifying Invariant Representations underlying Neural Computation},
+  year      = {2025},
+  publisher = {NOVA Repository},
+  url       = {http://hdl.handle.net/10362/190610},
 }
 
-@MISC{Nassar2025patent,
-  title    = "System and method of model-based machine learning for non-episodic
-              state space exploration",
-  author   = "Nassar, Josue and Zhao, Yuan and Jordan, Ian and Park, Il Memming",
-  journal  = "United States Patent and Trademark Office",
-  number   = "20250209344:A1",
-  abstract = "A system and method of conducting non-episodic state space
-              exploration of a world, the world being a real-world system having
-              one or more dimensions, including: receiving a current state of an
-              agent observed in relation to its interaction with the world;
-              updating one or more parameters of a dynamic model that
-              approximates the world based on the current state of the agent,
-              wherein the parameters as updated improve approximation of the
-              world; generating an intrinsic reward associated with the
-              exploration by the agent based on a closest distance of the
-              current state of the agent in relation to a previous state of one
-              or more previous states of the agent in its exploration of the
-              world; and generating a control from a sequence of actions based
-              on the dynamic model to maximize the intrinsic reward, wherein
-              execution of the control perturbs the current state of the agent
-              in its exploration of the world.",
-  month    =  jun,
-  year     =  2025,
-  url      = "https://patentimages.storage.googleapis.com/27/07/f1/3ce01937875384/US20250209344A1.pdf"
+@InProceedings{Vermani2025a,
+  author    = {Ayesha Vermani and Josue Nassar and Hyungju Jeon and Matthew Dowling and Il Memming Park},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  title     = {Meta-dynamical state space models for integrative neural data analysis},
+  year      = {2025},
+}
+
+@InProceedings{Vermani2024b,
+  title         = "Meta-dynamical state space models for integrative neural data
+                   analysis",
+  author        = "Vermani, Ayesha and Nassar, Josue and Jeon, Hyungju and
+                   Dowling, Matthew and Park, Il Memming",
+  abstract      = "Learning shared structure across environments facilitates
+                   rapid learning and adaptive behavior in neural systems. This
+                   has been widely demonstrated and applied in machine learning
+                   to train models that are capable of generalizing to novel
+                   settings. However, there has been limited work exploiting the
+                   shared structure in neural activity during similar tasks for
+                   learning latent dynamics from neural recordings. Existing
+                   approaches are designed to infer dynamics from a single
+                   dataset and cannot be readily adapted to account for
+                   statistical heterogeneities across recordings. In this work,
+                   we hypothesize that similar tasks admit a corresponding
+                   family of related solutions and propose a novel approach for
+                   meta-learning this solution space from task-related neural
+                   activity of trained animals. Specifically, we capture the
+                   variabilities across recordings on a low-dimensional manifold
+                   which concisely parametrizes this family of dynamics, thereby
+                   facilitating rapid learning of latent dynamics given new
+                   recordings. We demonstrate the efficacy of our approach on
+                   few-shot reconstruction and forecasting of synthetic
+                   dynamical systems, and neural recordings from the motor
+                   cortex during different arm reaching tasks.",
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  month     = apr,
+  year          =  2025,
+  url		= "https://openreview.net/forum?id=SRpq5OBpED",
+  archivePrefix = "arXiv",
+  primaryClass  = "stat.ML",
+  eprint        = "2410.05454",
 }
 
 @Unpublished{Sagodi2025b,
@@ -70,20 +84,6 @@
   eprint        = "2507.05505"
 }
 
-@InProceedings{Filipe2025a,
-  author    = {Carolina Filipe and Mahmoud Elmakki and Guilherme Costa-Ferreira and Il Memming Park},
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  title     = {Conditional diffusion framework for analyzing neural dynamics across multiple contexts},
-  year      = {2025},
-}
-
-@InProceedings{Vermani2025a,
-  author    = {Ayesha Vermani and Josue Nassar and Hyungju Jeon and Matthew Dowling and Il Memming Park},
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  title     = {Meta-dynamical state space models for integrative neural data analysis},
-  year      = {2025},
-}
-
 @InProceedings{Sagodi2025a,
   author = "S\'agodi, \'Abel and Mart\'in-S\'anchez, Guillermo and Sok{\'o}{\l}, Piotr
                    and Park, Il Memming",
@@ -94,61 +94,47 @@
   poster_no = "3-113",
 }
 
-@INPROCEEDINGS{Sagodi2024b,
-  author = "S\'agodi, \'Abel and Mart\'in-S\'anchez, Guillermo and Sok{\'o}{\l}, Piotr
-                   and Park, Il Memming",
-  title = "Slow manifold dynamics for working memory are near continuous attractors",
-  booktitle = {Bernstein Conference},
-  doi = "10.12751/nncn.bc2024.076",
-  url = {https://abstracts.g-node.org/conference/BC24/abstracts#/uuid/5964bd61-91e8-4d1a-a9ca-e6d137f456b4},
-  year = 2024,
-  poster_no = "I 59",
+@MISC{Nassar2025patent,
+  title    = "System and method of model-based machine learning for non-episodic
+              state space exploration",
+  author   = "Nassar, Josue and Zhao, Yuan and Jordan, Ian and Park, Il Memming",
+  journal  = "United States Patent and Trademark Office",
+  number   = "20250209344:A1",
+  abstract = "A system and method of conducting non-episodic state space
+              exploration of a world, the world being a real-world system having
+              one or more dimensions, including: receiving a current state of an
+              agent observed in relation to its interaction with the world;
+              updating one or more parameters of a dynamic model that
+              approximates the world based on the current state of the agent,
+              wherein the parameters as updated improve approximation of the
+              world; generating an intrinsic reward associated with the
+              exploration by the agent based on a closest distance of the
+              current state of the agent in relation to a previous state of one
+              or more previous states of the agent in its exploration of the
+              world; and generating a control from a sequence of actions based
+              on the dynamic model to maximize the intrinsic reward, wherein
+              execution of the control perturbs the current state of the agent
+              in its exploration of the world.",
+  month    =  jun,
+  year     =  2025,
+  url      = "https://patentimages.storage.googleapis.com/27/07/f1/3ce01937875384/US20250209344A1.pdf"
 }
 
-@INPROCEEDINGS{Filipe2024a,
-  author        = "Filipe, A. Carolina and Park, Il Memming",
-  title = "{NeuroTask}: A benchmark dataset for multi-task neural analysis",
-  booktitle = {Bernstein Conference},
-  doi = "10.12751/nncn.bc2024.020",
-  url = {https://abstracts.g-node.org/conference/BC24/abstracts#/uuid/ccb5dd62-403b-4da0-a839-2652ab70ac28},
-  code = {https://github.com/catniplab/NeuroTask/tree/nwb},
-  year = 2024,
-  poster_no = "I 1",
+@InProceedings{Liang2025a,
+    title={Symmetry-Regularized Learning of Continuous Attractor Dynamics},
+    author={Arthur Liang and \'Abel S\'agodi and Piotr Sok\'o\l},
+    booktitle={NeurIPS 2025 Workshop on Symmetry and Geometry in Neural Representations (NeurReps 2025)},
+    abstract={Neural population dynamics exhibit rich geometric structure, yet prevailing computational models often overlook this by primarily accounting for variability in the data. We show that incorporating prior knowledge about dynamical symmetries yields efficient and interpretable models. Focusing on ring attractor dynamics---canonical circuits that are approximately equivariant under planar rotations---we introduce a symmetry-regularized variational state space model. Our method augments the standard variational objective with a symmetry penalty, encouraging the learned dynamical system to respect rotational invariance. We demonstrate that this regularization preserves predictive performance while yielding parsimonious models with interpretable latent dynamics. This framework establishes a principled approach for embedding symmetry priors into neural dynamical system learning, highlighting how exploiting geometric structure can improve both scientific insight and model generalization.},
+    year={2025},
+    note={(4p extended abstract)},
+    private_url={https://openreview.net/forum?id=W8Gf7CYCo8},
 }
 
-@InProceedings{Vermani2024b,
-  title         = "Meta-dynamical state space models for integrative neural data
-                   analysis",
-  author        = "Vermani, Ayesha and Nassar, Josue and Jeon, Hyungju and
-                   Dowling, Matthew and Park, Il Memming",
-  abstract      = "Learning shared structure across environments facilitates
-                   rapid learning and adaptive behavior in neural systems. This
-                   has been widely demonstrated and applied in machine learning
-                   to train models that are capable of generalizing to novel
-                   settings. However, there has been limited work exploiting the
-                   shared structure in neural activity during similar tasks for
-                   learning latent dynamics from neural recordings. Existing
-                   approaches are designed to infer dynamics from a single
-                   dataset and cannot be readily adapted to account for
-                   statistical heterogeneities across recordings. In this work,
-                   we hypothesize that similar tasks admit a corresponding
-                   family of related solutions and propose a novel approach for
-                   meta-learning this solution space from task-related neural
-                   activity of trained animals. Specifically, we capture the
-                   variabilities across recordings on a low-dimensional manifold
-                   which concisely parametrizes this family of dynamics, thereby
-                   facilitating rapid learning of latent dynamics given new
-                   recordings. We demonstrate the efficacy of our approach on
-                   few-shot reconstruction and forecasting of synthetic
-                   dynamical systems, and neural recordings from the motor
-                   cortex during different arm reaching tasks.",
-  booktitle = {International Conference on Learning Representations (ICLR)},
-  month     = apr,
-  year          =  2025,
-  url		= "https://openreview.net/forum?id=SRpq5OBpED",
-  archivePrefix = "arXiv",
-  primaryClass  = "stat.ML",
-  eprint        = "2410.05454",
+@InProceedings{Filipe2025a,
+  author    = {Carolina Filipe and Mahmoud Elmakki and Guilherme Costa-Ferreira and Il Memming Park},
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  title     = {Conditional diffusion framework for analyzing neural dynamics across multiple contexts},
+  year      = {2025},
 }
 
 @InProceedings{Vermani2024a,
@@ -169,6 +155,17 @@
   month     = may,
   abstract  = {Large scale inference models are widely used in neuroscience to extract latent representations from high-dimensional neural recordings. Due to the statistical heterogeneities between sessions and animals, a new model is trained from scratch to infer the underlying dynamics for each new dataset. This is computationally expensive and does not fully leverage all the available data. Moreover, as these models get more complex, they can be challenging to train. In parallel, it is becoming common to use pre-trained models in the machine learning community for few shot and transfer learning. One major hurdle that prevents the re-use of generative models in neuroscience is the complex spatio-temporal structure of neural dynamics within and across animals. Interestingly, the underlying dynamics identified from different datasets on the same task are qualitatively similar. In this work, we exploit this observation and propose a source-free and unsupervised alignment approach that utilizes the learnt dynamics and enables the re-use of trained generative models. We validate our approach on simulations and show the efficacy of the alignment on neural recordings from the motor cortex obtained during a reaching task.},
   url       = {https://openreview.net/forum?id=9zhHVyLY4K},
+}
+
+@INPROCEEDINGS{Sagodi2024b,
+  author = "S\'agodi, \'Abel and Mart\'in-S\'anchez, Guillermo and Sok{\'o}{\l}, Piotr
+                   and Park, Il Memming",
+  title = "Slow manifold dynamics for working memory are near continuous attractors",
+  booktitle = {Bernstein Conference},
+  doi = "10.12751/nncn.bc2024.076",
+  url = {https://abstracts.g-node.org/conference/BC24/abstracts#/uuid/5964bd61-91e8-4d1a-a9ca-e6d137f456b4},
+  year = 2024,
+  poster_no = "I 59",
 }
 
 @InProceedings{Sagodi2024a,
@@ -238,6 +235,17 @@
   abstract  = {Neurological disorders pose multifaceted challenges for intervention due to their diverse root causes, ranging from cellular, pathogenic, or metabolic dysfunctions to more recently discovered disruptions in complex neuronal dynamics. While conventional treatment methods have demonstrated efficacy in conditions with known cellular or metabolic dysfunctions, they fall short in disorders arising from system-level dynamics disruptions, such as movement disorders, and psychiatric conditions like schizophrenia. However, identifying the underlying mechanisms of such disturbances in system-level dynamics is often hindered by modern data-driven challenges, particularly regarding the size of datasets. The sheer volume of neural recordings measuring the synchronous activity of thousands of neurons simultaneously can impede timely and efficient identification of underlying mechanisms.
 
 To address these challenges, we propose a real-time closed-loop active sensing for nonlinear system identification. Our approach aims to expedite the throughput of current experimental design paradigms and bridge the gap between traditional treatments and the complexities of brain-system dynamics. In particular, we employ Bayesian experimental design to accelerate inference of underlying neural dynamics and their changes by introducing structured perturbation to the system. We consider a synthetic test-bed mimicking neurological disorders characterized by the emergence of disease state attractors; then, we show how statistically informed interventions in the form of carefully chosen perturbations can be used to identify the dynamics of the attractor and restore regularity of the population level neural dynamics by driving the neural state away from disease state attractors.},
+}
+
+@INPROCEEDINGS{Filipe2024a,
+  author        = "Filipe, A. Carolina and Park, Il Memming",
+  title = "{NeuroTask}: A benchmark dataset for multi-task neural analysis",
+  booktitle = {Bernstein Conference},
+  doi = "10.12751/nncn.bc2024.020",
+  url = {https://abstracts.g-node.org/conference/BC24/abstracts#/uuid/ccb5dd62-403b-4da0-a839-2652ab70ac28},
+  code = {https://github.com/catniplab/NeuroTask/tree/nwb},
+  year = 2024,
+  poster_no = "I 1",
 }
 
 @InProceedings{Dowling2024b,
@@ -807,6 +815,14 @@ In this work we show that (1) prediction measures for goodness of learned dynami
   code          = {https://github.com/catniplab/vjf.git}
 }
 
+@Conference{Sokol2020d,
+  author    = {Piotr A. Sokol and Ian Jordan and Eben Kadile and Il Memming Park},
+  title = "Unexpected benefits of learning with neural oscillation: stable backpropagation with limit cycles",
+  booktitle = "From Neuroscience to Artificially Intelligent Systems (NAISys)",
+  year = 2020,
+  poster_no = "168",
+}
+
 @InProceedings{Sokol2018a,
   author        = {Piotr Sokol and Il Memming Park},
   title         = {Information geometry of orthogonal initializations and training},
@@ -1023,14 +1039,6 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   booktitle = {DeepMath},
   year      = {2019},
   url       = {https://www.deepmath-conference.com},
-}
-
-@Conference{Sokol2020d,
-  author    = {Piotr A. Sokol and Ian Jordan and Eben Kadile and Il Memming Park},
-  title = "Unexpected benefits of learning with neural oscillation: stable backpropagation with limit cycles",
-  booktitle = "From Neuroscience to Artificially Intelligent Systems (NAISys)",
-  year = 2020,
-  poster_no = "168",
 }
 
 @InProceedings{Sokol2019a,
