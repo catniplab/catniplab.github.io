@@ -1,0 +1,10 @@
+<div class="entry">
+    \format[Authors(LastFirst,Initials,Sep=, ,LastSep=, & ),HTMLChars]{\author} (\year). \format[HTMLChars]{\title}. <i>\format[HTMLChars]{\journal}\format[HTMLChars]{\booktitle}</i>\begin{volume}, <i>\volume</i>\end{volume}\begin{number}(\format[FormatPagesForHTML]{\number})\end{number}\begin{pages}, \format[FormatPagesForHTML]{\pages}\end{pages}. \begin{doi}<a href="https://doi.org/\format[DOICheck]{\doi}">https://doi.org/\format[DOICheck]{\doi}</a>\end{doi}\begin{url} <a href="\format{\url}">\format{\url}</a>\end{url}
+    <div class="links">
+        \begin{pdf}<a href="/publications/\format{\pdf}">[PDF]</a> \end{pdf}
+        \begin{code}<a href="\format{\code}">[Code]</a> \end{code}
+        \begin{data}<a href="\format{\data}">[Data]</a> \end{data}
+        \begin{youtube}<a href="\format{\youtube}">[YouTube]</a> \end{youtube}
+        \begin{eprint}<a href="https://arxiv.org/abs/\format{\eprint}">[arXiv]</a> \end{eprint}
+    </div>
+</div>
