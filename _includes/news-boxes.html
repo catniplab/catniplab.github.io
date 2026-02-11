@@ -1,0 +1,143 @@
+<!-- News boxes for landing page - pulls from Jekyll posts -->
+<style>
+  .news-boxes {
+    margin: 2em 0;
+  }
+
+  .news-boxes h2 {
+    margin-bottom: 1em;
+    font-size: 1.8em;
+  }
+
+  .news-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    transition: box-shadow 0.2s;
+  }
+
+  .news-box:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .news-box.featured {
+    border-left: 4px solid #3b82f6;
+    background: #fafbff;
+  }
+
+  .news-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    margin-bottom: 0.75em;
+  }
+
+  .news-date {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+
+  .news-badge {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .news-badge.publication { background: #dbeafe; color: #1e40af; }
+  .news-badge.hiring { background: #d1fae5; color: #065f46; }
+  .news-badge.workshop { background: #e9d5ff; color: #6b21a8; }
+  .news-badge.award { background: #fef3c7; color: #92400e; }
+  .news-badge.announcement { background: #f3f4f6; color: #374151; }
+
+  .news-title {
+    margin: 0 0 0.5em 0;
+    font-size: 1.3em;
+    line-height: 1.3;
+  }
+
+  .news-title a {
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+
+  .news-title a:hover {
+    color: #3b82f6;
+  }
+
+  .news-excerpt {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0.75em;
+  }
+
+  .news-read-more {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95em;
+  }
+
+  .news-read-more:hover {
+    text-decoration: underline;
+  }
+
+  .news-archive-link {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  .news-archive-link a {
+    color: #3b82f6;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .news-box {
+      padding: 1em;
+    }
+
+    .news-title {
+      font-size: 1.1em;
+    }
+  }
+</style>
+
+<div class="news-boxes">
+  <h2>Recent News</h2>
+
+  {% assign featured_posts = site.posts | where: "category", "news" | where: "featured", true | slice: 0, 5 %}
+  {% if featured_posts.size == 0 %}
+    {% assign featured_posts = site.posts | where: "category", "news" | slice: 0, 5 %}
+  {% endif %}
+
+  {% for post in featured_posts %}
+  <article class="news-box {% if post.featured %}featured{% endif %}">
+    <div class="news-header">
+      <time class="news-date">{{ post.date | date: "%Y %b" }}</time>
+      {% if post.news_type %}
+      <span class="news-badge {{ post.news_type }}">{{ post.news_type | capitalize }}</span>
+      {% endif %}
+    </div>
+
+    <h3 class="news-title">
+      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    </h3>
+
+    <div class="news-excerpt">
+      {{ post.excerpt | strip_html | truncatewords: 30 }}
+    </div>
+
+    <a href="{{ site.baseurl }}{{ post.url }}" class="news-read-more">Read more →</a>
+  </article>
+  {% endfor %}
+
+  <p class="news-archive-link">
+    <a href="{{ site.baseurl }}/news/">View all news →</a>
+  </p>
+</div>

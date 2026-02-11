@@ -4,7 +4,7 @@ title: Teaching
 permalink: /teaching/
 ---
 
-Here are some teaching resources created by Dr. Park and the CATNIP lab.
+Teaching resources and courses created by Dr. Park and the CATNIP lab.
 
 ## [Machine learning for neuroscience, a Cajal course (2023)](https://cajal-training.org/on-site/artificial-intelligence/)
 

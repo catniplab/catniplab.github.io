@@ -2,6 +2,8 @@
 layout: post
 title: Two Postdocs Position Open!
 category: news
+featured: false
+news_type: hiring
 ---
 
 The [Neural Dynamics Lab](https://fchampalimaud.org/research/groups/memming-park), also known as the [CATNIP Lab](catniplab.github.io/), headed by Memming Park at the [Champalimaud Centre for the Unknown, Lisbon, Portugal](https://fchampalimaud.org/champalimaud-research), is looking for talented next generation scientists and engineers to advance neurotechnology and neural data analysis tools to better understand neural dynamics.

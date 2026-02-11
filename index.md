@@ -13,6 +13,8 @@ See [research page](research) for details.
 
 ![CATNIP lab gathered around a whiteboard](/images/Parklabtunnel.jpg)
 
+{% include news-boxes.html %}
+
 ### Contact us
 
 [memming.park@research.fchampalimaud.org](mailto:memming.park@research.fchampalimaud.org)
