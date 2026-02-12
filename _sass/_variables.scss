@@ -3,25 +3,36 @@
 // VARIABLES
 //
 
-// Colors
-$blue: #4183C4;
+// Neural-inspired color palette
+$primary: #2D5BA6;        // Deep neural blue
+$secondary: #7B2CBF;      // Neural purple (synaptic)
+$accent: #FF6B6B;         // Warm coral accent (activity)
+$cyan: #06FFA5;           // Bright cyan (signal)
+$dark-purple: #1A0B2E;    // Deep background option
 
-// Grays
-$black: #000;
-$darkerGray: #222;
-$darkGray: #333;
-$gray: #666;
-$lightGray: #eee;
-$white: #fff;
+// Grays - refined scale
+$black: #0A0A0A;
+$darkerGray: #1A1A1A;
+$darkGray: #2D2D2D;
+$gray: #6B6B6B;
+$lightGray: #E8E8E8;
+$paleLightGray: #F7F7F7;
+$white: #FEFEFE;
 
-// Font stacks
-$helvetica: Helvetica, Arial, sans-serif;
-$helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: Georgia, serif;
+// Font stacks - distinctive & refined
+$display: "IBM Plex Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+$body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$mono: "IBM Plex Mono", "SF Mono", Monaco, "Cascadia Code", monospace;
 
 // Mobile breakpoints
 @mixin mobile {
   @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 960px) {
     @content;
   }
 }

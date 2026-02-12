@@ -16,65 +16,147 @@
 
 html {
   font-size: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-	background: $white;
-  font: 18px/1.4 $helvetica;
+  background: $white;
+  font: 18px/1.65 $body;
   color: $darkGray;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Subtle neural noise texture
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.015;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+  }
 }
 
 .container {
   margin: 0 auto;
-  max-width: 740px;
-  padding: 0 10px;
+  max-width: 820px;
+  padding: 0 40px;
   width: 100%;
+
+  @include mobile {
+    padding: 0 20px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $helveticaNeue;
+  font-family: $display;
   color: $darkerGray;
-  font-weight: bold;
-
-  line-height: 1.7;
-  margin: 1em 0 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 1.5em 0 0.6em;
   padding: 0;
+  letter-spacing: -0.02em;
 
   @include mobile {
-    line-height: 1.4;
+    line-height: 1.25;
   }
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 0;
+
+  @include mobile {
+    font-size: 2rem;
+  }
+
   a {
     color: inherit;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary;
+    }
   }
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+
+  @include mobile {
+    font-size: 1.6rem;
+  }
+
+  // Subtle underline accent
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, $primary, $secondary);
+    border-radius: 2px;
+  }
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 1.5rem;
+  color: $primary;
+
+  @include mobile {
+    font-size: 1.3rem;
+  }
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 1.2rem;
   color: $gray;
+  font-family: $body;
+  font-weight: 600;
 }
 
 p {
-  margin: 15px 0;
+  margin: 1.2em 0;
+  max-width: 70ch;
 }
 
 a {
-  color: $blue;
+  color: $primary;
   text-decoration: none;
-	cursor: pointer;
-  &:hover, &:active {
-    color: $blue;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s ease;
+
+  // Subtle underline on hover
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $primary, $secondary);
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: $secondary;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:active {
+    color: $accent;
   }
 }
 
@@ -109,6 +191,15 @@ strong, b {
 
 img {
   max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
 }
 
 // Fixes images in popup boxes from Google Translate
@@ -116,19 +207,25 @@ img {
   max-width: none;
 }
 
+// Article/page images get special treatment
+article img {
+  margin: 2em 0;
+  display: block;
+}
+
 .date {
   font-style: italic;
   color: $gray;
 }
 
-// Specify the color of the selection
+// Specify the color of the selection - neural-inspired
 ::-moz-selection {
-  color: $black;
-  background: $lightGray;
+  color: $white;
+  background: rgba($primary, 0.85);
 }
 ::selection {
-  color: $black;
-  background: $lightGray;
+  color: $white;
+  background: rgba($primary, 0.85);
 }
 
 // Nicolas Gallagher's micro clearfix hack
@@ -152,88 +249,139 @@ img {
 //
 
 .wrapper-masthead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba($white, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba($primary, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   margin-bottom: 50px;
+
+  // Make container invisible - bypass its constraints
+  .container {
+    display: contents;
+  }
 }
 
 .masthead {
-  padding: 20px 0;
-  border-bottom: 1px solid $lightGray;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 15px;
+  row-gap: 4px;
+  max-width: 1400px;
+  margin: 0 auto;
 
   @include mobile {
-    text-align: center;
+    padding: 12px 20px;
+    gap: 6px 10px;
+    row-gap: 3px;
   }
 }
 
 .site-avatar {
-  float: left;
-  width: 70px;
-  height: 70px;
-  margin-right: 15px;
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 
-  @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
+  &:hover {
+    transform: scale(1.08);
   }
 
   img {
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba($primary, 0.2);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba($primary, 0.3);
+    }
   }
 }
 
 .site-info {
-  float: left;
+  flex-shrink: 1;
+  min-width: 0;
 
   @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
+    flex-shrink: 1;
   }
 }
 
 .site-name {
   margin: 0;
-  color: $darkGray;
+  color: $darkerGray;
   cursor: pointer;
-  font-family: $helveticaNeue;
-  font-weight: 300;
-  font-size: 28px;
-  letter-spacing: 1px;
-}
-
-.site-description {
-  margin: -5px 0 0 0;
-  color: $gray;
-  font-size: 16px;
+  font-family: $display;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+  line-height: 1.2;
 
   @include mobile {
-    margin: 3px 0;
-  }
-}
-
-nav {
-  float: right;
-  margin-top: 23px; // @TODO: Vertically middle align
-  font-family: $helveticaNeue;
-  font-size: 18px;
-
-  @include mobile {
-    float: none;
-    margin-top: 9px;
-    display: block;
-    font-size: 16px;
+    font-size: 1.1rem;
   }
 
   a {
-    margin-left: 20px;
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.site-description {
+  display: none; // Hide description in compact header
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  row-gap: 4px;
+  margin-left: auto;
+  font-family: $body;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  @include mobile {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
+    row-gap: 3px;
+    margin-left: 0;
+  }
+
+  a {
+    padding: 6px 11px;
     color: $darkGray;
-    text-align: right;
-    font-weight: 300;
-    letter-spacing: 1px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 
     @include mobile {
-      margin: 0 10px;
-      color: $blue;
+      padding: 6px 9px;
+      font-size: 0.8rem;
+    }
+
+    // Remove default link underline for nav
+    &::after {
+      display: none;
+    }
+
+    &:hover {
+      background: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &:active {
+      transform: scale(0.98);
     }
   }
 }
@@ -254,46 +402,184 @@ nav {
 
 .post {
   blockquote {
-    margin: 1.8em .8em;
-    border-left: 2px solid $gray;
-    padding: 0.1em 1em;
-    color: $gray;
-    font-size: 22px;
+    margin: 2em 0;
+    border-left: 4px solid $primary;
+    padding: 1em 1.5em;
+    color: $darkGray;
+    font-size: 1.1rem;
     font-style: italic;
+    background: linear-gradient(90deg, rgba($primary, 0.04) 0%, transparent 100%);
+    border-radius: 0 4px 4px 0;
+    position: relative;
+
+    &::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      font-size: 4rem;
+      color: rgba($primary, 0.2);
+      font-family: $display;
+      line-height: 1;
+    }
   }
 
   .comments {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .read-more {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: $primary;
+    display: inline-block;
+    padding: 8px 16px;
+    border: 2px solid $primary;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $primary;
+      color: $white;
+      transform: translateX(4px);
+    }
   }
 }
 
 // Callout-style blockquotes used for research-page taglines
 .page .entry blockquote.research-tagline {
-  margin: 0.5em 0;
-  padding: 0.6em 1.2em;
-  border-left: 4px solid $blue;
-  background-color: lighten($lightGray, 9%);
+  margin: 1.5em 0;
+  padding: 1.2em 1.8em;
+  border-left: 5px solid $secondary;
+  background: linear-gradient(135deg, rgba($secondary, 0.06) 0%, rgba($primary, 0.03) 100%);
   color: $darkerGray;
-  font-size: 20px;
+  font-size: 1.15rem;
   font-style: italic;
   font-weight: 500;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .wrapper-footer {
-  margin-top: 50px;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-color: $lightGray;
+  margin-top: 80px;
+  border-top: 1px solid rgba($primary, 0.1);
+  background: linear-gradient(180deg, $white 0%, $paleLightGray 100%);
+  box-shadow: inset 0 1px 0 rgba($primary, 0.05);
 }
 
 footer {
-  padding: 20px 0;
+  padding: 30px 0;
   text-align: center;
+  color: $gray;
+  font-size: 0.9rem;
+}
+
+/*********************/
+/* MODERN REFINEMENTS */
+/*********************/
+
+// Inline code
+code {
+  font-family: $mono;
+  font-size: 0.9em;
+  background: rgba($primary, 0.06);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: $darkerGray;
+  border: 1px solid rgba($primary, 0.1);
+}
+
+// Code blocks
+pre {
+  background: $darkerGray;
+  color: $lightGray;
+  padding: 1.5em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2em 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba($primary, 0.2);
+
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  th {
+    background: $lightGray;
+    color: $darkerGray;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid $darkGray;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid $lightGray;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba($lightGray, 0.3);
+  }
+
+  tr:hover {
+    background: rgba($primary, 0.04);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// Horizontal rule
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $primary, transparent);
+  margin: 3em 0;
+}
+
+// Utility: Fade-in animation for content
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page, .post {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Subtle focus styles for accessibility
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS

@@ -5,15 +5,30 @@
     height: 200px;
     border-radius: 50%;
     overflow: hidden;
-}
-.profile-photo img {
-    max-width: 100%;
-}
-.person-name {
-    font-family: Verdana,"Helvetica Neue", Helvetica, Arial, sans-serif;
+    box-shadow: 0 8px 24px rgba($primary, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 4px solid rgba($primary, 0.1);
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba($primary, 0.3);
+    }
 }
 
-.center-image{
-	margin: 0 auto;
-	display: block;
+.profile-photo img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.person-name {
+    font-family: $display;
+    font-weight: 600;
+    color: $darkerGray;
+    margin-top: 1em;
+}
+
+.center-image {
+    margin: 0 auto;
+    display: block;
 }
