@@ -48,7 +48,13 @@ The works create aesthetic experiences that evoke the scientific process of unde
 
 {% include workshops.html %}
 
-## Conference Service
+## Lab Outings
 
-* **2018–2024 Mar**: Conference Tutorial Chair, Computational Systems Neuroscience (COSYNE)
-* **2017–2019 Feb**: Publicity Chair, Computational Systems Neuroscience (COSYNE)
+### 2024 Lab Retreat
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1em; margin: 2em 0;">
+  <img src="/images/20240808_lab_retreat_184315700.jpg" alt="Lab retreat 2024" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="/images/20240807_lab_retreat_214046.jpg" alt="Lab retreat 2024" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="/images/20240808_lab_retreat_102806321.jpg" alt="Lab retreat 2024" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px;">
+  <img src="/images/20240808_lab_retreat_IMG_3409.gif" alt="Lab retreat 2024 animated" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px;">
+</div>
