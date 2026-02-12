@@ -13,8 +13,8 @@ Community engagement, organized events, service to the scientific community, and
 An immersive media art series exploring low-dimensional manifolds through sensory experiences. The project asks: "Can our senses help us understand and make sense of low-dimensional representations of complex data?"
 
 Using real-time algorithms developed by the lab, the series includes two major works:
-- **Overparameterized Time**: An immersive audiovisual piece examining movement and real-time computational processes
-- **Manifold Time**: An interactive installation transforming space into a collective system through human presence detection and pattern movement
+- **Overparameterized Time**: An immersive audiovisual piece examining movement and real-time computational processes. A new type of persistent continuous-valued working memory based on two oscillating stable limit cycles integrates the visual motion energy of the performer.
+- **Manifold Time**: An interactive installation transforming space into a collective system through human presence detection and pattern movement.
 
 The works create aesthetic experiences that evoke the scientific process of understanding brain complexity through sonification and visualization.
 
