@@ -16,7 +16,7 @@ permalink: /people/
 * [Google scholar](http://scholar.google.com/citations?user=CsmltusAAAAJ), [DBLP](http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/p/Park_0002:Il.html), [ORCID](http://orcid.org/0000-0002-4255-7750)
 * [LinkedIn](http://www.linkedin.com/in/memming), [@memming.bsky.social](https://bsky.app/profile/memming.bsky.social), [memming@twitter/X](http://twitter.com/memming)
 * [neurotree](http://neurotree.org/neurotree/tree.php?pid=48684)
-* 2015-2023 Associate professor with tenure at Stony Brook Univeristy
+* 2015-2023 Associate professor with tenure at Stony Brook University
 * 2010–2014 postdoc with Jonathan Pillow (UT Austin)
 * 2006–2010 PhD under José C. Príncipe (University of Florida)
 
@@ -41,6 +41,8 @@ permalink: /people/
 ## Ábel Ságodi
 ![Abel Sagodi](/images/Abel_Sagodi_sq.jpg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
+
+<a href="https://bsky.app/profile/neurabel.bsky.social" class="bluesky-follow-button">Follow @neurabel.bsky.social</a>
 
 {: .person-name }
 ## Carolina Filipe
