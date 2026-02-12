@@ -23,7 +23,7 @@ permalink: /people/
 
 {: .person-name }
 ## Matthew Dowling
-![Matthew Dowling](/images/matt_lab_pic.jpg){: .profile-photo }
+![Matthew Dowling](/images/20240923-Matt_Dowling_portrait_Hawaii_serious_person_picture.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
 <a href="https://twitter.com/matt_p_dowling" class="twitter-follow-button" data-show-count="false">Follow @matt_p_dowling</a>
@@ -44,18 +44,6 @@ permalink: /people/
 
 <a href="https://bsky.app/profile/neurabel.bsky.social" class="bluesky-follow-button">Follow @neurabel.bsky.social</a>
 
-{: .person-name }
-## Carolina Filipe
-![Cartoon MRI head](/images/1.jpeg){: .profile-photo }
-* Research Support Technician, Champalimaud Centre for the Unknown
-
-
-{: .person-name }
-## Yves Bernaerts
-![Cartoon MRI head](/images/Yves-Bernaerts.jpg){: .profile-photo }
-* Postdoctoral researcher, Champalimaud Centre for the Unknown
-
-<a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
 
 {: .person-name }
 ## Hyungju Jeon
@@ -79,6 +67,19 @@ permalink: /people/
 
 # Past members
 {: .person-name }
+
+{: .person-name }
+## Yves Bernaerts
+![Cartoon MRI head](/images/Yves-Bernaerts.jpg){: .profile-photo }
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+
+<a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
+
+{: .person-name }
+## Carolina Filipe
+![Cartoon MRI head](/images/1.jpeg){: .profile-photo }
+* Research Support Technician, Champalimaud Centre for the Unknown
+
 
 {: .person-name }
 ## André Mendonça
