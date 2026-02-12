@@ -42,6 +42,8 @@ permalink: /people/
 ![Abel Sagodi](/images/Abel_Sagodi_sq.jpg){: .profile-photo }
 * PhD student, Champalimaud Centre for the Unknown
 
+<a href="https://bsky.app/profile/neurabel.bsky.social" class="bluesky-follow-button">Follow @neurabel.bsky.social</a>
+
 {: .person-name }
 ## Carolina Filipe
 ![Cartoon MRI head](/images/1.jpeg){: .profile-photo }
