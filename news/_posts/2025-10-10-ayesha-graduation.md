@@ -2,7 +2,7 @@
 layout: post
 title: Ayesha Vermani successfully defends her PhD
 category: news
-featured: true
+featured: false
 news_type: achievement
 ---
 
