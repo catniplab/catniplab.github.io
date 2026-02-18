@@ -69,11 +69,17 @@ permalink: /people/
 {: .person-name }
 
 {: .person-name }
+## Justus Konstantin Kautz
+![Cartoon MRI head](/images/20250926_Justus_Kautz_s.jpg){: .profile-photo }
+* Visiting Master student (Erasmus), University of Freiburg
+* Champalimaud Centre for the Unknown (2025 Aug--Nov)
+
+{: .person-name }
 ## Yves Bernaerts
 ![Cartoon MRI head](/images/Yves-Bernaerts.jpg){: .profile-photo }
 * Postdoctoral researcher, Champalimaud Centre for the Unknown
 
-<a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts/a>
+<a href="https://twitter.com/YvesBernaerts" class="twitter-follow-button" data-show-count="false">Follow @YvesBernaerts</a>
 
 {: .person-name }
 ## Carolina Filipe
