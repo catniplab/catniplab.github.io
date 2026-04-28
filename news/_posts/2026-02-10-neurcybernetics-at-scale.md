@@ -2,7 +2,7 @@
 layout: post
 title: Neuro-Cybernetics at Scale website lives
 category: news
-featured: true
+featured: false
 news_type: announcement
 ---
 
