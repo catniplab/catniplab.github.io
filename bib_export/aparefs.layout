@@ -5,6 +5,6 @@
         \begin{code}<a href="\format{\code}">[Code]</a> \end{code}
         \begin{data}<a href="\format{\data}">[Data]</a> \end{data}
         \begin{youtube}<a href="\format{\youtube}">[YouTube]</a> \end{youtube}
-        \begin{eprint}<a href="https://arxiv.org/abs/\format{\eprint}">[arXiv]</a> \end{eprint}
+        \begin{eprint}<a href="https://\format[Default(arxiv.org/abs),Replace(arXiv,arxiv.org/abs),Replace(bioRxiv,www.biorxiv.org/content/10.1101)]{\archivePrefix}/\format{\eprint}">[\format[Default(arXiv)]{\archivePrefix}]</a> \end{eprint}
     </div>
 </div>
