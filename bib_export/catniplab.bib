@@ -7,6 +7,18 @@
   note={Poster presentation}
 }
 
+@Unpublished{Dowling2026a,
+    author = {Matthew Dowling and Hyungju Jeon and Cristina Savin and Il Memming Park},
+    title = {Memory by Design: Probabilistic Sequence Layers},
+    year = {2026},
+    archiveprefix = {arXiv},
+    eprint = {2605.31163},
+    url = {http://arxiv.org/abs/2605.31163},
+    primaryclass = {stat.ML},
+    keywords = {state-space models, sequence models, Bayesian filtering, associative memory},
+    abstract = {We introduce the design-model framework: a way to derive efficient recurrent sequence maps from explicit assumptions about memory. A design model writes evidence into memory by exact Bayesian filtering; a query-dependent readout produces a predictive distribution whose mean is the layer output. In our linear-Gaussian instantiation, the Bayesian Layer propagates both a mean and a covariance: the covariance tracks uncertainty over stored associations, steering writes toward uncertain directions, attenuating gains as evidence accumulates, and preserving confident memories. The same framework unifies several sub-quadratic recurrences. Linear attention, GLA, and Mamba-2/SSD are exact filters under one design model, whereas DeltaNet and related Delta-rule models arise as covariance-reset reductions under another. Restoring the covariance yields closed-form predictions for retrieval dynamics, verified empirically, and improves robustness beyond the training regime across controlled collision studies, learned associative recall, and the Zoology MQAR benchmark; distilling Bayesian Layers into a pretrained 340M Gated DeltaNet improves RULER long-context retrieval at matched compute.},
+}
+
 @Unpublished{Park2026a,
     author = {I. Memming Park and Ayesha Vermani and Gonzalo G. de Polavieja and Juan \'Alvaro Gallego and Kathleen Esfahany and Shreya Saxena and Michael Orger and Auke Ijspeert and Matthew Dowling and Daniel McNamee and Srinivas C. Turaga and Zachary Mainen and Joseph J. Paton and Alfonso Renart},
     title = {Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience},
