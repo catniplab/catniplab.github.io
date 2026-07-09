@@ -6,6 +6,11 @@ permalink: /teaching/
 
 Teaching resources and courses created by Dr. Park and the CATNIP lab.
 
+## Conditioning Possible Worlds
+
+* Target audience: anyone learning conditional probability and Bayes' rule
+* [Interactive visualization](/teaching/possible-worlds/) - conditioning as zooming into possible worlds
+
 ## [Machine learning for neuroscience, a Cajal course (2023)](https://cajal-training.org/on-site/artificial-intelligence/)
 
 ## Linear Dynamical System for Neuroscience

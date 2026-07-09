@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conditional Possible Worlds - conditioning as zooming</title>
+<style>
+:root {
+  --paper: #fbfaf8; --ink: #33312e; --muted: #8b8680; --line: #e5e1da;
+  --h1c: #b96a3c;               /* warm terracotta, low saturation */
+  --h2c: #4e7ca6;               /* desaturated blue */
+  --rain: #7a766f; --dead: #cfcbc3;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink);
+  font: 17px/1.65 Charter, 'Iowan Old Style', Georgia, serif; }
+main { max-width: 640px; margin: 0 auto; padding: 64px 24px 96px; }
+h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em;
+  margin: 0 0 8px; }
+.subtitle { color: var(--muted); margin: 0 0 44px; }
+.caption { min-height: 4.4em; margin: 0 0 20px; }
+.stage-row { display: flex; gap: 14px; align-items: flex-end; }
+#stage { position: relative; flex: 1; min-width: 0; aspect-ratio: 1;
+  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+  touch-action: none; background: #fff; }
+#omega { width: 132px; flex: none; font-family: system-ui, sans-serif;
+  font-size: 12px; color: var(--muted); }
+#omega svg { width: 100%; aspect-ratio: 1; display: block;
+  border: 1px solid var(--line); border-radius: 3px; background: #fff; }
+#omega .omega-label { margin-top: 5px; text-align: center; }
+#stage canvas, #stage svg { position: absolute; inset: 0;
+  width: 100%; height: 100%; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin-top: 20px; font-family: system-ui, sans-serif; font-size: 13.5px; }
+.controls .grow { flex: 1; }
+button { font: inherit; padding: 7px 14px; border: 1px solid var(--line);
+  border-radius: 6px; background: #fff; color: var(--ink); cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button.primary { background: var(--ink); border-color: var(--ink);
+  color: var(--paper); }
+button:disabled { opacity: 0.4; cursor: default; }
+input[type=range] { accent-color: var(--ink); width: 110px; }
+#obs-list { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px;
+  font-family: system-ui, sans-serif; font-size: 13.5px; }
+#obs-list label { display: flex; align-items: center; gap: 5px;
+  cursor: pointer; }
+#obs-list input { accent-color: var(--ink); margin: 0; }
+.readouts { display: flex; gap: 24px; margin-top: 18px;
+  font-family: system-ui, sans-serif; font-size: 13.5px;
+  font-variant-numeric: tabular-nums; color: var(--muted); }
+.readouts b { color: var(--ink); font-weight: 600; }
+#strip { margin-top: 10px; font-family: system-ui, sans-serif;
+  font-size: 13.5px; font-variant-numeric: tabular-nums;
+  color: var(--muted); min-height: 1.5em; }
+#posterior { display: none; margin: 0 0 14px;
+  font-family: system-ui, sans-serif; font-size: 11.5px;
+  font-variant-numeric: tabular-nums; }
+#posterior.on { display: block; }
+#post-title { color: var(--muted); margin-bottom: 6px; text-align: center; }
+#post-chart { display: flex; gap: 18px; justify-content: center;
+  align-items: flex-end; height: 72px;
+  border-bottom: 1px solid var(--line); }
+.pbar { display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-end; height: 100%; }
+.pcol { width: 34px; border-radius: 2px 2px 0 0;
+  transition: height 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+#pc1 { background: var(--h1c); } #pc2 { background: var(--h2c); }
+.pval { margin-bottom: 3px; color: var(--ink); }
+.pnames { display: flex; gap: 18px; justify-content: center; margin-top: 4px; }
+.pnames span { width: 34px; text-align: center; }
+.pnames .l1 { color: var(--h1c); } .pnames .l2 { color: var(--h2c); }
+#reading { margin-top: 64px; padding-top: 18px;
+  border-top: 1px solid var(--line); }
+#reading h2 { font-size: 19px; font-weight: 600; margin: 0 0 10px; }
+#reading ul { margin: 0; padding-left: 1.2em; }
+#reading li { font-size: 15px; line-height: 1.55; margin-bottom: 9px;
+  color: var(--muted); }
+#reading a { color: var(--ink); }
+footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 13.5px; font-family: system-ui, sans-serif; }
+footer a { color: inherit; }
+@media (max-width: 480px) {
+  main { padding: 32px 16px 64px; }
+  h1 { font-size: 24px; }
+  .stage-row { flex-direction: column; align-items: flex-start; }
+  #omega { width: 120px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>Conditioning Possible Worlds</h1>
+  <p class="subtitle">Conditioning is zooming: every observation shrinks
+    the world, and probabilities are rescaled to what remains.</p>
+  <p class="caption" id="caption"></p>
+  <div class="stage-row">
+    <div id="stage">
+      <canvas id="rain"></canvas>
+      <svg id="overlay" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div id="omega">
+      <div id="posterior">
+        <div id="post-title"></div>
+        <div id="post-chart">
+          <div class="pbar"><span class="pval" id="pv1"></span><div class="pcol" id="pc1"></div></div>
+          <div class="pbar"><span class="pval" id="pv2"></span><div class="pcol" id="pc2"></div></div>
+        </div>
+        <div class="pnames"><span class="l1">H1</span><span class="l2">H2</span></div>
+      </div>
+      <svg id="omega-map" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="omega-label">&Omega; - the sample space of possible worlds</div>
+    </div>
+  </div>
+  <div class="controls">
+    <label>rain <input type="range" id="rate" min="0" max="12" step="1" value="4"></label>
+    <span class="grow"></span>
+    <button id="btn-add">Add observation</button>
+    <button id="btn-condition" class="primary">Condition on E1</button>
+    <button id="btn-zoom">Zoom out</button>
+    <button id="btn-back">Remove last</button>
+    <button id="btn-reset">Reset</button>
+    <button id="btn-hyp">Compare hypotheses</button>
+  </div>
+  <div id="obs-list"></div>
+  <div class="readouts">
+    <span id="read-pe"></span>
+    <span id="read-tally"></span>
+  </div>
+  <div id="strip"></div>
+  <section id="reading">
+    <h2>Further reading</h2>
+    <ul>
+      <li>Pretty much any basic textbook on probability or statistics.</li>
+      <li><a href="https://seeing-theory.brown.edu/">Seeing Theory</a>
+        (Brown University) - an interactive probability textbook in the
+        same spirit; the compound probability and Bayesian inference
+        chapters pick up where this page leaves off, in particular,
+	for <a href="https://setosa.io/conditional/">conditional probability</a>.
+      </li>
+      <li><a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">3Blue1Brown,
+        "Bayes theorem"</a> - the geometric intuition behind the
+        posterior bars, beautifully animated.</li>
+      <li><a href="https://bayes.wustl.edu/etj/prob/book.pdf">Jaynes,
+        Probability Theory: The Logic of Science</a>, chapters 1-2 -
+        for the ambitious: probability as the logic of plausible
+        reasoning, where hypotheses live in the mind of the reasoner.</li>
+    </ul>
+  </section>
+  <footer>
+    Inspired by <a href="http://setosa.io/conditional/">"Conditional
+    probability"</a> by Victor Powell and Lewis Lehe, from the
+    <a href="http://setosa.io/ev/">Explained Visually</a> series.
+    Source on <a href="https://github.com/memming/visualizing-bayes">GitHub</a>.
+  </footer>
+</main>
+<script>
+/* CORE-BEGIN */
+'use strict';
+const PW = {};
+
+// --- geometry: all rects {x,y,w,h} live in ORIGINAL world coordinates ---
+// [0,1]^2. Zooming never rescales stored rects; it is a view transform.
+const FULL_WORLD = { x: 0, y: 0, w: 1, h: 1 };
+
+function rectArea(r) { return r.w * r.h; }
+
+// Intersection of two rects; disjoint rects give a zero-area result.
+function intersectRect(a, b) {
+  const x = Math.max(a.x, b.x), y = Math.max(a.y, b.y);
+  const x2 = Math.min(a.x + a.w, b.x + b.w), y2 = Math.min(a.y + a.h, b.y + b.h);
+  return { x, y, w: Math.max(0, x2 - x), h: Math.max(0, y2 - y) };
+}
+
+// Events do not necessarily nest: the world after k observations is the
+// running intersection W_k = E1 and ... and Ek, derived from the events
+// as drawn (the single source of truth).
+function deriveWorlds(events) {
+  const worlds = [FULL_WORLD];
+  for (const e of events) worlds.push(intersectRect(worlds[worlds.length - 1], e));
+  return worlds;
+}
+
+// Force e inside world; each side at least minFrac of the world's side.
+function clampRect(e, world, minFrac) {
+  const w = Math.min(Math.max(e.w, world.w * minFrac), world.w);
+  const h = Math.min(Math.max(e.h, world.h * minFrac), world.h);
+  const x = Math.min(Math.max(e.x, world.x), world.x + world.w - w);
+  const y = Math.min(Math.max(e.y, world.y), world.y + world.h - h);
+  return { x, y, w, h };
+}
+
+// --- hypothesis densities on a fixed grid over the ORIGINAL world ---
+const GRID_N = 128;
+
+// Gaussian blob + uniform floor; cell masses sum to 1 over the full grid.
+// The floor gives every hypothesis full support: no observation can drive
+// its posterior to exactly zero, and contrary evidence can revive it.
+function makeDensity(cx, cy, sigma, floorMass) {
+  const n = GRID_N * GRID_N;
+  const d = new Float64Array(n);
+  let sum = 0;
+  for (let j = 0; j < GRID_N; j++) {
+    for (let i = 0; i < GRID_N; i++) {
+      const x = (i + 0.5) / GRID_N, y = (j + 0.5) / GRID_N;
+      const g = Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * sigma * sigma));
+      d[j * GRID_N + i] = g;
+      sum += g;
+    }
+  }
+  for (let k = 0; k < n; k++) d[k] = (1 - floorMass) * d[k] / sum + floorMass / n;
+  return d;
+}
+
+// Mass of density d inside rect r, integrating PARTIAL cell overlap so a
+// rect smaller than one cell still gets mass proportional to its area.
+function massIn(d, r) {
+  const x0 = Math.max(0, r.x * GRID_N), x1 = Math.min(GRID_N, (r.x + r.w) * GRID_N);
+  const y0 = Math.max(0, r.y * GRID_N), y1 = Math.min(GRID_N, (r.y + r.h) * GRID_N);
+  let m = 0;
+  for (let j = Math.floor(y0); j < y1; j++) {
+    const fy = Math.min(j + 1, y1) - Math.max(j, y0);
+    for (let i = Math.floor(x0); i < x1; i++) {
+      const fx = Math.min(i + 1, x1) - Math.max(i, x0);
+      m += d[j * GRID_N + i] * fx * fy;
+    }
+  }
+  return m;
+}
+
+// Recompute everything from the history stack (single source of truth).
+// history[0] must be FULL_WORLD; each later rect is inside the previous.
+function computeState(history, cfg) {
+  const hyp = cfg && cfg.hypotheses;
+  const steps = [];
+  let post1 = hyp ? hyp.prior1 : null;
+  let product = 1;
+  for (let k = 1; k < history.length; k++) {
+    const prev = history[k - 1], cur = history[k];
+    // pE is always the uniform (area) measure: the rain comes from the
+    // world, not from a hypothesis. Hypotheses enter only as likelihoods.
+    const pE = rectArea(cur) / rectArea(prev);
+    if (hyp) {
+      const pE1 = massIn(hyp.d1, cur) / massIn(hyp.d1, prev);
+      const pE2 = massIn(hyp.d2, cur) / massIn(hyp.d2, prev);
+      const odds = (post1 / (1 - post1)) * (pE1 / pE2);
+      post1 = odds / (1 + odds);
+      steps.push({ pE, pE1, pE2, post1 });
+    } else {
+      steps.push({ pE });
+    }
+    product *= pE;
+  }
+  const world = history[history.length - 1];
+  return { world, areaFrac: rectArea(world), steps, product, post1 };
+}
+
+// --- sampling: the rain is future potential randomness, drawn uniformly ---
+// from the current (conditioned, renormalized) world. Futures come from
+// the world, not from a hypothesis.
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function sampleUniform(world, rand) {
+  return { x: world.x + rand() * world.w, y: world.y + rand() * world.h };
+}
+
+Object.assign(PW, { FULL_WORLD, GRID_N, rectArea, intersectRect, deriveWorlds,
+  clampRect, computeState, makeDensity, massIn, mulberry32, sampleUniform });
+if (typeof globalThis !== 'undefined') globalThis.PW = PW;
+/* CORE-END */
+</script>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const canvas = $('rain'), ctx = canvas.getContext('2d');
+const css = getComputedStyle(document.documentElement);
+const C = {
+  rain: css.getPropertyValue('--rain').trim(),
+  dead: css.getPropertyValue('--dead').trim(),
+  h1: css.getPropertyValue('--h1c').trim(),
+  h2: css.getPropertyValue('--h2c').trim(),
+  ink: css.getPropertyValue('--ink').trim(),
+};
+
+const S = {
+  obs: [{ x: 0.25, y: 0.25, w: 0.5, h: 0.5 }], // all observations AS DRAWN
+  on: [false],                  // checkbox per obs: checked = conditioned on
+  sel: 0,                       // selected UNCHECKED obs (editable), or -1
+  zoom: 'world',                // view choice: 'world' (zoomed in) | 'omega'
+  history: [PW.FULL_WORLD],     // derived: running intersections (recompute())
+  view: { ...PW.FULL_WORLD },   // animated viewport (world coords)
+  viewAnim: null,               // {from, to, t0, dur, onDone}
+  drops: [],                    // {x, y, s, born, dead} s: fall progress
+  tally: { inE: 0, total: 0 },
+  spawnAcc: 0,
+  hyp: null,                    // {d1, d2, prior1} when stage 2 is on
+  post1: null,
+};
+const MIN_FRAC = 0.05;          // minimum E side, fraction of world side
+
+function currentWorld() { return S.history[S.history.length - 1]; }
+function inRect(p, r) {
+  return p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
+}
+// device-pixel-crisp square canvas
+let SIZE = 0;
+function resize() {
+  const px = $('stage').clientWidth, dpr = devicePixelRatio || 1;
+  SIZE = px; canvas.width = px * dpr; canvas.height = px * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+addEventListener('resize', resize); resize();
+
+function toScreen(x, y) {
+  const v = S.view;
+  return { x: (x - v.x) / v.w * SIZE, y: (y - v.y) / v.h * SIZE };
+}
+function fromScreen(sx, sy) {
+  const v = S.view;
+  return { x: v.x + sx / SIZE * v.w, y: v.y + sy / SIZE * v.h };
+}
+
+// --- rain: each drop is a sample of what could happen next ---
+function spawn() {
+  if (animating()) return;            // no futures while the world reshapes
+  const p = PW.sampleUniform(currentWorld(), Math.random);
+  S.drops.push({ x: p.x, y: p.y, s: 0, born: performance.now(),
+    dead: false });
+}
+const FALL_MS = 550, LIFE_MS = 7000, FADE_MS = 2500;
+function stepDrops(dt, now) {
+  const rate = +$('rate').value;
+  S.spawnAcc += dt * rate;
+  while (S.spawnAcc >= 1) { S.spawnAcc -= 1; spawn(); }
+  for (const d of S.drops) {
+    if (d.s < 1) {
+      d.s = Math.min(1, (now - d.born) / FALL_MS);
+      if (d.s >= 1 && !d.dead) {      // landed: count it
+        S.tally.total++;
+        if (selValid() && inRect(d, selRect())) S.tally.inE++;
+        updateReadouts();
+      }
+    }
+  }
+  S.drops = S.drops.filter((d) =>
+    now - d.born < LIFE_MS + FADE_MS && !(d.dead && now - d.deadAt > 500));
+}
+function drawDrops(now) {
+  for (const d of S.drops) {
+    const p = toScreen(d.x, d.y);
+    if (p.x < -8 || p.x > SIZE + 8) continue;
+    let y = p.y, alpha = 1;
+    if (d.s < 1) {                    // falling: ease toward landing point
+      const t = 1 - (1 - d.s) ** 3;
+      y = -8 + (p.y + 8) * t;
+    } else {
+      const age = now - d.born - FALL_MS;
+      if (age > LIFE_MS - FALL_MS) alpha = Math.max(0, 1 - (age - (LIFE_MS - FALL_MS)) / FADE_MS);
+    }
+    if (d.dead) { alpha = Math.max(0, 1 - (now - d.deadAt) / 450); y += (now - d.deadAt) * 0.25; }
+    // futures are neutral: they come from the world, not from a hypothesis
+    const col = d.dead ? C.dead : C.rain;
+    ctx.globalAlpha = alpha * 0.85;
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(p.x, y, 2.6, 0, 7); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+const fmtPct = (p) => p >= 0.001 ? (p * 100).toFixed(1) + '%'
+  : p > 0 ? p.toExponential(1) : '0%';
+
+// --- notation: observations are named by their place in the record ---
+function eName(k) { return 'E' + k; }
+// join a list of names, compressing long lists: 'E1, ..., E7'
+function joinNames(names) {
+  if (!names.length) return '';
+  if (names.length <= 4) return names.join(', ');
+  return names[0] + ', ..., ' + names[names.length - 1];
+}
+// the conditioning set is the CHECKED subset of the recorded observations;
+// unchecked observations are drawn but not (yet) conditioned on
+function checkedEvents() { return S.obs.filter((_, i) => S.on[i]); }
+function checkedNames() {
+  return S.obs.map((_, i) => i).filter((i) => S.on[i]).map((i) => eName(i + 1));
+}
+function uncheckedIdx() {
+  return S.obs.map((_, i) => i).filter((i) => !S.on[i]);
+}
+
+// ONE query at a time: the readout, tally, and Condition button all refer
+// to the single SELECTED (unchecked) observation
+function selValid() {
+  return S.sel >= 0 && S.sel < S.obs.length && !S.on[S.sel];
+}
+function selRect() { return S.obs[S.sel]; }
+function selName() { return eName(S.sel + 1); }
+
+function updateReadouts() {
+  const world = currentWorld();
+  if (!selValid()) {
+    $('read-pe').textContent = '';
+    $('read-tally').textContent = '';
+    return;
+  }
+  // one query at a time: the SELECTED observation, given the checked set.
+  // Only its overlap with the current world counts (E's need not nest).
+  const p = PW.rectArea(PW.intersectRect(selRect(), world)) / PW.rectArea(world);
+  const given = joinNames(checkedNames());
+  const label = given ? 'P(' + selName() + ' | ' + given + ')' : 'P(' + selName() + ')';
+  $('read-pe').innerHTML = label + ' = <b>' + (p > 0 ? fmtPct(p) : '0') + '</b>';
+  const t = S.tally;
+  $('read-tally').textContent = t.total ?
+    t.inE + ' of ' + t.total + ' drops landed in ' + selName() +
+    ' (' + (t.inE ? fmtPct(t.inE / t.total) : '0%') + ')' : '';
+}
+function resetTally() { S.tally = { inE: 0, total: 0 }; updateReadouts(); }
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.1, (now - last) / 1000); last = now;
+  stepView(now);
+  ctx.clearRect(0, 0, SIZE, SIZE);
+  drawTint();
+  drawWorldShade();                    // the current world is the shaded region
+  stepDrops(dt, now);
+  drawDrops(now);
+  drawE();                             // replaced by Task 7
+  requestAnimationFrame(frame);
+}
+// --- stage 2: two soft hypotheses share the world ---
+// Densities are blob + floor: full support, so no observation can kill a
+// hypothesis outright - its posterior gets small, never zero.
+const HYP_DEF = {
+  d1: () => PW.makeDensity(0.32, 0.40, 0.13, 0.08),
+  d2: () => PW.makeDensity(0.68, 0.62, 0.13, 0.08),
+};
+
+// pre-rendered tint: hue = which hypothesis expects this region,
+// opacity = how strongly it dominates. Equal-responsibility -> no tint.
+let tintCanvas = null;
+function buildTint() {
+  const N = PW.GRID_N;
+  tintCanvas = document.createElement('canvas');
+  tintCanvas.width = N; tintCanvas.height = N;
+  const tctx = tintCanvas.getContext('2d');
+  const img = tctx.createImageData(N, N);
+  const c1 = [185, 106, 60], c2 = [78, 124, 166];   // --h1c, --h2c
+  for (let k = 0; k < N * N; k++) {
+    const r1 = S.hyp.d1[k] / (S.hyp.d1[k] + S.hyp.d2[k]);
+    const dom = Math.abs(2 * r1 - 1);
+    const c = r1 >= 0.5 ? c1 : c2;
+    img.data[4 * k] = c[0]; img.data[4 * k + 1] = c[1];
+    img.data[4 * k + 2] = c[2];
+    img.data[4 * k + 3] = Math.round(255 * 0.16 * Math.pow(dom, 0.7));
+  }
+  tctx.putImageData(img, 0, 0);
+}
+function drawTint() {
+  if (!tintCanvas) return;
+  const v = S.view, N = PW.GRID_N;
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(tintCanvas, v.x * N, v.y * N, v.w * N, v.h * N, 0, 0, SIZE, SIZE);
+}
+
+function animating() { return !!S.viewAnim; }
+
+// subtle fill over the current world so the surviving region reads as
+// "the world" even when zoomed out (it covers the frame when zoomed in)
+function drawWorldShade() {
+  if (!checkedEvents().length) return;
+  const w = currentWorld();
+  const a = toScreen(w.x, w.y), b = toScreen(w.x + w.w, w.y + w.h);
+  ctx.fillStyle = 'rgba(51,49,46,0.045)';
+  ctx.fillRect(a.x, a.y, b.x - a.x, b.y - a.y);
+}
+
+// --- conditioning: zoom the viewport so E becomes the whole world ---
+const EASE = (t) => t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+function animateViewTo(rect, onDone) {
+  S.viewAnim = { from: { ...S.view }, to: { ...rect },
+    t0: performance.now(), dur: 900, onDone };
+  $('btn-condition').disabled = true;
+}
+function stepView(now) {
+  const a = S.viewAnim;
+  if (!a) return;
+  const t = Math.min(1, (now - a.t0) / a.dur), e = EASE(t);
+  for (const k of ['x', 'y', 'w', 'h']) S.view[k] = a.from[k] + (a.to[k] - a.from[k]) * e;
+  if (t >= 1) {
+    S.viewAnim = null;
+    $('btn-condition').disabled = !selValid();
+    if (a.onDone) a.onDone();
+  }
+}
+
+// the viewport the current zoom choice asks for
+function viewTarget() {
+  return S.zoom === 'omega' ? PW.FULL_WORLD : currentWorld();
+}
+
+// centered default E for a fresh world: half the world's sides
+function defaultE(world) {
+  return { x: world.x + world.w * 0.25, y: world.y + world.h * 0.25,
+    w: world.w * 0.5, h: world.h * 0.5 };
+}
+
+// --- captions: one short line that reacts to what the learner did ---
+const CAP = {
+  intro1: 'Every point in this box is a possible world; exactly one is ' +
+    'real, but you do not know which. The falling dots are draws from ' +
+    'what remains possible, not facts. The rectangle E1 is an ' +
+    'observation: it claims the real world lies inside. Condition on it, ' +
+    'and the worlds outside are gone.',
+  conditioned: (d) => {
+    const f = 1 / d.pJoint;
+    return 'You observed ' + d.names + ' and kept ' + fmtPct(d.pJoint) +
+      ' of the possible worlds' +
+      (d.given ? ' where ' + d.given + ' held' : '') +
+      '; surviving probabilities were rescaled by ' +
+      (f >= 100 ? f.toExponential(1) : f.toFixed(1)) + 'x.' +
+      (d.stuckOut ? ' Parts that stuck out were already ruled out - only ' +
+        'the common region counts.' : '') +
+      ' Every probability now answers to the world given ' + d.now +
+      '. Zoom out to see where it sits in \u03A9.';
+  },
+  impossible: (d) => d.names + (d.plural ? ' together leave' : ' leaves') +
+    ' no possible world' +
+    (d.given ? ' given ' + d.given : '') +
+    ': probability zero, nothing to condition on. Adjust the rectangles ' +
+    'so a common region survives.',
+  subset: (d) => d.any ?
+    'Now conditioning on ' + d.names + ': their common region holds ' +
+    fmtPct(d.frac) + ' of all possible worlds.' :
+    'Nothing is conditioned on: every world in \u03A9 is possible again.',
+  removed: (d) => d.name + ' is removed from the record. To keep an ' +
+    'observation but stop conditioning on it, uncheck its box instead.',
+  reset: 'Back to the full space of possible worlds.',
+  zoomOut: 'The full space \u03A9. Your current world is the shaded ' +
+    'intersection - notice the rain only falls there.',
+  zoomIn: 'Zoomed in: the current world fills the frame. It is a complete ' +
+    'probability space of its own - everything works here exactly as it ' +
+    'did in \u03A9.',
+};
+function caption(key, data) {
+  const c = CAP[key];
+  $('caption').textContent = typeof c === 'function' ? c(data) : c;
+}
+
+// --- strip: the multiplication rule, factor by factor ---
+function renderStrip(state) {
+  const el = $('strip');
+  const n = state.steps.length;
+  if (!n) { el.textContent = ''; return; }
+  const fs = state.steps.map((s) => fmtPct(s.pE));
+  const shown = fs.length > 3 ? ['...'].concat(fs.slice(-3)) : fs;
+  el.textContent = 'P(' + joinNames(checkedNames()) + ') = ' + shown.join(' x ') +
+    ' = ' + fmtPct(state.product) + ' of worlds remain';
+}
+
+// --- Omega map: where the current world sits inside the full space ---
+const omegaMap = $('omega-map');
+let omegaPendEls = [], omegaPendIdx = []; // live dashed outlines of unchecked E's
+function renderOmega() {
+  const NS = 'http://www.w3.org/2000/svg';
+  omegaMap.textContent = '';
+  // conditioned observations: solid strokes (they cannot move)
+  for (let k = 0; k < S.obs.length; k++) {
+    if (!S.on[k]) continue;
+    const r = S.obs[k];
+    const rc = document.createElementNS(NS, 'rect');
+    rc.setAttribute('x', r.x * 100); rc.setAttribute('y', r.y * 100);
+    rc.setAttribute('width', r.w * 100); rc.setAttribute('height', r.h * 100);
+    rc.setAttribute('fill', 'none');
+    rc.setAttribute('stroke', '#8b8680');
+    rc.setAttribute('stroke-width', '0.8');
+    omegaMap.appendChild(rc);
+    if (r.w > 0.12 && k < 4) {          // label while readable
+      const tx = document.createElementNS(NS, 'text');
+      tx.textContent = eName(k + 1);
+      tx.setAttribute('x', r.x * 100 + 1.5); tx.setAttribute('y', r.y * 100 + 6.5);
+      tx.setAttribute('font-size', '6'); tx.setAttribute('fill', '#8b8680');
+      omegaMap.appendChild(tx);
+    }
+  }
+  // the current world: the running intersection of checked events, shaded
+  if (checkedEvents().length) {
+    const w = currentWorld();
+    const rc = document.createElementNS(NS, 'rect');
+    rc.setAttribute('x', w.x * 100); rc.setAttribute('y', w.y * 100);
+    rc.setAttribute('width', w.w * 100); rc.setAttribute('height', w.h * 100);
+    rc.setAttribute('fill', 'rgba(51,49,46,0.12)');
+    rc.setAttribute('stroke', 'none');
+    omegaMap.appendChild(rc);
+  }
+  // unchecked observations: dashed, tracked live while dragged
+  omegaPendIdx = uncheckedIdx();
+  omegaPendEls = omegaPendIdx.map(() => {
+    const rc = document.createElementNS(NS, 'rect');
+    rc.setAttribute('fill', 'none');
+    rc.setAttribute('stroke', C.ink);
+    rc.setAttribute('stroke-width', '0.8');
+    rc.setAttribute('stroke-dasharray', '2 2');
+    omegaMap.appendChild(rc);
+    return rc;
+  });
+  drawOmegaE();
+}
+function drawOmegaE() {
+  omegaPendEls.forEach((el, j) => {
+    const e = S.obs[omegaPendIdx[j]];
+    if (!e) return;
+    el.setAttribute('x', e.x * 100); el.setAttribute('y', e.y * 100);
+    el.setAttribute('width', e.w * 100); el.setAttribute('height', e.h * 100);
+  });
+}
+
+// the observation record: one checkbox per observation, present from the
+// moment it is drawn. Checked = conditioned on; unchecked = editable.
+function renderObsList() {
+  const el = $('obs-list');
+  el.textContent = '';
+  S.obs.forEach((_, i) => {
+    const lab = document.createElement('label');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = !!S.on[i];
+    cb.addEventListener('change', () => toggleObs(i, cb.checked));
+    lab.appendChild(cb);
+    lab.appendChild(document.createTextNode(' ' + eName(i + 1)));
+    el.appendChild(lab);
+  });
+}
+function toggleObs(i, on) {
+  const prev = S.on[i];
+  S.on[i] = on;
+  // refuse a toggle that would empty the world (probability zero)
+  const worlds = PW.deriveWorlds(checkedEvents());
+  if (PW.rectArea(worlds[worlds.length - 1]) <= 0) {
+    S.on[i] = prev;
+    renderObsList();
+    caption('impossible', { names: eName(i + 1), plural: false,
+      given: joinNames(checkedNames().filter((n) => n !== eName(i + 1))) });
+    return;
+  }
+  // toggling selects the observation either way; it stays movable
+  S.sel = i;
+  S.drops = [];                          // the world changed: futures resample
+  const state = recompute();
+  rebuildOverlay();
+  caption('subset', { names: joinNames(checkedNames()),
+    any: state.steps.length > 0, frac: state.product });
+  animateViewTo(viewTarget(), () => resetTally());
+}
+
+function recompute() {
+  // worlds = running intersections of the CHECKED observations only
+  S.history = PW.deriveWorlds(checkedEvents());
+  const state = PW.computeState(S.history, { hypotheses: S.hyp });
+  S.post1 = state.post1;
+  renderStrip(state);
+  renderPosterior();
+  renderOmega();
+  renderObsList();
+  updateReadouts();
+  $('btn-condition').textContent = selValid() ?
+    'Condition on ' + selName() : 'Condition';
+  $('btn-condition').disabled = animating() || !selValid();
+  $('btn-back').disabled = !S.obs.length;
+  $('btn-zoom').disabled = !checkedEvents().length;
+  $('btn-zoom').textContent = S.zoom === 'world' ? 'Zoom out' : 'Zoom in';
+  return state;
+}
+// posterior bar plot: P(H1 | E1,...,En) vs P(H2 | E1,...,En).
+// Belief lives here, not in the rain: futures come from the world.
+function renderPosterior() {
+  if (!S.hyp) { $('posterior').classList.remove('on'); return; }
+  $('posterior').classList.add('on');
+  const given = joinNames(checkedNames());
+  $('post-title').textContent = given ?
+    'P(H | ' + given + ')' : 'P(H) - prior, before any observation';
+  // display clamps: never show exactly 0% or 100%
+  const shown = Math.min(0.999, Math.max(0.001, S.post1));
+  $('pc1').style.height = (shown * 100) + '%';
+  $('pc2').style.height = ((1 - shown) * 100) + '%';
+  $('pv1').textContent = fmtPct(shown);
+  $('pv2').textContent = fmtPct(1 - shown);
+}
+
+Object.assign(CAP, {
+  intro2: 'Two hypotheses now live in your mind: warm regions are futures ' +
+    'H1 expects, cool regions favor H2 (they overlap). The rain does not ' +
+    'change - futures come from the world, not from a hypothesis. But each ' +
+    'observation is more or less probable under each hypothesis, and the ' +
+    'bars beside the \u03A9 map track your belief.',
+  shift: (d) => d.names + (d.plural ? ' together were ' : ' was ') + d.rr +
+    'x more probable under ' + d.win + ', so the odds shifted ' + d.rr +
+    ':1 toward it. The bars now show P(H | ' + d.now + ').',
+  tiny: (d) => d.name + ' is down to ' + fmtPct(d.p) + '. Small, but not ' +
+    'zero: it still expects a little of everything, so enough contrary ' +
+    'evidence could revive it.',
+  hypOff: 'Hypotheses set aside. Back to plain conditioning.',
+});
+
+$('btn-hyp').addEventListener('click', () => {
+  if (animating()) return;
+  if (!S.hyp) {
+    S.hyp = { d1: HYP_DEF.d1(), d2: HYP_DEF.d2(), prior1: 0.5 };
+    buildTint();
+    $('btn-hyp').textContent = 'Hide hypotheses';
+    caption('intro2');
+  } else {
+    S.hyp = null; tintCanvas = null;
+    $('btn-hyp').textContent = 'Compare hypotheses';
+    caption('hypOff');
+  }
+  // observations, view, and rain are untouched: the posterior is simply
+  // computed for the current checked evidence, P(H | checked) - the math
+  // telescopes from Omega, so entertaining hypotheses late is exact
+  recompute();
+});
+
+$('btn-add').addEventListener('click', () => {
+  if (animating()) return;
+  // a new observation lands centered in whatever you are looking at,
+  // nudged diagonally until it does not visually coincide with any
+  // existing rectangle
+  const v = S.view;
+  const base = { x: v.x + v.w * 0.25, y: v.y + v.h * 0.25,
+    w: v.w * 0.5, h: v.h * 0.5 };
+  const minFrac = MIN_FRAC * v.w;
+  const tooClose = (r) => S.obs.some((o) =>
+    Math.abs(o.x - r.x) < 0.03 * v.w && Math.abs(o.y - r.y) < 0.03 * v.h &&
+    Math.abs(o.w - r.w) < 0.03 * v.w && Math.abs(o.h - r.h) < 0.03 * v.h);
+  let e = PW.clampRect(base, PW.FULL_WORLD, minFrac);
+  for (let j = 1; j <= 12 && tooClose(e); j++) {
+    const step = 0.06 * v.w * Math.ceil(j / 2) * (j % 2 ? 1 : -1);
+    e = PW.clampRect({ x: base.x + step, y: base.y + step,
+      w: base.w, h: base.h }, PW.FULL_WORLD, minFrac);
+  }
+  S.obs.push(e);
+  S.on.push(false);                      // in the list at once, not conditioned
+  S.sel = S.obs.length - 1;
+  recompute();
+  rebuildOverlay();
+  resetTally();
+});
+
+$('btn-zoom').addEventListener('click', () => {
+  if (animating()) return;
+  S.zoom = S.zoom === 'world' ? 'omega' : 'world';
+  caption(S.zoom === 'omega' ? 'zoomOut' : 'zoomIn');
+  recompute();
+  animateViewTo(viewTarget(), null);
+});
+
+$('btn-condition').addEventListener('click', () => {
+  if (animating() || !selValid()) return;
+  const world = currentWorld();
+  const e = selRect();
+  const inter = PW.intersectRect(e, world);
+  const names = selName();
+  const given = joinNames(checkedNames());
+  if (PW.rectArea(inter) <= 0) {         // probability-zero observation
+    caption('impossible', { names, plural: false, given });
+    return;
+  }
+  const now = performance.now();
+  for (const d of S.drops)               // futures that did not happen
+    if (!inRect(d, inter) || d.s < 1) { d.dead = true; d.deadAt = now; }
+  const stuckOut = PW.rectArea(inter) < PW.rectArea(e) - 1e-12;
+  // odds and joint computed directly from old world -> new world, since
+  // the newly checked event may slot anywhere in the index-ordered chain
+  const pJoint = PW.rectArea(inter) / PW.rectArea(world);
+  let r0 = 1;
+  if (S.hyp) {
+    r0 = (PW.massIn(S.hyp.d1, inter) / PW.massIn(S.hyp.d1, world)) /
+         (PW.massIn(S.hyp.d2, inter) / PW.massIn(S.hyp.d2, world));
+  }
+  S.on[S.sel] = true;
+  // move the query to the next unchecked observation if there is one;
+  // otherwise stay on the just-conditioned rect (it remains movable)
+  const u = uncheckedIdx();
+  if (u.length) S.sel = u[u.length - 1];
+  S.zoom = 'world';                      // conditioning zooms in
+  const state = recompute();
+  rebuildOverlay();
+  const nowNames = joinNames(checkedNames());
+  if (S.hyp) {
+    const win = r0 >= 1 ? 'H1' : 'H2';
+    const rr = (r0 >= 1 ? r0 : 1 / r0).toFixed(1);
+    caption('shift', { names, plural: false, rr, win, now: nowNames });
+    const p1 = state.post1;
+    if (p1 < 0.02) caption('tiny', { name: 'H1', p: Math.max(p1, 0.001) });
+    else if (p1 > 0.98) caption('tiny', { name: 'H2', p: Math.max(1 - p1, 0.001) });
+  } else {
+    caption('conditioned', { names, pJoint, given, now: nowNames, stuckOut });
+  }
+  animateViewTo(currentWorld(), () => resetTally());
+});
+$('btn-back').addEventListener('click', () => {
+  if (animating() || !S.obs.length) return;
+  // remove the most recent observation from the record entirely
+  // (to merely un-condition, uncheck its box instead)
+  const name = eName(S.obs.length);
+  S.obs.pop();
+  S.on.pop();
+  const u = uncheckedIdx();
+  S.sel = u.length ? u[u.length - 1] : -1;
+  S.drops = [];
+  recompute();
+  rebuildOverlay();
+  caption('removed', { name });
+  animateViewTo(viewTarget(), () => resetTally());
+});
+$('btn-reset').addEventListener('click', () => {
+  if (animating()) return;
+  S.obs = [defaultE(PW.FULL_WORLD)];
+  S.on = [false];
+  S.sel = 0;
+  S.zoom = 'world';
+  S.drops = [];
+  recompute();
+  rebuildOverlay();
+  caption('reset');
+  animateViewTo(PW.FULL_WORLD, () => resetTally());
+});
+
+// --- observation rectangles: committed (fixed) + pending (editable) ---
+const overlay = $('overlay');
+const NSVG = 'http://www.w3.org/2000/svg';
+let obsEls = [], handles = [];
+// rebuild whenever the SET of rectangles changes (add/condition/remove/reset)
+function rebuildOverlay() {
+  overlay.textContent = '';
+  obsEls = S.obs.map((_, i) => {
+    const rc = document.createElementNS(NSVG, 'rect');
+    overlay.appendChild(rc);
+    const tx = document.createElementNS(NSVG, 'text');
+    tx.setAttribute('font-family', 'system-ui, sans-serif');
+    tx.textContent = eName(i + 1);
+    overlay.appendChild(tx);
+    return { rc, tx };
+  });
+  handles = [0, 1, 2, 3].map(() => {
+    const h = document.createElementNS(NSVG, 'rect');
+    h.setAttribute('width', '9'); h.setAttribute('height', '9');
+    h.setAttribute('fill', '#fff'); h.setAttribute('stroke', C.ink);
+    overlay.appendChild(h); return h;
+  });
+}
+function placeRect(el, r) {
+  const a = toScreen(r.x, r.y), b = toScreen(r.x + r.w, r.y + r.h);
+  el.rc.setAttribute('x', a.x); el.rc.setAttribute('y', a.y);
+  el.rc.setAttribute('width', b.x - a.x); el.rc.setAttribute('height', b.y - a.y);
+  el.tx.setAttribute('x', a.x + 7); el.tx.setAttribute('y', a.y + 17);
+  return { a, b };
+}
+function drawE() {                       // every frame: follow the viewport
+  let selCorners = null;
+  obsEls.forEach((el, i) => {
+    const on = !!S.on[i], sel = i === S.sel;   // any observation is movable
+    // conditioned: quiet fixed outline; unchecked: editable, ink-colored
+    el.rc.setAttribute('stroke', on ? '#b5b1a9' : C.ink);
+    el.rc.setAttribute('fill', on ? 'none' : 'rgba(51,49,46,0.05)');
+    el.rc.setAttribute('stroke-width', sel ? '1.5' : on ? '1' : '1.1');
+    el.rc.setAttribute('stroke-dasharray', on ? '' : sel ? '' : '5 4');
+    el.tx.setAttribute('fill', on ? '#b5b1a9' : C.ink);
+    el.tx.setAttribute('font-size', on ? '12' : '13');
+    const { a, b } = placeRect(el, S.obs[i]);
+    if (sel) selCorners = [[a.x, a.y], [b.x, a.y], [a.x, b.y], [b.x, b.y]];
+  });
+  handles.forEach((h, i) => {
+    if (!selCorners) { h.setAttribute('display', 'none'); return; }
+    h.removeAttribute('display');
+    h.setAttribute('x', selCorners[i][0] - 4.5);
+    h.setAttribute('y', selCorners[i][1] - 4.5);
+  });
+  drawOmegaE();                          // live dashed outlines in the Omega map
+}
+
+// --- pointer interaction: select a pending rect, move it, or resize ---
+let drag = null; // {mode:'move'|'resize', anchor:{x,y}, off:{dx,dy}}
+overlay.addEventListener('pointerdown', (ev) => {
+  try { overlay.setPointerCapture(ev.pointerId); } catch (_) {} // synthetic events lack active pointers
+  if (!S.obs.length) return;
+  const r = overlay.getBoundingClientRect();
+  const sx = (ev.clientX - r.left) / r.width * SIZE;
+  const sy = (ev.clientY - r.top) / r.height * SIZE;
+  const p = fromScreen(sx, sy);
+  // corners of the SELECTED rect first (resize, anchored at the opposite corner)
+  if (S.sel >= 0 && S.sel < S.obs.length) {
+    const e = S.obs[S.sel];
+    const a = toScreen(e.x, e.y), b = toScreen(e.x + e.w, e.y + e.h);
+    const corners = [[a.x, a.y], [b.x, a.y], [a.x, b.y], [b.x, b.y]];
+    const anchors = [
+      { x: e.x + e.w, y: e.y + e.h }, { x: e.x, y: e.y + e.h },
+      { x: e.x + e.w, y: e.y }, { x: e.x, y: e.y }];
+    for (let i = 0; i < 4; i++) {
+      if (Math.hypot(sx - corners[i][0], sy - corners[i][1]) < 14) {
+        drag = { mode: 'resize', anchor: anchors[i] }; return;
+      }
+    }
+  }
+  // otherwise the topmost rect under the pointer - conditioned or not,
+  // every observation stays movable (direct manipulation teaches best)
+  for (let i = S.obs.length - 1; i >= 0; i--) {
+    if (inRect(p, S.obs[i])) {
+      if (S.sel !== i) {                 // selection changed: refresh the query
+        S.sel = i;
+        resetTally();
+        recompute();
+      }
+      drag = { mode: 'move',
+        off: { dx: p.x - S.obs[i].x, dy: p.y - S.obs[i].y } };
+      return;
+    }
+  }
+});
+overlay.addEventListener('pointermove', (ev) => {
+  if (!drag || S.sel < 0 || S.sel >= S.obs.length) return;
+  const r = overlay.getBoundingClientRect();
+  const p = fromScreen((ev.clientX - r.left) / r.width * SIZE,
+                       (ev.clientY - r.top) / r.height * SIZE);
+  const e = S.obs[S.sel];
+  // E's roam ALL of Omega (observations need not nest inside the current
+  // world); minimum size is relative to the view so handles stay grabbable
+  const minFrac = MIN_FRAC * S.view.w;
+  let cand;
+  if (drag.mode === 'move') {
+    cand = PW.clampRect({ x: p.x - drag.off.dx,
+      y: p.y - drag.off.dy, w: e.w, h: e.h }, PW.FULL_WORLD, minFrac);
+  } else {
+    const x = Math.min(drag.anchor.x, p.x), y = Math.min(drag.anchor.y, p.y);
+    cand = PW.clampRect({ x, y, w: Math.abs(p.x - drag.anchor.x),
+      h: Math.abs(p.y - drag.anchor.y) }, PW.FULL_WORLD, minFrac);
+  }
+  if (S.on[S.sel]) {
+    // moving a CONDITIONED observation reshapes the world live -
+    // unless the move would empty it (then the rectangle sticks)
+    const before = S.obs[S.sel];
+    S.obs[S.sel] = cand;
+    const ws = PW.deriveWorlds(checkedEvents());
+    if (PW.rectArea(ws[ws.length - 1]) <= 0) { S.obs[S.sel] = before; return; }
+    drag.moved = true;
+    recompute();
+    resetTally();
+    const w = currentWorld(), tnow = performance.now();
+    for (const d of S.drops)             // futures now outside the world die
+      if (!d.dead && !inRect(d, w)) { d.dead = true; d.deadAt = tnow; }
+  } else {
+    S.obs[S.sel] = cand;
+    drag.moved = true;
+    resetTally();                        // E moved: old tally no longer applies
+    updateReadouts();
+  }
+});
+addEventListener('pointerup', () => {
+  // after reshaping the world by dragging a conditioned observation,
+  // re-zoom so the (possibly moved) world fills the frame again
+  if (drag && drag.moved && S.sel >= 0 && S.on[S.sel] && S.zoom === 'world')
+    animateViewTo(currentWorld(), null);
+  drag = null;
+});
+
+caption('intro1');
+recompute();
+rebuildOverlay();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
