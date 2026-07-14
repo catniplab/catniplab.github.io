@@ -18,12 +18,14 @@ Teaching resources and courses created by Dr. Park and the CATNIP lab.
 * Target audience: Graduate students in Neuroscience with basic algebra and vector space background
 * [lecture material, notes, and code](https://github.com/memming/linear-algebra-and-dynamics-lectures)
 
-## Neural Latent State and Dynamics Inference Workshop
+## Neural Latent State and Dynamics Inference Workshop / Cajal State Space Modeling (2026)
 
 * Target audience: neuroscientists with computational/statistical interest
 * [python notebooks](https://github.com/catniplab/latent_dynamics_workshop/)
+* [Lecture notes](https://github.com/catniplab/latent_dynamics_workshop/releases/download/cajal-2026/latent_dynamics_notes.pdf)
 
 ## Temporal Neural Data Analysis
+
 
 * Target audience: Graduate students in Neuroscience with basic probabilty and statistics background
 * [Worksheet and code](https://github.com/memming/temporal-neural-data-lectures)
