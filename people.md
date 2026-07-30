@@ -55,6 +55,14 @@ permalink: /people/
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
 * Research Technician, Champalimaud Centre for the Unknown
 
+{: .person-name }
+## Germán Abrevaya
+![Germán Abrevaya](/images/german.jpg){: .profile-photo }
+
+* Postdoctoral researcher, Champalimaud Centre for the Unknown
+
+<a href="https://twitter.com/GAbrevaya" class="twitter-follow-button" data-show-count="false">Follow @GAbrevaya</a>
+
 {% comment %}
 ## Future lab member
 ![Cartoon MRI head](/images/MRI_brain_outline_memming.png){: .profile-photo }
