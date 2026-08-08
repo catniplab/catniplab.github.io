@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications (APA List)</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif; /* APA prefers serif usually, or Arial */
+            font-size: 12pt;
+            line-height: 1.5;
+            margin: 2em auto;
+            max-width: 800px;
+            padding: 0 1em;
+            color: #333;
+        }
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: 1.5em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+        }
+        .entry {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+            text-indent: -2em; /* Hanging indent for APA */
+        }
+        .entry p {
+            margin: 0;
+        }
+        .links {
+            font-family: Arial, sans-serif;
+            font-size: 0.9em;
+            margin-top: 0.3em;
+            text-indent: 0; /* Reset indent for links */
+        }
+        .links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-right: 1em;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        /* Make the main link (DOI/URL) in the text stand out or standard? Standard blue. */
+        .entry a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Publications</h1>
+    <div id="publications-list">
