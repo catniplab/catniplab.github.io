@@ -1,10 +1,14 @@
 ---
 layout: post
-title: Postdoc Position Open!
+title: Postdoc Position Filled
 category: news
-featured: true
+featured: false
 news_type: hiring
 ---
+
+**Update (July 2026): this position has been filled.**
+[Germán Abrevaya](/people/) joined the lab as a postdoctoral researcher, and we are no longer accepting applications for this call.
+The original announcement is kept below for the record.
 
 The [Neural Dynamics (CATNIP) Lab](https://catniplab.github.io/), led by [Memming Park](https://fchampalimaud.org/research/groups/memming-park) at the [Champalimaud Centre for the Unknown](https://fchampalimaud.org/champalimaud-research) in Lisbon, Portugal, is seeking a Postdoctoral Fellow to extract organizing principles of neural computation from large-scale neural and behavioral time series.
 
@@ -26,7 +30,7 @@ We especially welcome applicants from signal processing, control theory, or Baye
 The postdoc will join a vibrant, interdisciplinary research community at Champalimaud, with close collaboration opportunities with many computational and systems neuroscience PIs including, but by no means limited to, Christian Machens, Juan Gallego, and Joe Paton.
 The postdoc will be assigned an independent mentoring PI to support their scientific and career development.
 
-## How to Apply
+## How to Apply (closed)
 
 Please submit your application through our [application form](https://docs.google.com/forms/d/e/1FAIpQLSduUoROdJIf0Bp0hGgOz7UN1zTxgQ2TFJheTBDC28NcyKlPQw/viewform):
 
