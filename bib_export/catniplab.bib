@@ -9,56 +9,11 @@
 
 @misc{Sagodi2026c,
   title={Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees},
-  author={S\'agodi, \'Abel and Par, Il Memming},
+  author={S\'agodi, \'Abel and Park, Il Memming},
   howpublished={Poster presented at {XLVI Dynamics Days Europe}, Lisbon, Portugal},
   year={2026},
   month={July},
   note={Poster presentation}
-}
-
-@Unpublished{Dowling2026a,
-    author = {Matthew Dowling and Hyungju Jeon and Cristina Savin and Il Memming Park},
-    title = {Memory by Design: Probabilistic Sequence Layers},
-    year = {2026},
-    archiveprefix = {arXiv},
-    eprint = {2605.31163},
-    url = {http://arxiv.org/abs/2605.31163},
-    primaryclass = {stat.ML},
-    keywords = {state-space models, sequence models, Bayesian filtering, associative memory},
-    abstract = {We introduce the design-model framework: a way to derive efficient recurrent sequence maps from explicit assumptions about memory. A design model writes evidence into memory by exact Bayesian filtering; a query-dependent readout produces a predictive distribution whose mean is the layer output. In our linear-Gaussian instantiation, the Bayesian Layer propagates both a mean and a covariance: the covariance tracks uncertainty over stored associations, steering writes toward uncertain directions, attenuating gains as evidence accumulates, and preserving confident memories. The same framework unifies several sub-quadratic recurrences. Linear attention, GLA, and Mamba-2/SSD are exact filters under one design model, whereas DeltaNet and related Delta-rule models arise as covariance-reset reductions under another. Restoring the covariance yields closed-form predictions for retrieval dynamics, verified empirically, and improves robustness beyond the training regime across controlled collision studies, learned associative recall, and the Zoology MQAR benchmark; distilling Bayesian Layers into a pretrained 340M Gated DeltaNet improves RULER long-context retrieval at matched compute.},
-}
-
-@Unpublished{Park2026a,
-    author = {I. Memming Park and Ayesha Vermani and Gonzalo G. de Polavieja and Juan \'Alvaro Gallego and Kathleen Esfahany and Shreya Saxena and Michael Orger and Auke Ijspeert and Matthew Dowling and Daniel McNamee and Srinivas C. Turaga and Zachary Mainen and Joseph J. Paton and Alfonso Renart},
-    title = {Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience},
-    year = {2026},
-    archiveprefix = {arXiv},
-    eprint = {2604.23903},
-    url = {http://arxiv.org/abs/2604.23903},
-    keywords = {neurocybernetics, cybernetics, perspective},
-    abstract = {Large-scale neuroscience is generating rich datasets across animals, brain areas and behavioral contexts, yet our modeling efforts remains fragmented across isolated experiments. We argue that understanding behavior requires integrative neurocybernetic models: understandable dynamical models that capture the closed-loop coupling of brain, body and environment, treat the brain as a controller pursuing latent objectives, represent structured variation across scales, and scale to heterogeneous datasets. Such models shift the goal from predicting neural recordings in isolation to inferring the organizing principles that govern neural and behavioral dynamics. We outline a practical route toward this goal by combining nonlinear state-space models and meta-dynamical extensions with scalable inference, knowledge distillation, mixed open- and closed-loop training, and connectomics-informed architectures. By pooling complementary constraints from recordings, behavior, perturbations and anatomy, integrative neurocybernetic models can provide statistical amplification, few-shot generalization, and mechanistic insight into shared dynamical structure, individual variation, and the control objectives that govern behavior. This agenda offers a model-centric path from fragmented data to a mechanistic science of how brains produce behavior.},
-}
-
-@Unpublished{Filipe2025b,
-    author = {A. Carolina Filipe and Yves Bernaerts and \'Abel S\'agodi and Mahmoud Elmakki and I. Memming Park},
-    title = {One Model to Train Them All: A Unified Diffusion Framework for Multi-Context Neural Population Forecasting},
-    url = {https://openreview.net/forum?id=R9feGbYRG7},
-    year = {2025},
-}
-
-@InProceedings{Liang2026a,
-    title={Symmetry-Regularized Learning of Continuous Attractor Dynamics},
-    author={Arthur Liang and \'Abel S\'agodi and Piotr Sok\'o\l{} and Il Memming Park},
-    booktitle={Computational and Systems Neuroscience ({COSYNE})},
-    year={2026},
-    poster_no = "3-213",
-}
-
-@InProceedings{Sagodi2026a,
-  author    = "S\'agodi, \'Abel and Park, Il Memming",
-  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
-  title     = "Dynamical archetype analysis: Autonomous computation",
-  year      = {2026},
 }
 
 @Unpublished{Sagodi2026b,
@@ -91,11 +46,49 @@
   eprint        = "2602.08640"
 }
 
+@InProceedings{Sagodi2026a,
+  author    = "S\'agodi, \'Abel and Park, Il Memming",
+  booktitle = {Computational and Systems Neuroscience ({COSYNE})},
+  title     = "Dynamical archetype analysis: Autonomous computation",
+  year      = {2026},
+}
+
+@Unpublished{Park2026a,
+    author = {I. Memming Park and Ayesha Vermani and Gonzalo G. de Polavieja and Juan \'Alvaro Gallego and Kathleen Esfahany and Shreya Saxena and Michael Orger and Auke Ijspeert and Matthew Dowling and Daniel McNamee and Srinivas C. Turaga and Zachary Mainen and Joseph J. Paton and Alfonso Renart},
+    title = {Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience},
+    year = {2026},
+    archiveprefix = {arXiv},
+    eprint = {2604.23903},
+    url = {http://arxiv.org/abs/2604.23903},
+    keywords = {neurocybernetics, cybernetics, perspective},
+    abstract = {Large-scale neuroscience is generating rich datasets across animals, brain areas and behavioral contexts, yet our modeling efforts remains fragmented across isolated experiments. We argue that understanding behavior requires integrative neurocybernetic models: understandable dynamical models that capture the closed-loop coupling of brain, body and environment, treat the brain as a controller pursuing latent objectives, represent structured variation across scales, and scale to heterogeneous datasets. Such models shift the goal from predicting neural recordings in isolation to inferring the organizing principles that govern neural and behavioral dynamics. We outline a practical route toward this goal by combining nonlinear state-space models and meta-dynamical extensions with scalable inference, knowledge distillation, mixed open- and closed-loop training, and connectomics-informed architectures. By pooling complementary constraints from recordings, behavior, perturbations and anatomy, integrative neurocybernetic models can provide statistical amplification, few-shot generalization, and mechanistic insight into shared dynamical structure, individual variation, and the control objectives that govern behavior. This agenda offers a model-centric path from fragmented data to a mechanistic science of how brains produce behavior.},
+}
+
+@InProceedings{Liang2026a,
+    title={Symmetry-Regularized Learning of Continuous Attractor Dynamics},
+    author={Arthur Liang and \'Abel S\'agodi and Piotr Sok\'o\l{} and Il Memming Park},
+    booktitle={Computational and Systems Neuroscience ({COSYNE})},
+    year={2026},
+    poster_no = "3-213",
+}
+
 @InProceedings{Kautz2026a,
   author    = {Justus Kautz and Ayesha Vermani and Il Memming Park},
   booktitle = {Computational and Systems Neuroscience ({COSYNE})},
   title     = {Tracking Changes in Neural Dynamics over the Course of Learning},
   year      = {2026},
+}
+
+@Unpublished{Dowling2026a,
+    author = {Matthew Dowling and Hyungju Jeon and Cristina Savin and Il Memming Park},
+    title = {Memory by Design: Probabilistic Sequence Layers},
+    year = {2026},
+    archiveprefix = {arXiv},
+    eprint = {2605.31163},
+    url = {http://arxiv.org/abs/2605.31163},
+    primaryclass = {stat.ML},
+    keywords = {state-space models, sequence models, Bayesian filtering, associative memory},
+    abstract = {We introduce the design-model framework: a way to derive efficient recurrent sequence maps from explicit assumptions about memory. A design model writes evidence into memory by exact Bayesian filtering; a query-dependent readout produces a predictive distribution whose mean is the layer output. In our linear-Gaussian instantiation, the Bayesian Layer propagates both a mean and a covariance: the covariance tracks uncertainty over stored associations, steering writes toward uncertain directions, attenuating gains as evidence accumulates, and preserving confident memories. The same framework unifies several sub-quadratic recurrences. Linear attention, GLA, and Mamba-2/SSD are exact filters under one design model, whereas DeltaNet and related Delta-rule models arise as covariance-reset reductions under another. Restoring the covariance yields closed-form predictions for retrieval dynamics, verified empirically, and improves robustness beyond the training regime across controlled collision studies, learned associative recall, and the Zoology MQAR benchmark; distilling Bayesian Layers into a pretrained 340M Gated DeltaNet improves RULER long-context retrieval at matched compute.},
 }
 
 @PhdThesis{Vermani2025b,
@@ -225,6 +218,13 @@
     year={2025},
     note={(4p extended abstract)},
     url={https://openreview.net/forum?id=W8Gf7CYCo8},
+}
+
+@Unpublished{Filipe2025b,
+    author = {A. Carolina Filipe and Yves Bernaerts and \'Abel S\'agodi and Mahmoud Elmakki and I. Memming Park},
+    title = {One Model to Train Them All: A Unified Diffusion Framework for Multi-Context Neural Population Forecasting},
+    url = {https://openreview.net/forum?id=R9feGbYRG7},
+    year = {2025},
 }
 
 @InProceedings{Filipe2025a,
@@ -2101,14 +2101,6 @@ and in real neural data.},
   timestamp = {2010.01.15}
 }
 
-@Unpublished{Paiva2008d,
-  author = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
-  title = {Optimization in Reproducing Kernel {H}ilbert Spaces of Spike Trains},
-  note = {Unpublished manuscript},
-  owner = {memming},
-  timestamp = {2008.10.08}
-}
-
 @Article{Paiva2009a,
   author    = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
   journal   = {Neural Computing \& Applications},
@@ -2395,6 +2387,15 @@ and in real neural data.},
   timestamp = {2007.10.21}
 }
 
+@INPROCEEDINGS{Paiva2008e,
+  author = {Ant\'onio R. C. Paiva and Il Park and Jos{\'e} C. Pr{\'i}ncipe},
+  title = {Reproducing Kernel {H}ilbert Spaces for Spike Train Analysis},
+  booktitle = {Conference on Computational Neuroscience},
+  year = {2008},
+  owner = {memming},
+  timestamp = {2010.01.20}
+}
+
 @inproceedings{Paiva2008c,
   author = {Ant\'onio R. C. Paiva and Il Park and Justin Sanchez and Jos\'e C.
 	Pr\'incipe},
@@ -2509,15 +2510,6 @@ and in real neural data.},
   timestamp = {2008.04.15},
 }
 
-@INPROCEEDINGS{Paiva2008e,
-  author = {Ant\'onio R. C. Paiva and Il Park and Jos{\'e} C. Pr{\'i}ncipe},
-  title = {Reproducing Kernel {H}ilbert Spaces for Spike Train Analysis},
-  booktitle = {Conference on Computational Neuroscience},
-  year = {2008},
-  owner = {memming},
-  timestamp = {2010.01.20}
-}
-
 @InBook{Paiva2010a,
   title     = {Optimization in Reproducing Kernel {H}ilbert Spaces of Spike Trains},
   publisher = {Springer},
@@ -2528,6 +2520,14 @@ and in real neural data.},
   booktitle = {Computational Neuroscience},
   owner     = {memming},
   timestamp = {2010.01.15},
+}
+
+@Unpublished{Paiva2008d,
+  author = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
+  title = {Optimization in Reproducing Kernel {H}ilbert Spaces of Spike Trains},
+  note = {Unpublished manuscript},
+  owner = {memming},
+  timestamp = {2008.10.08}
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
