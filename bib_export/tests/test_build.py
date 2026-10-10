@@ -725,3 +725,8 @@ def test_main_leaves_output_untouched_on_error(bp, tmp_path):
     none = str(tmp_path / "none")
     assert bp.main(["--bib", str(bib), "--labels", none, "--roster", none, "--out", str(out)]) == 1
     assert out.read_text(encoding="utf-8") == "OLD"
+
+
+def test_dedupe_keeps_fragment_distinct_urls(build_one):
+    assert _links(build_one, "url = {https://example.org/page#paper}, url2 = {https://example.org/page#data}") == [
+        ("Link", "https://example.org/page#paper"), ("Link", "https://example.org/page#data")]

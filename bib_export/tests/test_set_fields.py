@@ -89,3 +89,17 @@ def test_main_refusal_leaves_bib_untouched(tmp_path):
         sf.main([str(csv_path), "--bib", str(bib)])
     assert bib.read_text() == before
     assert sorted(os.listdir(tmp_path)) == ["c.csv", "t.bib"]
+
+
+def test_main_calls_os_replace_exactly_once_on_success_and_never_on_failure(tmp_path, monkeypatch):
+    calls = []
+    real = os.replace
+    monkeypatch.setattr(sf.os, "replace", lambda *a: (calls.append(a), real(*a))[1])
+    bib, csv_path = _write(tmp_path, BIB)
+    csv_path.write_text("key,field,value,format\nA,tags,x,tex\n")
+    assert sf.main([str(csv_path), "--bib", str(bib)]) == 0
+    assert len(calls) == 1 and calls[0][1] == str(bib)
+    calls.clear()
+    csv_path.write_text("key,field,value,format\nA,tags,a},tex\n")  # unbalanced brace
+    assert sf.main([str(csv_path), "--bib", str(bib)]) == 1
+    assert calls == []

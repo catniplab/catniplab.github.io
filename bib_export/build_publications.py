@@ -247,7 +247,7 @@ def dedupe_key(url):
             return "doi:" + unquote(p.path.lstrip("/")).lower()
         if host in ("arxiv.org", "www.arxiv.org") and p.path.startswith("/abs/"):
             return "arxiv:" + re.sub(r"v\d+$", "", p.path[5:]).lower()
-    return f"{host}{p.path}?{p.query}"
+    return f"{host}{p.path}?{p.query}#{p.fragment}"
 
 
 def links_of(key, f):
