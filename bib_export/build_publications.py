@@ -305,25 +305,200 @@ def venue_html(kind, entry_type, f):
     return ", ".join(p for p in parts if p)
 
 
+# --- APA 7 references ---------------------------------------------------------
+
+# Fields left out of the copied BibTeX: JabRef bookkeeping and site-only fields.
+BIBTEX_DROP = {"owner", "timestamp", "pubtype", "themes", "tags", "selected"}
+BIBTEX_ORDER = ["author", "title", "journal", "booktitle", "editor", "chapter", "school",
+                "publisher", "howpublished", "year", "month", "volume", "number", "issue",
+                "pages", "note", "doi", "url", "url2", "eprint", "archiveprefix",
+                "primaryclass", "abstract"]
+
+
+def apa_authors(names):
+    """APA 7 author list from already-escaped 'Family, I.' strings."""
+    if len(names) <= 1:
+        return "".join(names)
+    if len(names) <= 20:
+        return ", ".join(names[:-1]) + ", & " + names[-1]
+    return ", ".join(names[:19]) + ", . . . " + names[-1]
+
+
+def authors_html(authors):
+    """Every author, APA-style separators, lab members wrapped in <strong>."""
+    names = [f'<strong class="member">{html.escape(a["display"])}</strong>' if a["member"]
+             else html.escape(a["display"]) for a in authors]
+    if len(names) <= 1:
+        return "".join(names)
+    return ", ".join(names[:-1]) + ", &amp; " + names[-1]
+
+
+def _end(s):
+    """Close a reference element with a period unless it already ends in . ? !
+    An empty element stays empty so it is dropped from the reference."""
+    s = s.rstrip()
+    if not s:
+        return ""
+    return s if re.sub(r"</?i>", "", s).endswith((".", "?", "!")) else s + "."
+
+
+def _strip_period(s):
+    return s[:-1] if s.endswith(".") else s
+
+
+def _ital(s):
+    return f"<i>{s}</i>" if s else ""
+
+
+def _editors_apa(f):
+    eds = persons(f.get("editor", ""))
+    names = [html.escape((" ".join(_initials(g) for g in e["given"].split()) + " " + e["family"]).strip())
+             for e in eds]
+    if not names:
+        return ""
+    joined = names[0] if len(names) == 1 else (
+        f"{names[0]} & {names[1]}" if len(names) == 2 else ", ".join(names[:-1]) + ", & " + names[-1])
+    return f"{joined} ({'Eds.' if len(names) > 1 else 'Ed.'}),"
+
+
+def _in_book(f, book, pages):
+    """'In E. Editor (Ed.), *Book* (pp. x)' or '' when there is no book title."""
+    if not book:
+        return ""
+    src = "In " + (_editors_apa(f) + " " if f.get("editor") else "") + _ital(book)
+    return src + (f" (pp. {pages})" if pages else "")
+
+
+def _apa_link(key, kind, f):
+    """DOI first, then a preprint DOI, then the URL."""
+    if f.get("doi"):
+        return "https://doi.org/" + normalize_doi(f["doi"])
+    eid = re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
+    prefix = (f.get("archiveprefix", "").strip() or "arXiv").lower()
+    if kind == "preprint" and eid and prefix in ("arxiv", "biorxiv"):
+        return (f"https://doi.org/10.48550/arXiv.{eid}" if prefix == "arxiv"
+                else f"https://doi.org/10.1101/{eid}")
+    url = f.get("url", "").strip()
+    return checked_url(key, url) if url else ""
+
+
+def apa_html(key, kind, entry_type, f, authors, year, month):
+    def h(name):
+        return tex_to_html(f.get(name, ""))
+    title = h("title")
+    when = str(year) if year else "n.d."
+    if re.search(r"\bin press\b", f.get("note", ""), re.I):
+        when = "in press"
+    elif kind == "abstract" and month:
+        when += ", " + MONTH_NAMES[month - 1].capitalize()
+        if re.fullmatch(r"[0-9]{1,2}", f.get("day", "").strip()):
+            when += " " + str(int(f["day"]))
+    date = f"({when})."
+    number = h("number") or h("issue")
+    pages = h("pages")
+    publisher = h("publisher")
+    italic_title = _ital(title)
+
+    if kind == "journal":
+        title_part = _end(title)
+        vol = h("volume")
+        segs = [_ital(h("journal")),
+                (_ital(vol) + (f"({number})" if number else "")) if vol else "",
+                (pages if re.search(r"[-\u2013]", pages) else f"Article {pages}") if pages else ""]
+        rest = [_end(", ".join(x for x in segs if x))]
+    elif kind == "conference":
+        title_part = _end(title)
+        # Some older entries keep the proceedings title in `journal` (e.g. Paiva2008c).
+        rest = [_end(_in_book(f, h("booktitle") or h("journal"), pages)), _end(publisher)]
+    elif kind == "abstract":
+        label = "Poster presentation" if "poster" in f.get("note", "").lower() else "Conference abstract"
+        title_part = f"{_ital(_strip_period(title))} [{label}]."
+        venue = ", ".join(x for x in (h("booktitle") or h("howpublished"),
+                                      h("address") or h("location")) if x)
+        rest = [_end(venue)]
+    elif kind == "preprint":
+        title_part = _end(italic_title)
+        archive = {"arxiv": "arXiv", "biorxiv": "bioRxiv"}.get(
+            (f.get("archiveprefix", "").strip() or "arXiv").lower()) if f.get("eprint") else ""
+        rest = [_end(archive)]
+    elif kind == "manuscript":
+        title_part = f"{_ital(_strip_period(title))} [Unpublished manuscript]."
+        rest = []
+    elif kind == "thesis":
+        masters = entry_type.lower() != "phdthesis"
+        degree = "master&#x27;s thesis" if masters else "doctoral dissertation"
+        school = h("school")
+        if publisher or f.get("url"):
+            label = degree.capitalize() + (", " + school if school else "")
+            rest = [_end(publisher)]
+        else:
+            label = "Unpublished " + degree
+            rest = [_end(school)]
+        title_part = f"{_ital(_strip_period(title))} [{label}]."
+    elif kind == "chapter":
+        title_part = _end(title)
+        if not h("booktitle"):
+            warn(f"{key}: chapter without booktitle")
+        rest = [_end(_in_book(f, h("booktitle"), pages)), _end(publisher)]
+    elif kind == "book":
+        title_part = _end(italic_title)
+        rest = [_end(publisher)]
+    elif kind == "patent":
+        num = h("number").replace(":", " ")
+        what = "U.S. Patent Application Publication" if re.search(r"A\d$", num) else "U.S. Patent"
+        title_part = f"{_ital(_strip_period(title))}" + (f" ({what} No. {num})." if num else ".")
+        rest = [_end(h("journal") or "U.S. Patent and Trademark Office")]
+    else:
+        title_part = _end(italic_title)
+        rest = [_end(h("howpublished"))]
+
+    link = _apa_link(key, kind, f)
+    names = [html.escape(a["display"]) for a in authors]
+    head = [_end(apa_authors(names)), date, title_part] if names else [title_part, date]
+    return " ".join(x for x in head + rest + [html.escape(link)] if x)
+
+
+def bibtex_of(entry):
+    """The entry as BibTeX for copying: original TeX, whitespace collapsed, fixed field order."""
+    fields = {k.lower(): " ".join(str(v.value).split()) for k, v in entry.fields_dict.items()}
+    order = [k for k in BIBTEX_ORDER if k in fields] + sorted(k for k in fields if k not in BIBTEX_ORDER)
+    lines = [f"@{entry.entry_type}{{{entry.key},"]
+    for k in order:
+        v = fields[k]
+        if k in BIBTEX_DROP or not v:
+            continue
+        bare = (k == "month" and v.lower() in MONTHS) or (k == "year" and re.fullmatch(r"[0-9]+", v))
+        lines.append(f"  {k} = {v if bare else '{' + v + '}'},")
+    lines.append("}")
+    return "\n".join(lines)
+
+
 def entry_json(entry):
     f = fields_of(entry)
     key = entry.key
     kind = kind_of(key, entry.entry_type, f)
     year = year_of(key, f)
+    authors = persons(f.get("author", ""))
+    month = month_of(f)
+    apa = apa_html(key, kind, entry.entry_type, f, authors, year, month)
     return {
         "key": key,
         "kind": kind,
         "kind_name": KIND_NAMES[kind],
         "year": year,
-        "month": month_of(f),
+        "month": month,
         "year_label": str(year) if year else "n.d.",
-        "authors": persons(f.get("author", "")),
+        "authors": authors,
+        "authors_html": authors_html(authors),
         "title": tex_to_text(f.get("title", "")),
         "title_html": tex_to_html(f.get("title", "")),
         "venue_html": venue_html(kind, entry.entry_type, f),
         "note_html": tex_to_html(f.get("note", "")),
         "abstract_html": tex_to_html(f.get("abstract", "")),
         "links": links_of(key, f),
+        "apa_html": apa,
+        "apa_text": html.unescape(re.sub(r"</?i>", "", apa)),
+        "bibtex": bibtex_of(entry),
     }
 
 

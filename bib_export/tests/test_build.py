@@ -306,3 +306,180 @@ def test_month_names_exact(build_one):
 def test_missing_year_warning(build_one, capsys):
     build_one("@article{K, title = {T}}")
     assert "missing year; shown as n.d." in capsys.readouterr().err
+
+
+# --- APA 7 -------------------------------------------------------------------
+
+def _apa(build_one, bib):
+    [e] = build_one(bib)
+    return e["apa_text"]
+
+
+def test_apa_journal(build_one):
+    bib = ("@article{K, author = {Archer, Evan and Park, Il Memming and Pillow, Jonathan}, "
+           "title = {Bayesian Estimators}, journal = {Entropy}, year = 2013, volume = {15}, "
+           "number = {5}, pages = {1738--1755}, doi = {10.3390/e15051738}}")
+    [e] = build_one(bib)
+    assert e["apa_text"] == ("Archer, E., Park, I. M., & Pillow, J. (2013). Bayesian Estimators. "
+                             "Entropy, 15(5), 1738\u20131755. https://doi.org/10.3390/e15051738")
+    assert "<i>Entropy</i>, <i>15</i>(5)" in e["apa_html"]
+
+
+def test_apa_conference(build_one):
+    assert _apa(build_one, r"@inproceedings{K, author = {S\'agodi, \'Abel and Park, Il Memming}, "
+                           r"title = {Universal Approximation}, booktitle = {Advances in Neural "
+                           r"Information Processing Systems (NeurIPS)}, year = 2026, "
+                           r"url = {https://openreview.net/forum?id=JFUIDA4w6C}}") == (
+        "S\u00e1godi, \u00c1., & Park, I. M. (2026). Universal Approximation. In Advances in "
+        "Neural Information Processing Systems (NeurIPS). https://openreview.net/forum?id=JFUIDA4w6C")
+
+
+def test_apa_conference_with_venue_in_journal_field(build_one):
+    assert _apa(build_one, "@inproceedings{K, author = {Park, Il}, title = {T}, "
+                           "journal = {IEEE EMBC}, year = 2008}") == "Park, I. (2008). T. In IEEE EMBC."
+
+
+def test_apa_abstract_and_poster(build_one):
+    assert _apa(build_one, "@inproceedings{K, author = {Park, Il}, title = {Point Process Model.}, "
+                           "booktitle = {Computational and Systems Neuroscience (COSYNE)}, year = 2009, "
+                           "month = feb, pubtype = {abstract}}") == (
+        "Park, I. (2009, February). Point Process Model [Conference abstract]. "
+        "Computational and Systems Neuroscience (COSYNE).")
+    assert _apa(build_one, "@misc{K, author = {Park, Il}, title = {UAP}, howpublished = {Dynamics "
+                           "Days Europe}, year = 2026, month = {July}, note = {Poster presentation}, "
+                           "pubtype = {abstract}}") == (
+        "Park, I. (2026, July). UAP [Poster presentation]. Dynamics Days Europe.")
+
+
+def test_apa_preprint_arxiv_doi(build_one):
+    assert _apa(build_one, "@unpublished{K, author = {Park, Il Memming}, title = {Integrative "
+                           "Modeling}, year = 2026, eprint = {2604.23903}, archivePrefix = {arXiv}}") == (
+        "Park, I. M. (2026). Integrative Modeling. arXiv. https://doi.org/10.48550/arXiv.2604.23903")
+
+
+def test_apa_preprint_biorxiv_doi(build_one):
+    assert _apa(build_one, "@unpublished{K, author = {Park, Il Memming}, title = {Coding}, "
+                           "year = 2020, eprint = {178418}, archivePrefix = {bioRxiv}}") == (
+        "Park, I. M. (2020). Coding. bioRxiv. https://doi.org/10.1101/178418")
+
+
+def test_apa_manuscript_no_year(build_one):
+    assert _apa(build_one, r"@unpublished{K, author = {Paiva, Ant\'onio R. C.}, "
+                           r"title = {Optimization in RKHS}, note = {Unpublished manuscript}}") == (
+        "Paiva, A. R. C. (n.d.). Optimization in RKHS [Unpublished manuscript].")
+
+
+def test_apa_thesis(build_one):
+    assert _apa(build_one, r"@phdthesis{K, author = {Sok{\'o}{\l}, Piotr}, title = {Geometry of "
+                           r"learning}, school = {Stony Brook University}, year = 2023}") == (
+        "Sok\u00f3\u0142, P. (2023). Geometry of learning [Unpublished doctoral dissertation]. "
+        "Stony Brook University.")
+    assert _apa(build_one, "@phdthesis{K, author = {Vermani, Ayesha}, title = {Identifying Invariant "
+                           "Representations}, year = 2025, publisher = {NOVA Repository}, "
+                           "url = {http://hdl.handle.net/10362/190610}}") == (
+        "Vermani, A. (2025). Identifying Invariant Representations [Doctoral dissertation]. "
+        "NOVA Repository. http://hdl.handle.net/10362/190610")
+
+
+def test_apa_chapter(build_one):
+    assert _apa(build_one, r"@inbook{K, author = {Paiva, Ant\'onio R. C. and Park, Il}, "
+                           r"title = {Inner Products}, booktitle = {Statistical Signal Processing for "
+                           r"Neuroscience}, editor = {Karim G. Oweiss}, publisher = {Academic Press}, "
+                           r"year = 2010, pages = {1--20}}") == (
+        "Paiva, A. R. C., & Park, I. (2010). Inner Products. In K. G. Oweiss (Ed.), Statistical Signal "
+        "Processing for Neuroscience (pp. 1\u201320). Academic Press.")
+
+
+def test_apa_book(build_one):
+    assert _apa(build_one, r"@book{K, author = {Pr\'incipe, Jos\'e C.}, title = {Information "
+                           r"Theoretic Learning}, publisher = {Springer}, year = 2010, "
+                           r"url = {http://www.springer.com/us/book/9781441915696}}") == (
+        "Pr\u00edncipe, J. C. (2010). Information Theoretic Learning. Springer. "
+        "http://www.springer.com/us/book/9781441915696")
+
+
+def test_apa_patent_application(build_one):
+    assert _apa(build_one, "@misc{K, author = {Nassar, Josue and Park, Il Memming}, title = {System "
+                           "and method}, journal = {United States Patent and Trademark Office}, "
+                           "number = {20250209344:A1}, year = 2025, pubtype = {patent}}") == (
+        "Nassar, J., & Park, I. M. (2025). System and method (U.S. Patent Application Publication "
+        "No. 20250209344 A1). United States Patent and Trademark Office.")
+
+
+def test_apa_more_than_twenty_authors(build_one):
+    names = " and ".join(f"A{i}, X" for i in range(1, 22))
+    text = _apa(build_one, "@article{K, author = {" + names + "}, title = {T}, journal = {J}, year = 2020}")
+    listed = ", ".join(f"A{i}, X." for i in range(1, 20))
+    assert text.startswith(listed + ", . . . A21, X. (2020). T.")
+
+
+def test_apa_without_author_starts_with_title(build_one):
+    [e] = build_one("@misc{K, title = {Lab Report}, year = 2020, howpublished = {Online}}")
+    assert e["apa_text"] == "Lab Report. (2020). Online."
+    assert e["apa_html"].startswith("<i>Lab Report</i>.")
+    assert e["authors"] == [] and e["authors_html"] == ""
+
+
+def test_title_ending_in_question_mark_gets_no_extra_period(build_one):
+    assert _apa(build_one, "@article{K, author = {Park, Il}, title = {Why?}, journal = {J}, year = 2020}") == (
+        "Park, I. (2020). Why? J.")
+
+
+def test_authors_html_lists_everyone_with_ampersand(build_one):
+    [e] = build_one("@article{K, author = {A, B and C, D and E, F}, title = {T}, year = 2020}")
+    assert e["authors_html"] == "A, B., C, D., &amp; E, F."
+
+
+# --- copied BibTeX -----------------------------------------------------------
+
+def test_bibtex_keeps_tex_and_abstract_drops_bookkeeping(build_one):
+    [e] = build_one("@inproceedings{K, author = {S\\'agodi, \\'Abel}, title = {{H}ilbert\n\t spaces}, "
+                    "year = 2026, month = dec, abstract = {We show $x$.}, owner = {me}, "
+                    "timestamp = {2020}, tags = {}, selected = {false}}")
+    assert e["bibtex"] == ("@inproceedings{K,\n"
+                           "  author = {S\\'agodi, \\'Abel},\n"
+                           "  title = {{H}ilbert spaces},\n"
+                           "  year = 2026,\n"
+                           "  month = dec,\n"
+                           "  abstract = {We show $x$.},\n"
+                           "}")
+
+def test_apa_journal_article_number_and_in_press(build_one):
+    assert _apa(build_one, "@article{K, author = {Brinkman, Braden A W}, title = {Metastable dynamics}, "
+                           "journal = {Applied Physics Reviews}, year = 2022, volume = 9, number = 1, "
+                           "pages = {011313}, doi = {10.1063/5.0062603}}") == (
+        "Brinkman, B. A. W. (2022). Metastable dynamics. Applied Physics Reviews, 9(1), "
+        "Article 011313. https://doi.org/10.1063/5.0062603")
+    assert _apa(build_one, "@article{K, author = {Schaffer, Evan}, title = {Embodied Computation}, "
+                           "journal = {The Journal of Neuroscience}, year = 2026, note = {In press}}") == (
+        "Schaffer, E. (in press). Embodied Computation. The Journal of Neuroscience.")
+
+
+def test_apa_journal_without_journal_field(build_one):
+    [e] = build_one("@article{K, author = {Park, Il}, title = {T}, year = 2020}")
+    assert e["apa_text"] == "Park, I. (2020). T."
+    assert "<i></i>" not in e["apa_html"]
+
+
+def test_apa_unpublished_masters_thesis(build_one):
+    assert _apa(build_one, "@mastersthesis{K, author = {Arora, Tushar}, title = {Expressive power}, "
+                           "school = {Stony Brook University}, year = 2023}") == (
+        "Arora, T. (2023). Expressive power [Unpublished master's thesis]. Stony Brook University.")
+
+
+def test_apa_conference_with_editors(build_one):
+    assert _apa(build_one, "@inproceedings{K, author = {Park, Il}, title = {T}, booktitle = {Proc}, "
+                           "editor = {Karim G. Oweiss and Jose Principe}, pages = {1--2}, year = 2010}") == (
+        "Park, I. (2010). T. In K. G. Oweiss & J. Principe (Eds.), Proc (pp. 1\u20132).")
+
+
+def test_apa_presentation_location_and_day(build_one):
+    assert _apa(build_one, "@inproceedings{K, author = {Park, Il}, title = {T}, booktitle = {ECRO}, "
+                           "address = {Lisbon, Portugal}, year = 2018, month = sep, day = {12}, "
+                           "pubtype = {abstract}}") == (
+        "Park, I. (2018, September 12). T [Conference abstract]. ECRO, Lisbon, Portugal.")
+
+
+def test_bad_editor_list_is_bib_error(bp, build_one):
+    with pytest.raises(bp.BibError, match="cannot parse names"):
+        build_one("@inbook{K, title = {T}, booktitle = {B}, editor = {A Bee and C Dee,}, year = 2010}")
