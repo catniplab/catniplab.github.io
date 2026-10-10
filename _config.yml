@@ -75,5 +75,12 @@ exclude:
     - Gemfile.lock
     - LICENSE
     - README.md
+    - bib_export/build_publications.py
+    - bib_export/build_publications.py.lock
+    - bib_export/set_fields.py
+    - bib_export/run_tests.sh
+    - bib_export/p.sh
+    - bib_export/tests
+    - bib_export/__pycache__
 
 timezone: America/New_York
