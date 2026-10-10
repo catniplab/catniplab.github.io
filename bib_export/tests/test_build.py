@@ -94,6 +94,44 @@ def test_kind(build_one, etype, extra, kind):
     assert e["kind"] == kind
 
 
+_INV = (r"@inproceedings{K, author = {A, B}, title = {T}, booktitle = {Proc X}, "
+        r"pages = {1--5}, year = 2018, ")
+
+
+def test_invited_pubtype(build_one):
+    [e] = build_one(_INV + "pubtype = {invited}}")
+    [c] = build_one(_INV.rstrip(", ") + "}")
+    assert (e["kind"], e["kind_name"], e["refereed"]) == ("invited", "Invited paper", False)
+    assert c["kind"] == "conference"
+    assert e["apa_text"] == c["apa_text"] and "In Proc X" in e["apa_text"]
+    assert e["apa_html"] == c["apa_html"] and e["venue_html"] == c["venue_html"]
+    differ = {k for k in e if e[k] != c[k]}
+    assert differ <= {"kind", "kind_name", "refereed", "bibtex"}
+
+
+@pytest.mark.parametrize("etype, extra, refereed", [
+    ("article", "", True),
+    ("inproceedings", "", True),
+    ("unpublished", "eprint = {1234.5678},", False),
+    ("inproceedings", "pubtype = {abstract},", False),
+    ("phdthesis", "", False),
+    ("inbook", "", False),
+    ("book", "", False),
+    ("misc", "pubtype = {patent},", False),
+    ("unpublished", "", False),
+    ("misc", "", False),
+])
+def test_refereed(build_one, etype, extra, refereed):
+    [e] = build_one(f"@{etype}{{K, author = {{A, B}}, title = {{T}}, year = 2020, {extra}}}")
+    assert e["refereed"] is refereed
+
+
+def test_refereed_follows_kind_name_in_entry(build_one):
+    [e] = build_one("@article{K, author = {A, B}, title = {T}, year = 2020}")
+    keys = list(e)
+    assert keys[keys.index("kind_name") + 1] == "refereed"
+
+
 def test_unknown_pubtype_is_error(bp, build_one):
     with pytest.raises(bp.BibError, match="pubtype"):
         build_one("@misc{K, title = {T}, pubtype = {poster}}")
@@ -745,3 +783,21 @@ def test_main_leaves_output_untouched_on_error(bp, tmp_path):
 def test_dedupe_keeps_fragment_distinct_urls(build_one):
     assert _links(build_one, "url = {https://example.org/page#paper}, url2 = {https://example.org/page#data}") == [
         ("Link", "https://example.org/page#paper"), ("Link", "https://example.org/page#data")]
+
+
+def test_refereed_field_overrides_kind_default(build_one):
+    [a] = build_one("@inproceedings{K, author = {A, B}, title = {T}, year = 2020, "
+                    "pubtype = {abstract}, refereed = {True}}")
+    [c] = build_one("@inproceedings{K, author = {A, B}, title = {T}, year = 2020, refereed = {false}}")
+    assert a["kind"] == "abstract" and a["refereed"] is True
+    assert c["kind"] == "conference" and c["refereed"] is False
+
+
+def test_bad_refereed_is_bib_error(bp, build_one):
+    with pytest.raises(bp.BibError, match="K: refereed"):
+        build_one("@article{K, author = {A, B}, title = {T}, year = 2020, refereed = {yes}}")
+
+
+def test_refereed_not_in_copied_bibtex(build_one):
+    [e] = build_one("@article{K, author = {A, B}, title = {T}, year = 2020, refereed = {true}}")
+    assert "refereed" not in e["bibtex"]

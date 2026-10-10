@@ -33,11 +33,12 @@ DEFAULT_OUT = os.path.join(SITE_ROOT, "_data", "publications.json")
 
 KIND_NAMES = {
     "journal": "Journal article", "conference": "Conference paper",
+    "invited": "Invited paper",
     "preprint": "Preprint", "manuscript": "Manuscript", "thesis": "Thesis",
     "chapter": "Book chapter", "book": "Book",
     "abstract": "Conference abstract", "patent": "Patent", "other": "Other",
 }
-PUBTYPES = {"abstract", "patent", "manuscript", "other"}
+PUBTYPES = {"abstract", "patent", "manuscript", "other", "invited"}
 
 
 class BibError(Exception):
@@ -294,7 +295,7 @@ def venue_html(key, kind, entry_type, f):
     if kind == "journal":
         vol = h("volume")
         parts = [h("journal"), vol + (f"({number})" if number and vol else number), h("pages")]
-    elif kind in ("conference", "abstract"):
+    elif kind in ("conference", "invited", "abstract"):
         parts = [h("booktitle") or h("howpublished") or h("journal"), h("pages")]
     elif kind == "thesis":
         degree = "Doctoral dissertation" if entry_type.lower() == "phdthesis" else "Master's thesis"
@@ -315,7 +316,8 @@ def venue_html(key, kind, entry_type, f):
 # --- APA 7 references ---------------------------------------------------------
 
 # Fields left out of the copied BibTeX: JabRef bookkeeping and site-only fields.
-BIBTEX_DROP = {"owner", "timestamp", "pubtype", "themes", "tags", "selected"}
+BIBTEX_DROP = {"owner", "timestamp", "pubtype", "themes", "tags", "selected",
+                "refereed"}
 BIBTEX_ORDER = ["author", "title", "journal", "booktitle", "editor", "chapter", "school",
                 "publisher", "howpublished", "year", "month", "volume", "number", "issue",
                 "pages", "note", "doi", "url", "url2", "eprint", "archiveprefix",
@@ -417,7 +419,7 @@ def apa_html(key, kind, entry_type, f, authors, year, month):
                 (_ital(vol) + (f"({number})" if number else "")) if vol else "",
                 (pages if re.search(r"[-\u2013]", pages) else f"Article {pages}") if pages else ""]
         rest = [_end(", ".join(x for x in segs if x))]
-    elif kind == "conference":
+    elif kind in ("conference", "invited"):
         title_part = _end(title)
         # Some older entries keep the proceedings title in `journal` (e.g. Paiva2008c).
         rest = [_end(_in_book(f, h("booktitle") or h("journal"), pages)), _end(publisher)]
@@ -551,6 +553,15 @@ def selected_of(key, f):
     return v == "true"
 
 
+def refereed_of(key, kind, f):
+    v = f.get("refereed", "").strip().lower()
+    if not v:
+        return kind in ("journal", "conference")
+    if v not in ("true", "false"):
+        raise BibError(f"{key}: refereed must be true or false, got {v!r}")
+    return v == "true"
+
+
 def load_roster(path):
     if not os.path.exists(path):
         return []
@@ -602,6 +613,7 @@ def entry_json(entry, themes, tags, members):
         "key": key,
         "kind": kind,
         "kind_name": KIND_NAMES[kind],
+        "refereed": refereed_of(key, kind, f),
         "year": year,
         "month": month,
         "year_label": str(year) if year else "n.d.",
