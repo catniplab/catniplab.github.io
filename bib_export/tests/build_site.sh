@@ -6,7 +6,8 @@
 #   writes the built site to $WORK/site_out.
 set -eu
 SITE=$(cd "$(dirname "$0")/../.." && pwd)
-WORK=${PUBS_SCRATCH:-$HOME/scratch/projects/catniplab-pubs}
+PUBS_TMP=${TMPDIR:-/tmp}
+WORK=${PUBS_SCRATCH:-${PUBS_TMP%/}/catniplab-pubs}
 SRC=$WORK/site_src
 OUT=$WORK/site_out
 GEMS=$WORK/gems

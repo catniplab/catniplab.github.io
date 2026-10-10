@@ -11,12 +11,37 @@ import json
 import os
 import re
 import sys
+from html.parser import HTMLParser
 
 BUDGET_RAW = 800_000
 BUDGET_GZIP = 160_000
 BUDGET_JS = 9 * 1024
-BUDGET_SCSS = 6 * 1024
+BUDGET_SCSS = 7 * 1024
 ALLOWED_HREF = ("http://", "https://", "/", "#", "?", "mailto:")
+
+
+class HostileFixtureCheck(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.inside = False
+        self.found = False
+        self.unsafe = False
+        self.text = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "li" and ("id", "HostileFixture") in attrs:
+            self.inside = self.found = True
+        if self.inside:
+            self.unsafe |= tag not in {"li", "p", "span", "strong", "i", "a", "details", "summary", "pre"}
+            self.unsafe |= any(name.startswith("on") or name == "data-pub-fixture-xss" for name, _ in attrs)
+
+    def handle_endtag(self, tag):
+        if tag == "li":
+            self.inside = False
+
+    def handle_data(self, data):
+        if self.inside:
+            self.text.append(data)
 
 
 def main(out_dir, data_path, src_dir):
@@ -31,6 +56,14 @@ def main(out_dir, data_path, src_dir):
         problems.append(f"duplicate ids: {dupes[:10]}")
     pub_ids = re.findall(r'<li id="([^"]+)" class="pub"', page)
     keys = {e["key"] for e in data}
+    if "HostileFixture" in keys:
+        guard = HostileFixtureCheck()
+        guard.feed(page)
+        guard.close()
+        if not guard.found or guard.unsafe or not all(
+                f'data-pub-fixture-xss="{field}"' in "".join(guard.text)
+                for field in ("title", "author", "journal", "note", "abstract")):
+            problems.append("hostile fixture markup was rendered as HTML or its literal text was lost")
     if set(pub_ids) != keys:
         problems.append(f"entry ids differ from data: missing {sorted(keys - set(pub_ids))[:10]}, "
                         f"extra {sorted(set(pub_ids) - keys)[:10]}")

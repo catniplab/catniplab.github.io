@@ -28,7 +28,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     </label>
     <p class="pubs-status pubs-js" hidden><span id="pubs-count" aria-live="polite"></span>
       <button type="button" id="pubs-show-all" hidden>Show all</button>
-      <button type="button" id="pubs-clear">Clear filters</button></p>
+      <button type="button" id="pubs-clear" hidden>Clear filters</button></p>
   </div>
   <div class="pubs-js" hidden>
     {%- if vocab.themes %}
@@ -99,10 +99,10 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
       {%- if p.authors_html != "" %}<p class="pub-authors">{{ p.authors_html }}</p>{% endif %}
       <p class="pub-venue">{% if p.venue_html != "" %}<span>{{ p.venue_html }}</span> {% endif %}{% if p.note_html != "" %}<span class="pub-note">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</p>
       {%- if p.links.size > 0 %}
-      <p class="pub-links">{% for l in p.links %}{% unless forloop.first %}&#32;{% endunless %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>
+      <p class="pub-links">{% for l in p.links %}{% unless forloop.first %}&#32;{% endunless %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>&#32;
       {%- endif %}
       {%- if p.labels.size > 0 %}
-      <p class="pub-labels">{% for l in p.labels %}{% unless forloop.first %}&#32;{% endunless %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>
+      <p class="pub-labels">{% for l in p.labels %}{% unless forloop.first %}&#32;{% endunless %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>&#32;
       {%- endif %}
       {%- if p.abstract_html != "" %}
       <details class="pub-abstract"><summary>Abstract</summary><p>{{ p.abstract_html }}</p></details>

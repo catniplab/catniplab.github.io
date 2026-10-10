@@ -10,6 +10,7 @@
   var allView = document.getElementById("show-abstracts");
   var papersView = document.getElementById("show-papers");
   var showAll = document.getElementById("pubs-show-all");
+  var clearFilters = document.getElementById("pubs-clear");
   var q = document.getElementById("pubs-q");
   var count = document.getElementById("pubs-count");
   var years = Array.prototype.slice.call(root.querySelectorAll("section.pubs-year"));
@@ -115,7 +116,9 @@
       if (v) shown++;
     });
     years.forEach(function (s) { s.hidden = !s.querySelector("li.pub:not([hidden])"); });
-    count.textContent = "Showing " + shown + " of " + recs.length;
+    var filtered = Boolean(state.q.trim()) || GROUPS.some(function (g) { return state[g].length > 0; });
+    count.textContent = (filtered ? shown + " of " : "") + inView + (state.abstracts ? " entries" : " papers");
+    clearFilters.hidden = !filtered;
     showAll.hidden = shown === inView;
     chips.forEach(function (c) {
       var active = state[c.dataset.group].indexOf(c.dataset.value) >= 0;
@@ -200,15 +203,20 @@
       if (a.dataset.group === "tag") revealTags();
       apply();
       root.querySelector(".pubs-controls").scrollIntoView();
+      var chip = chips.find(function (c) {
+        return c.dataset.group === a.dataset.group && c.dataset.value === a.dataset.value;
+      });
+      chip.focus();
+      chip.scrollIntoView({ block: "nearest", inline: "nearest" });
     });
   });
-  [document.getElementById("pubs-clear"), showAll].forEach(function (button) {
+  [clearFilters, showAll].forEach(function (button) {
     button.addEventListener("click", function () {
       reset();
       if (button === showAll) state.abstracts = true;
       fragment = "";
       apply();
-      if (button === showAll) allView.focus();
+      (button === showAll ? allView : q).focus();
     });
   });
   window.addEventListener("hashchange", function () { fragment = location.hash; revealTarget(); });

@@ -107,7 +107,7 @@ def main(site, data_path, shots=None):
                 "radio", name=f"Papers ({default_n})", exact=True).is_checked())
             check("All radio has total count", page.get_by_role(
                 "radio", name=f"All, with abstracts ({total})", exact=True).count() == 1)
-            check("count text", page.inner_text("#pubs-count") == f"Showing {default_n} of {total}",
+            check("count text", page.inner_text("#pubs-count") == f"{default_n} papers",
                   page.inner_text("#pubs-count"))
             enhanced = page.locator(".pubs-js").first.is_visible()
             check("filter controls enhanced", enhanced)
@@ -131,8 +131,11 @@ def main(site, data_path, shots=None):
                 check("Papers and Highlights markers match JSON", markers_match(page))
                 check("default chip counts match standalone filters", chip_counts_match(page))
                 check("Show all hidden without filtering", not page.locator("#pubs-show-all").is_visible())
+                check("Clear hidden in unfiltered Papers", not page.locator("#pubs-clear").is_visible())
                 select_view(page, True)
                 check("one click on All shows every entry", shown() == total, f"{shown()} != {total}")
+                check("unfiltered All count and Clear state", page.inner_text("#pubs-count") == f"{total} entries" and
+                      not page.locator("#pubs-clear").is_visible())
                 check("All view in URL", parse_qs(urlsplit(page.url).query) == {"abstracts": ["1"]}, page.url)
                 check("chip counts include abstracts when enabled", chip_counts_match(page, True))
                 check("All and Highlights markers match JSON", markers_match(page))
@@ -146,6 +149,9 @@ def main(site, data_path, shots=None):
                     check(f"Peer-reviewed standalone count, All={abstracts}",
                           review_chip.locator(".n").text_content() == str(len(expected)))
                     review_chip.click()
+                    denominator, noun = (total, "entries") if abstracts else (default_n, "papers")
+                    check(f"filtered count uses current view, All={abstracts}", page.inner_text("#pubs-count") ==
+                          f"{len(expected)} of {denominator} {noun}" and page.locator("#pubs-clear").is_visible())
                     check(f"Highlights hide with review filter, All={abstracts}", not page.locator(".pubs-highlights").is_visible())
                     check(f"Peer-reviewed filter matches JSON, All={abstracts}",
                           set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
@@ -155,6 +161,11 @@ def main(site, data_path, shots=None):
                           set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
                     page.click("#pubs-clear")
                     check(f"Clear removes review filter, All={abstracts}", "review" not in parse_qs(urlsplit(page.url).query))
+                    check(f"Clear hides and restores unfiltered count, All={abstracts}",
+                          not page.locator("#pubs-clear").is_visible() and
+                          page.inner_text("#pubs-count") == f"{denominator} {noun}")
+                    check(f"Clear returns focus to Search, All={abstracts}", page.locator("#pubs-q").evaluate(
+                        "el => el === document.activeElement"))
                 select_view(page, False)
                 page.locator("#show-papers").focus()
                 page.keyboard.press("ArrowRight")
@@ -196,6 +207,8 @@ def main(site, data_path, shots=None):
                     e["kind"] != "abstract" and any("park" in ascii_fold(a["family"]) for a in e["authors"])
                     for e in data))
                 check("Show all appears when search hides entries", page.locator("#pubs-show-all").is_visible())
+                check("search count uses Papers denominator", page.inner_text("#pubs-count") ==
+                      f"{shown()} of {default_n} papers" and page.locator("#pubs-clear").is_visible())
                 check("Highlights hide with search", not page.locator(".pubs-highlights").is_visible())
                 page.clock.fast_forward(299)
                 check("search URL waits for pause", page.evaluate("window.urlWrites") == 0 and "?" not in page.url)
@@ -269,6 +282,9 @@ def main(site, data_path, shots=None):
                         check(f"Show all moves focus to All, All={abstracts}", page.locator("#show-abstracts").evaluate(
                             "el => el === document.activeElement"))
                         check(f"Show all restores Highlights, All={abstracts}", page.locator(".pubs-highlights").is_visible())
+                        check(f"Show all resets count and hides Clear, All={abstracts}",
+                              page.inner_text("#pubs-count") == f"{total} entries" and
+                              not page.locator("#pubs-clear").is_visible())
                         check(f"Show all clears all filters and selects All, All={abstracts}",
                               shown() == total and page.is_checked("#show-abstracts") and
                               page.input_value("#pubs-q") == "" and
@@ -319,7 +335,7 @@ def main(site, data_path, shots=None):
                 zero_chip = page.locator('.pubs-controls button[data-group="tag"]').filter(
                     has=page.locator(".n", has_text=re.compile(r"^0$"))).first
                 if zero_chip.count():
-                    check("abstract-only tag remains available", True)
+                    check("abstract-only tag remains available", zero_chip.is_visible() and zero_chip.is_enabled())
                     zero_chip.click()
                     check("abstract-only tag defaults to zero entries", shown() == 0)
                     select_view(page, True)
@@ -343,6 +359,8 @@ def main(site, data_path, shots=None):
                     page.goto(url + "#" + abstract_key)
                     check("hash reveals hidden abstract", page.locator(f'[id="{abstract_key}"]').is_visible())
                     check("hash selects All view", page.is_checked("#show-abstracts"))
+                    check("fragment alone does not expose Clear", not page.locator("#pubs-clear").is_visible())
+                    page.fill("#pubs-q", abstract_key)
                     page.click("#pubs-clear")
                     check("clear removes fragment", "#" not in page.url, page.url)
                     page.reload()
@@ -361,6 +379,7 @@ def main(site, data_path, shots=None):
                         page.evaluate("""() => {
                             history.replaceState = () => { throw new DOMException('Throttled', 'SecurityError'); };
                         }""")
+                    page.fill("#pubs-q", key)
                     page.click("#pubs-clear")
                     check(f"clear removes target outline, throttled={throttled}", target.evaluate(
                         "el => getComputedStyle(el).outlineStyle === 'none'"))
@@ -403,6 +422,17 @@ def main(site, data_path, shots=None):
                 check("keyboard toggles chip", kind_chip.get_attribute("aria-pressed") == "true")
 
             check("no console errors", not errors, "; ".join(errors[:3]))
+            if any(e["key"] == "HostileFixture" for e in data):
+                page.goto(url)
+                hostile = page.locator("#HostileFixture")
+                check("hostile fixture remains literal text in every display field", all(
+                    f'data-pub-fixture-xss="{field}"' in hostile.locator(selector).text_content()
+                    for field, selector in (("title", ".pub-title"), ("author", ".pub-authors"),
+                                            ("journal", ".pub-venue"), ("note", ".pub-note"),
+                                            ("abstract", ".pub-abstract p"))))
+                check("hostile fixture creates no elements or executable attributes", hostile.locator(
+                    "img, script, [data-pub-fixture-xss], [onerror]"
+                ).count() == 0 and page.evaluate("typeof window.pubFixtureXss === 'undefined'"))
 
             nojs_ctx = browser.new_context(java_script_enabled=False, reduced_motion="reduce")
             nojs_ctx.route("**/*", local_only)
@@ -439,6 +469,15 @@ def main(site, data_path, shots=None):
             check("adjacent links have text separators", nojs.locator(".pub-links, .pub-labels").evaluate_all("""els =>
                 els.every(el => Array.from(el.querySelectorAll('a')).slice(1).every(a =>
                     a.previousSibling.nodeType === Node.TEXT_NODE && /\\s/.test(a.previousSibling.textContent)))"""))
+            check("link and label blocks preserve text spacing", nojs.locator(".pub-links, .pub-labels").evaluate_all(
+                """els => els.every(el => el.nextSibling?.nodeType === Node.TEXT_NODE && /\\s/.test(el.nextSibling.textContent))"""))
+            check("labels have separators before links and after tags", nojs.locator(".pub-labels").evaluate_all(
+                """els => els.every(el => {
+                    const after = getComputedStyle(el, '::after'), before = getComputedStyle(el, '::before');
+                    return after.content.includes('\\u00b7') && parseFloat(after.marginLeft) > 0 &&
+                        (!el.previousElementSibling.matches('.pub-links') ||
+                         (before.content.includes('\\u00b7') && parseFloat(before.marginRight) > 0));
+                })"""))
             check("no-JS: controls hidden", not nojs.locator(".pubs-js").first.is_visible())
             check("no-JS: abstracts hidden by CSS", nojs.locator("li.pub:visible").count() == default_n)
             check("no-JS: peer-reviewed paper labels visible", nojs.locator("li.pub:visible .pub-review:visible").count() ==
@@ -465,6 +504,24 @@ def main(site, data_path, shots=None):
             nojs.locator("li.pub:visible details.pub-cite summary").first.focus()
             nojs.keyboard.press("Enter")
             check("no-JS: citation readable", nojs.locator("li.pub:visible .cite-bibtex").first.is_visible())
+            paper_years = {e["year_label"] for e in data if e["kind"] != "abstract"}
+            abstract_targets = [e for e in data if e["kind"] == "abstract"][:1]
+            abstract_only = next((e for e in data if e["year_label"] not in paper_years), None)
+            if abstract_only and abstract_only not in abstract_targets:
+                abstract_targets.append(abstract_only)
+            for entry in abstract_targets:
+                nojs.goto("about:blank")
+                nojs.goto(url + "#" + entry["key"])
+                target = nojs.locator(f'[id="{entry["key"]}"]')
+                check(f"no-JS: abstract fragment visible in Papers ({entry['key']})", nojs.is_checked("#show-papers") and
+                      target.is_visible() and target.locator("xpath=ancestor::section").is_visible() and
+                      nojs.locator('li.pub[data-kind="abstract"]:visible').count() == 1)
+                header = nojs.locator(".wrapper-masthead").bounding_box()
+                check(f"no-JS: abstract fragment lands below masthead ({entry['key']})", target.bounding_box()["y"] >=
+                      header["y"] + header["height"] and target.bounding_box()["y"] < nojs.viewport_size["height"])
+                nojs.goto(url)
+                check(f"no-JS: clearing fragment hides abstract again ({entry['key']})", not target.is_visible() and
+                      nojs.locator("li.pub:visible").count() == default_n)
 
             if shots:
                 Path(shots).mkdir(parents=True, exist_ok=True)
@@ -560,6 +617,22 @@ def main(site, data_path, shots=None):
                             "el => getComputedStyle(el, '::after').display === 'none'"))
                         cite.scroll_into_view_if_needed()
                         page.screenshot(path=f"{shots}/publications-375-citation.png", animations="disabled")
+                    for group in ("tag", "theme"):
+                        page.goto(url)
+                        entry_link = page.locator(f'li.pub:visible .pub-labels a[data-group="{group}"]').last
+                        value = entry_link.get_attribute("data-value")
+                        entry_link.focus()
+                        page.keyboard.press("Enter")
+                        chip = page.locator(f'.pubs-controls button[data-group="{group}"][data-value="{value}"]')
+                        check(f"entry {group} keyboard link focuses pressed chip at {width}px", chip.evaluate("""el => {
+                            const r = el.getBoundingClientRect();
+                            const group = el.closest('.chip-group').getBoundingClientRect();
+                            const header = document.querySelector('.wrapper-masthead').getBoundingClientRect();
+                            // Native scrolling rounds offsets to whole pixels.
+                            return document.activeElement === el && el.getAttribute('aria-pressed') === 'true' &&
+                                r.top >= header.bottom && r.bottom <= innerHeight &&
+                                r.left >= group.left - 1 && r.right <= group.right + 1 && r.left >= 0 && r.right <= innerWidth;
+                        }"""))
             browser.close()
     finally:
         srv.shutdown()

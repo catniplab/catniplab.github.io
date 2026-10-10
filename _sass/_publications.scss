@@ -109,6 +109,7 @@ body:has(.pubs) .wrapper-masthead { margin-bottom: 12px; }
   .pub-labels a { color: $gray; }
   .pub-labels a::after { display: none; }
   .pub-labels a + a::before, span + .pub-note::before { content: "\00b7  "; }
+  .pub-links + .pub-labels::before, .pub-labels::after { content: "\00b7"; margin: 0 0.3em; color: $gray; }
   .pub details { display: inline-block; margin-right: 0.5em; }
   .pub details[open] { display: block; }
   pre.cite-bibtex {
@@ -141,8 +142,9 @@ body:has(.pubs) .wrapper-masthead { margin-bottom: 12px; }
 
 // View switch without JS: browsers with :has() hide abstracts (and years
 // holding only abstracts) unless All is selected; others show them.
-body:has(#show-abstracts:not(:checked)) .pub[data-kind="abstract"] { display: none; }
-body:has(#show-abstracts:not(:checked)) .pubs-year:not(:has(.pub:not([data-kind="abstract"]))) { display: none; }
+// Fragment targets and their year sections remain visible in either view.
+body:has(#show-abstracts:not(:checked)) .pub[data-kind="abstract"]:not(:target) { display: none; }
+body:has(#show-abstracts:not(:checked)) .pubs-year:not(:has(.pub:not([data-kind="abstract"]))):not(:has(:target)) { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html:has(.pubs) { scroll-behavior: auto; }
