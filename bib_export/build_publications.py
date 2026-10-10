@@ -352,8 +352,8 @@ def _ital(s):
 
 def _editors_apa(f):
     eds = persons(f.get("editor", ""))
-    names = [html.escape((" ".join(_initials(g) for g in e["given"].split()) + " " + e["family"]).strip())
-             for e in eds]
+    names = [html.escape((" ".join(_initials(g) for g in e["given"].split()) + " " + e["family"]
+                           + (" " + e["jr"] if e["jr"] else "")).strip()) for e in eds]
     if not names:
         return ""
     joined = names[0] if len(names) == 1 else (
@@ -365,14 +365,15 @@ def _in_book(f, book, pages):
     """'In E. Editor (Ed.), *Book* (pp. x)' or '' when there is no book title."""
     if not book:
         return ""
-    src = "In " + (_editors_apa(f) + " " if f.get("editor") else "") + _ital(book)
+    eds = _editors_apa(f)
+    src = "In " + (eds + " " if eds else "") + _ital(book)
     return src + (f" (pp. {pages})" if pages else "")
 
 
 def _apa_link(key, kind, f):
     """DOI first, then a preprint DOI, then the URL."""
     if f.get("doi"):
-        return "https://doi.org/" + normalize_doi(f["doi"])
+        return checked_url(key, "https://doi.org/" + normalize_doi(f["doi"]))
     eid = re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
     prefix = (f.get("archiveprefix", "").strip() or "arXiv").lower()
     if kind == "preprint" and eid and prefix in ("arxiv", "biorxiv"):
@@ -385,24 +386,27 @@ def _apa_link(key, kind, f):
 def apa_html(key, kind, entry_type, f, authors, year, month):
     def h(name):
         return tex_to_html(f.get(name, ""))
+    if f.get("eprint") and (f.get("archiveprefix", "").strip() or "arXiv").lower() not in ("arxiv", "biorxiv"):
+        raise BibError(f"{key}: unknown archivePrefix {f.get('archiveprefix', '').strip()!r}")
     title = h("title")
     when = str(year) if year else "n.d."
     if re.search(r"\bin press\b", f.get("note", ""), re.I):
         when = "in press"
-    elif kind == "abstract" and month:
+    elif kind == "abstract" and month and year:
         when += ", " + MONTH_NAMES[month - 1].capitalize()
-        if re.fullmatch(r"[0-9]{1,2}", f.get("day", "").strip()):
-            when += " " + str(int(f["day"]))
+        day = f.get("day", "").strip()
+        if re.fullmatch(r"[0-9]{1,2}", day) and 1 <= int(day) <= 31:
+            when += " " + str(int(day))
     date = f"({when})."
     number = h("number") or h("issue")
-    pages = h("pages")
+    pages = re.sub(r"(?<=[0-9])-(?=[0-9])", "\u2013", h("pages"))  # 10-20 -> en dash
     publisher = h("publisher")
     italic_title = _ital(title)
 
     if kind == "journal":
         title_part = _end(title)
         vol = h("volume")
-        segs = [_ital(h("journal")),
+        segs = [_ital(h("journal")) + (f"({number})" if number and not vol else ""),
                 (_ital(vol) + (f"({number})" if number else "")) if vol else "",
                 (pages if re.search(r"[-\u2013]", pages) else f"Article {pages}") if pages else ""]
         rest = [_end(", ".join(x for x in segs if x))]
@@ -413,7 +417,7 @@ def apa_html(key, kind, entry_type, f, authors, year, month):
     elif kind == "abstract":
         label = "Poster presentation" if "poster" in f.get("note", "").lower() else "Conference abstract"
         title_part = f"{_ital(_strip_period(title))} [{label}]."
-        venue = ", ".join(x for x in (h("booktitle") or h("howpublished"),
+        venue = ", ".join(x for x in (h("booktitle") or h("howpublished") or h("journal"),
                                       h("address") or h("location")) if x)
         rest = [_end(venue)]
     elif kind == "preprint":
@@ -446,7 +450,8 @@ def apa_html(key, kind, entry_type, f, authors, year, month):
     elif kind == "patent":
         num = h("number").replace(":", " ")
         what = "U.S. Patent Application Publication" if re.search(r"A\d$", num) else "U.S. Patent"
-        title_part = f"{_ital(_strip_period(title))}" + (f" ({what} No. {num})." if num else ".")
+        title_part = (f"{_ital(_strip_period(title))} ({what} No. {num})." if num
+                      else _end(italic_title))
         rest = [_end(h("journal") or "U.S. Patent and Trademark Office")]
     else:
         title_part = _end(italic_title)
@@ -465,7 +470,7 @@ def bibtex_of(entry):
     lines = [f"@{entry.entry_type}{{{entry.key},"]
     for k in order:
         v = fields[k]
-        if k in BIBTEX_DROP or not v:
+        if k in BIBTEX_DROP or k.startswith("_") or not v:
             continue
         bare = (k == "month" and v.lower() in MONTHS) or (k == "year" and re.fullmatch(r"[0-9]+", v))
         lines.append(f"  {k} = {v if bare else '{' + v + '}'},")

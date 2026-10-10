@@ -1,4 +1,6 @@
 """Unit tests for build_publications.py. Non-ASCII expectations use \\u escapes."""
+import re
+
 import pytest
 
 
@@ -483,3 +485,95 @@ def test_apa_presentation_location_and_day(build_one):
 def test_bad_editor_list_is_bib_error(bp, build_one):
     with pytest.raises(bp.BibError, match="cannot parse names"):
         build_one("@inbook{K, title = {T}, booktitle = {B}, editor = {A Bee and C Dee,}, year = 2010}")
+
+
+# --- fix round 1: APA edge cases ---------------------------------------------
+
+def test_unknown_archive_prefix_is_bib_error(bp, build_one):
+    with pytest.raises(bp.BibError, match="archivePrefix"):
+        build_one("@unpublished{K, author = {Park, Il}, title = {T}, year = 2020, "
+                  "eprint = {1}, archivePrefix = {medRxiv}}")
+
+
+def test_apa_html_escapes_everything_but_italics(build_one):
+    [e] = build_one(r'@inbook{K, author = {Park, Il}, title = {A <b> \& "q"}, '
+                    r'booktitle = {B <i> \& C}, editor = {Ed <x>, Al}, '
+                    r'publisher = {P \& "Q"}, year = 2010}')
+    out = e["apa_html"]
+    assert "<b>" not in out and "<x>" not in out and "<i> &" not in out
+    assert "&lt;b&gt; &amp; &quot;q&quot;" in out
+    assert "<i>B &lt;i&gt; &amp; C</i>" in out
+    assert "Ed &lt;x&gt;" in out and "P &amp; &quot;Q&quot;" in out
+    assert set(re.findall(r"</?\w+>", out)) == {"<i>", "</i>"}
+
+
+def test_apa_conference_and_chapter_without_booktitle(build_one):
+    [e] = build_one("@inproceedings{K, author = {Park, Il}, title = {T}, year = 2020}")
+    assert e["apa_text"] == "Park, I. (2020). T." and "<i></i>" not in e["apa_html"]
+    [e] = build_one("@inbook{K, author = {Park, Il}, title = {T}, publisher = {P}, year = 2020}")
+    assert e["apa_text"] == "Park, I. (2020). T. P." and "<i></i>" not in e["apa_html"]
+
+
+def test_apa_presentation_location_field_and_bad_day(build_one):
+    base = ("@misc{K, author = {Park, Il}, title = {T}, howpublished = {V}, year = 2018, "
+            "month = sep, pubtype = {abstract}, ")
+    assert _apa(build_one, base + "location = {Lisbon}}") == (
+        "Park, I. (2018, September). T [Conference abstract]. V, Lisbon.")
+    assert _apa(build_one, base + "day = {12th}}") == "Park, I. (2018, September). T [Conference abstract]. V."
+    assert _apa(build_one, base + "day = {32}}") == "Park, I. (2018, September). T [Conference abstract]. V."
+
+
+def test_apa_abstract_month_without_year(build_one):
+    assert _apa(build_one, "@misc{K, author = {Park, Il}, title = {T}, howpublished = {V}, "
+                           "month = feb, pubtype = {abstract}}") == (
+        "Park, I. (n.d.). T [Conference abstract]. V.")
+
+
+def test_apa_abstract_venue_falls_back_to_journal(build_one):
+    assert _apa(build_one, "@misc{K, author = {Park, Il}, title = {T}, journal = {Meeting}, "
+                           "year = 2018, pubtype = {abstract}}") == (
+        "Park, I. (2018). T [Conference abstract]. Meeting.")
+
+
+def test_apa_published_thesis_with_school(build_one):
+    assert _apa(build_one, "@phdthesis{K, author = {Park, Il}, title = {T}, school = {SBU}, "
+                           "publisher = {Repo}, year = 2023, url = {http://x.org/a}}") == (
+        "Park, I. (2023). T [Doctoral dissertation, SBU]. Repo. http://x.org/a")
+
+
+def test_apa_doi_is_unescaped_like_the_link(build_one):
+    [e] = build_one(r"@article{K, author = {Park, Il}, title = {T}, journal = {J}, year = 2020, "
+                    r"doi = {10.1000/a\_b}}")
+    assert e["apa_text"].endswith("https://doi.org/10.1000/a_b")
+    assert e["links"][0]["url"] == "https://doi.org/10.1000/a_b"
+
+
+def test_apa_single_hyphen_ranges_get_en_dash(build_one):
+    assert _apa(build_one, "@article{K, author = {Park, Il}, title = {T}, journal = {J}, "
+                           "year = 2020, pages = {10-20}}") == "Park, I. (2020). T. J, 10\u201320."
+    assert _apa(build_one, "@inbook{K, author = {Park, Il}, title = {T}, booktitle = {B}, "
+                           "year = 2020, pages = {10-20}}") == "Park, I. (2020). T. In B (pp. 10\u201320)."
+
+
+def test_apa_patent_without_number(build_one):
+    assert _apa(build_one, "@misc{K, author = {Park, Il}, title = {System?}, year = 2025, "
+                           "pubtype = {patent}}") == (
+        "Park, I. (2025). System? U.S. Patent and Trademark Office.")
+
+
+def test_apa_editor_suffix_and_blank_editor(build_one):
+    assert _apa(build_one, "@inbook{K, author = {Park, Il}, title = {T}, booktitle = {B}, "
+                           "editor = {Smith, Jr., John}, year = 2020}") == (
+        "Park, I. (2020). T. In J. Smith Jr. (Ed.), B.")
+    assert _apa(build_one, "@inbook{K, author = {Park, Il}, title = {T}, booktitle = {B}, "
+                           "editor = {  }, year = 2020}") == "Park, I. (2020). T. In B."
+
+
+def test_apa_journal_issue_without_volume(build_one):
+    assert _apa(build_one, "@article{K, author = {Park, Il}, title = {T}, journal = {J}, "
+                           "number = {1}, pages = {1--2}, year = 2020}") == "Park, I. (2020). T. J(1), 1\u20132."
+
+
+def test_bibtex_drops_underscore_fields(build_one):
+    [e] = build_one("@article{K, title = {T}, _publisher = {X}, _pages = {1}, year = 2020}")
+    assert e["bibtex"] == "@article{K,\n  title = {T},\n  year = 2020,\n}"
