@@ -1,13 +1,15 @@
 // Publications page: search, label filters, abstract toggle, URL state and
 // copy buttons. Progressive enhancement: without this script the full list,
-// the Abstract and Cite boxes, and the abstract checkbox (CSS :has) still work.
+// the Abstract and Cite boxes, and the view radios (CSS :has) still work.
 (function () {
   "use strict";
   var root = document.querySelector(".pubs");
   if (!root) return;
 
   var GROUPS = ["theme", "kind", "tag"];
-  var box = document.getElementById("show-abstracts");
+  var allView = document.getElementById("show-abstracts");
+  var publicationsView = document.getElementById("show-publications");
+  var showAll = document.getElementById("pubs-show-all");
   var q = document.getElementById("pubs-q");
   var count = document.getElementById("pubs-count");
   var years = Array.prototype.slice.call(root.querySelectorAll("section.pubs-year"));
@@ -90,9 +92,11 @@
 
   function apply(preserveTarget, delayUrl) {
     var shown = 0;
+    var inView = 0;
     var target = targetRecord();
     if (!preserveTarget && target && !visible(target)) { fragment = ""; target = null; }
     recs.forEach(function (r) {
+      if (state.abstracts || r.kind !== "abstract") inView++;
       var v = visible(r);
       r.li.hidden = !v;
       r.li.classList.toggle("pub-target", r === target && v);
@@ -100,6 +104,7 @@
     });
     years.forEach(function (s) { s.hidden = !s.querySelector("li.pub:not([hidden])"); });
     count.textContent = "Showing " + shown + " of " + recs.length;
+    showAll.hidden = shown === inView;
     chips.forEach(function (c) {
       c.setAttribute("aria-pressed", String(state[c.dataset.group].indexOf(c.dataset.value) >= 0));
       c.querySelector(".n").textContent = recs.filter(function (r) {
@@ -107,7 +112,8 @@
           r.labels[c.dataset.group].indexOf(c.dataset.value) >= 0;
       }).length;
     });
-    box.checked = state.abstracts;
+    allView.checked = state.abstracts;
+    publicationsView.checked = !state.abstracts;
     q.value = state.q;
     clearTimeout(urlTimer);
     if (delayUrl) urlTimer = setTimeout(writeUrl, 300); else writeUrl();
@@ -115,7 +121,6 @@
 
   function reset() {
     state.q = "";
-    state.abstracts = false;
     GROUPS.forEach(function (g) { state[g] = []; });
   }
 
@@ -123,7 +128,7 @@
     var r = targetRecord();
     if (r) {
       if (r.kind === "abstract") state.abstracts = true;
-      if (!visible(r)) { var keep = state.abstracts; reset(); state.abstracts = keep; }
+      if (!visible(r)) reset();
     }
     apply(true);
     if (r) r.li.scrollIntoView();
@@ -161,7 +166,10 @@
   });
 
   q.addEventListener("input", function () { state.q = q.value; apply(false, true); });
-  box.addEventListener("change", function () { state.abstracts = box.checked; apply(); });
+  root.querySelector(".pubs-view").addEventListener("change", function () {
+    state.abstracts = allView.checked;
+    apply();
+  });
   chips.forEach(function (c) {
     c.addEventListener("click", function () {
       var list = state[c.dataset.group];
@@ -180,10 +188,13 @@
       root.querySelector(".pubs-controls").scrollIntoView();
     });
   });
-  document.getElementById("pubs-clear").addEventListener("click", function () {
-    reset();
-    fragment = "";
-    apply();
+  [document.getElementById("pubs-clear"), showAll].forEach(function (button) {
+    button.addEventListener("click", function () {
+      reset();
+      if (button === showAll) state.abstracts = true;
+      fragment = "";
+      apply();
+    });
   });
   window.addEventListener("hashchange", function () { fragment = location.hash; revealTarget(); });
   window.addEventListener("popstate", function () {

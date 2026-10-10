@@ -6,27 +6,19 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
 ---
 {%- assign pubs = site.data.publications -%}
 {%- assign publications = pubs | where_exp: "p", "p.kind != 'abstract'" -%}
-{%- assign abstracts = pubs | where: "kind", "abstract" -%}
 {%- assign vocab = site.data.publication_labels -%}
 {%- assign kind_order = "journal,conference,preprint,manuscript,thesis,chapter,book,patent,other" | split: "," -%}
 <div class="pubs">
-<p class="pubs-intro">{{ publications.size | escape }} publications and {{ abstracts.size | escape }} conference abstracts. Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
-
-{%- assign highlights = pubs | where: "selected", true -%}
-{%- if highlights.size > 0 %}
-<section class="pubs-highlights" aria-labelledby="pubs-highlights-h">
-  <h2 id="pubs-highlights-h">Highlights</h2>
-  <ul>
-  {%- for p in highlights %}
-    <li><a href="#{{ p.key | escape }}">{{ p.title_html }}</a>
-      <span class="pub-meta">{% if p.authors_html != "" %}{{ p.authors_html }} &middot; {% endif %}{% if p.venue_html != "" %}{{ p.venue_html }} &middot; {% endif %}{{ p.year_label | escape }}</span></li>
-  {%- endfor %}
-  </ul>
-</section>
-{%- endif %}
+<p class="pubs-intro">Choose All to include conference abstracts. Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
 
 <form class="pubs-controls" role="search" aria-label="Filter publications" onsubmit="return false">
-  <label class="pubs-abstract-toggle"><input type="checkbox" id="show-abstracts"> Show conference abstracts</label>
+  <fieldset class="pubs-view">
+    <legend>Publication view</legend>
+    <input type="radio" name="publication-view" id="show-publications" value="publications" checked>
+    <label for="show-publications">Publications ({{ publications.size | escape }})</label>
+    <input type="radio" name="publication-view" id="show-abstracts" value="all">
+    <label for="show-abstracts">All ({{ pubs.size | escape }})</label>
+  </fieldset>
   <div class="pubs-js" hidden>
     <label for="pubs-q" class="pubs-q-label">Search</label>
     <input type="search" id="pubs-q" placeholder="Title, author, venue, abstract..." autocomplete="off">
@@ -64,9 +56,23 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     </div>
     {%- endfor %}
     <p class="pubs-status"><span id="pubs-count" aria-live="polite"></span>
+      <button type="button" id="pubs-show-all" hidden>Show all</button>
       <button type="button" id="pubs-clear">Clear filters</button></p>
   </div>
 </form>
+
+{%- assign highlights = pubs | where: "selected", true -%}
+{%- if highlights.size > 0 %}
+<section class="pubs-highlights" aria-labelledby="pubs-highlights-h">
+  <h2 id="pubs-highlights-h">Highlights</h2>
+  <ul>
+  {%- for p in highlights %}
+    <li><a href="#{{ p.key | escape }}">{{ p.title_html }}</a>
+      <span class="pub-meta">{% if p.authors_html != "" %}{{ p.authors_html }} &middot; {% endif %}{% if p.venue_html != "" %}{{ p.venue_html }} &middot; {% endif %}{{ p.year_label | escape }}</span></li>
+  {%- endfor %}
+  </ul>
+</section>
+{%- endif %}
 
 {%- assign by_year = pubs | group_by: "year_label" %}
 {%- for g in by_year %}

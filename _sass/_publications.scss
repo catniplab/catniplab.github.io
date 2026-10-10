@@ -20,6 +20,38 @@
     input[type="search"] { width: 100%; max-width: 32em; padding: 0.4em 0.6em; font: inherit; }
     .pubs-q-label { display: block; font-size: 0.85em; color: $gray; }
   }
+  .pubs-view {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 0 1em;
+    padding: 0;
+    border: 0;
+    legend, input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    label {
+      padding: 0.55em 0.85em;
+      border: 1px solid $primary;
+      color: $primary;
+      background: $white;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      &:first-of-type { border-radius: 0.4em 0 0 0.4em; }
+      &:last-of-type { border-radius: 0 0.4em 0.4em 0; border-left: 0; }
+    }
+    input:checked + label { background: $primary; color: $white; }
+    input:focus-visible + label { outline: 2px solid $primary; outline-offset: 3px; }
+    @include mobile { font-size: 0.9em; }
+  }
   .chip-group { margin: 0.5em 0; }
   .chip-group-name { font-size: 0.85em; color: $gray; margin-right: 0.5em; }
   .more-tags { display: inline; summary { display: inline; cursor: pointer; color: $primary; font-size: 0.85em; } }
@@ -84,8 +116,8 @@
   }
 }
 
-// Abstract toggle without JS: browsers with :has() hide abstracts (and years
-// holding only abstracts) while the checkbox is unchecked; others show them.
+// View switch without JS: browsers with :has() hide abstracts (and years
+// holding only abstracts) unless All is selected; others show them.
 body:has(#show-abstracts:not(:checked)) .pub[data-kind="abstract"] { display: none; }
 body:has(#show-abstracts:not(:checked)) .pubs-year:not(:has(.pub:not([data-kind="abstract"]))) { display: none; }
 

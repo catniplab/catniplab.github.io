@@ -10,6 +10,7 @@ process; the server stops when the script exits. Exits 1 on any failure.
 """
 import functools
 import json
+import re
 import sys
 import threading
 import unicodedata
@@ -69,6 +70,10 @@ def main(site, data_path, shots=None):
             def shown():
                 return page.locator("li.pub:visible").count()
 
+            def select_view(target_page, abstracts):
+                option = "show-abstracts" if abstracts else "show-publications"
+                target_page.locator(f'label[for="{option}"]').click()
+
             def chip_counts_match(target_page, abstracts=False):
                 chips = target_page.locator(".pubs-controls button.chip").evaluate_all("""els => els.map(el => ({
                     group: el.dataset.group, value: el.dataset.value, n: Number(el.querySelector('.n').textContent)
@@ -80,6 +85,10 @@ def main(site, data_path, shots=None):
 
             page.goto(url)
             check("default hides abstracts", shown() == default_n, f"{shown()} != {default_n}")
+            check("initial Publications radio and count", page.get_by_role(
+                "radio", name=f"Publications ({default_n})", exact=True).is_checked())
+            check("All radio has total count", page.get_by_role(
+                "radio", name=f"All ({total})", exact=True).count() == 1)
             check("count text", page.inner_text("#pubs-count") == f"Showing {default_n} of {total}",
                   page.inner_text("#pubs-count"))
             enhanced = page.locator(".pubs-js").is_visible()
@@ -90,17 +99,23 @@ def main(site, data_path, shots=None):
             # controls that are deliberately hidden until enhancement runs.
             if enhanced:
                 check("default chip counts match standalone filters", chip_counts_match(page))
-                page.check("#show-abstracts")
-                check("toggle shows abstracts", shown() == total, f"{shown()} != {total}")
-                check("toggle in URL", "abstracts=1" in page.url, page.url)
+                check("Show all hidden without filtering", not page.locator("#pubs-show-all").is_visible())
+                select_view(page, True)
+                check("one click on All shows every entry", shown() == total, f"{shown()} != {total}")
+                check("All view in URL", parse_qs(urlsplit(page.url).query) == {"abstracts": ["1"]}, page.url)
                 check("chip counts include abstracts when enabled", chip_counts_match(page, True))
-                page.uncheck("#show-abstracts")
+                select_view(page, False)
                 check("chip counts return to publication scope", chip_counts_match(page))
+                page.locator("#show-publications").focus()
+                page.keyboard.press("ArrowRight")
+                check("keyboard right arrow selects All", page.is_checked("#show-abstracts") and shown() == total)
+                page.keyboard.press("ArrowLeft")
+                check("keyboard left arrow selects Publications", page.is_checked("#show-publications") and shown() == default_n)
 
                 accented = sorted({ascii_fold(a["family"]) for e in data for a in e["authors"]
                                    if ascii_fold(a["family"]) != a["family"].lower()})
                 for abstracts in (False, True):
-                    page.set_checked("#show-abstracts", abstracts)
+                    select_view(page, abstracts)
                     for query in accented:
                         page.fill("#pubs-q", query)
                         expected = {e["key"] for e in data if (abstracts or e["kind"] != "abstract") and
@@ -110,6 +125,9 @@ def main(site, data_path, shots=None):
                         check(f"accent search {query}, abstracts={abstracts}: all matching authors shown",
                               bool(expected) and expected <= actual and all(query in ascii_fold(t) for t in texts))
                 page.click("#pubs-clear")
+                check("Clear filters preserves All view", page.is_checked("#show-abstracts") and shown() == total and
+                      parse_qs(urlsplit(page.url).query) == {"abstracts": ["1"]})
+                select_view(page, False)
 
                 page.clock.install()
                 page.clock.pause_at(page.evaluate("Date.now()") + 1000)
@@ -127,6 +145,7 @@ def main(site, data_path, shots=None):
                 check("search filters before URL write", shown() == sum(
                     e["kind"] != "abstract" and any("park" in ascii_fold(a["family"]) for a in e["authors"])
                     for e in data))
+                check("Show all appears when search hides entries", page.locator("#pubs-show-all").is_visible())
                 page.clock.fast_forward(299)
                 check("search URL waits for pause", page.evaluate("window.urlWrites") == 0 and "?" not in page.url)
                 page.clock.fast_forward(1)
@@ -155,7 +174,8 @@ def main(site, data_path, shots=None):
                     page.reload()
                     check("URL state survives reload", shown() == expected, f"{shown()} != {expected}")
                     page.click("#pubs-clear")
-                    check("clear resets", shown() == default_n and "?" not in page.url, page.url)
+                    check("Clear filters preserves Publications view", shown() == default_n and
+                          page.is_checked("#show-publications") and "?" not in page.url, page.url)
 
                 themes = sorted({t for e in data for t in e["themes"]})[:2]
                 tagged = next((e for e in data if e["kind"] != "abstract" and e["themes"] and e["tags"]), None)
@@ -176,6 +196,21 @@ def main(site, data_path, shots=None):
                           parse_qs(urlsplit(page.url).query) == {k: [v] for k, v in filters.items()})
                     page.locator(f'.pubs-controls button[data-group="theme"][data-value="{filters["theme"]}"]').click()
                     check("duplicate filter deselects with one click", "theme" not in parse_qs(urlsplit(page.url).query))
+                    for abstracts in (False, True):
+                        params = dict(filters, q="no-matching-publication")
+                        if abstracts:
+                            params["abstracts"] = "1"
+                        page.goto(url + "?" + urlencode(params))
+                        check(f"Show all available from filtered view, All={abstracts}",
+                              shown() == 0 and page.locator("#pubs-show-all").is_visible())
+                        page.click("#pubs-show-all")
+                        check(f"Show all clears all filters and selects All, All={abstracts}",
+                              shown() == total and page.is_checked("#show-abstracts") and
+                              page.input_value("#pubs-q") == "" and
+                              page.locator('.pubs-controls button[aria-pressed="true"]').count() == 0)
+                        check(f"Show all leaves only abstracts=1, All={abstracts}",
+                              urlsplit(page.url).query == "abstracts=1" and not urlsplit(page.url).fragment and
+                              not page.locator("#pubs-show-all").is_visible())
 
                 page.goto(url)
                 more = page.locator("details.more-tags").first
@@ -189,12 +224,15 @@ def main(site, data_path, shots=None):
                 check("more tag filters entries", bool(expected) and actual == expected)
                 page.click("#pubs-clear")
                 zero_chip = page.locator('.pubs-controls button[data-group="tag"]').filter(
-                    has=page.locator(".n", has_text="0")).first
-                check("abstract-only tag remains available", zero_chip.count() == 1)
-                zero_chip.click()
-                check("abstract-only tag defaults to zero entries", shown() == 0)
-                page.check("#show-abstracts")
-                check("abstract-only tag works after toggle", shown() > 0 and chip_counts_match(page, True))
+                    has=page.locator(".n", has_text=re.compile(r"^0$"))).first
+                if zero_chip.count():
+                    check("abstract-only tag remains available", True)
+                    zero_chip.click()
+                    check("abstract-only tag defaults to zero entries", shown() == 0)
+                    select_view(page, True)
+                    check("abstract-only tag works in All", shown() > 0 and chip_counts_match(page, True))
+                else:
+                    print("SKIP abstract-only tag checks: no zero-count tag", flush=True)
 
                 page.goto(url + "?tag=no-such-tag&abstracts=yes&kind=&q=")
                 check("garbage params give default view", shown() == default_n, f"{shown()}")
@@ -211,13 +249,13 @@ def main(site, data_path, shots=None):
                           and page.input_value("#pubs-q") == "")
                     page.goto(url + "#" + abstract_key)
                     check("hash reveals hidden abstract", page.locator(f'[id="{abstract_key}"]').is_visible())
-                    check("hash checks abstract box", page.is_checked("#show-abstracts"))
+                    check("hash selects All view", page.is_checked("#show-abstracts"))
                     page.click("#pubs-clear")
                     check("clear removes fragment", "#" not in page.url, page.url)
                     page.reload()
-                    check("clear survives reload", shown() == default_n and not page.is_checked("#show-abstracts"))
+                    check("Clear keeps All after reload", shown() == total and page.is_checked("#show-abstracts"))
                     page.goto(url + "#" + abstract_key)
-                    page.uncheck("#show-abstracts")
+                    select_view(page, False)
                     check("filter hiding target removes fragment", "#" not in page.url, page.url)
 
                 key = next(e["key"] for e in data if e["kind"] != "abstract")
@@ -277,8 +315,9 @@ def main(site, data_path, shots=None):
             nojs_ctx.route("**/*", local_only)
             nojs = nojs_ctx.new_page()
             nojs.goto(url)
-            check("intro separates publications and abstracts", nojs.locator(".pubs-intro").text_content().startswith(
-                f"{default_n} publications and {total - default_n} conference abstracts."))
+            check("server-rendered view names and counts", nojs.get_by_role("group", name="Publication view").count() == 1 and
+                  nojs.get_by_role("radio", name=f"Publications ({default_n})", exact=True).is_checked() and
+                  nojs.get_by_role("radio", name=f"All ({total})", exact=True).count() == 1)
             check("server-rendered chip counts match default scope", chip_counts_match(nojs))
             check("highlight metadata has no empty separators", all(
                 all(part.strip() for part in text.split("\u00b7"))
@@ -290,8 +329,19 @@ def main(site, data_path, shots=None):
                     a.previousSibling.nodeType === Node.TEXT_NODE && /\\s/.test(a.previousSibling.textContent)))"""))
             check("no-JS: controls hidden", not nojs.locator(".pubs-js").is_visible())
             check("no-JS: abstracts hidden by CSS", nojs.locator("li.pub:visible").count() == default_n)
-            nojs.check("#show-abstracts")
-            check("no-JS: checkbox shows abstracts", nojs.locator("li.pub:visible").count() == total)
+            select_view(nojs, True)
+            check("no-JS: All shows every entry and year", nojs.locator("li.pub:visible").count() == total and
+                  nojs.locator(".pubs-year:visible").count() == len({e["year_label"] for e in data}))
+            select_view(nojs, False)
+            check("no-JS: Publications hides abstracts and empty years", nojs.locator("li.pub:visible").count() == default_n and
+                  nojs.locator(".pubs-year:visible").count() == len({e["year_label"] for e in data if e["kind"] != "abstract"}))
+            nojs.locator("#show-publications").focus()
+            nojs.keyboard.press("ArrowRight")
+            check("no-JS: arrow key selects All", nojs.is_checked("#show-abstracts") and
+                  nojs.locator("li.pub:visible").count() == total)
+            nojs.keyboard.press("ArrowLeft")
+            check("no-JS: arrow key selects Publications", nojs.is_checked("#show-publications") and
+                  nojs.locator("li.pub:visible").count() == default_n)
             nojs.locator("li.pub:visible details.pub-cite summary").first.focus()
             nojs.keyboard.press("Enter")
             check("no-JS: citation readable", nojs.locator("li.pub:visible .cite-bibtex").first.is_visible())
@@ -303,6 +353,11 @@ def main(site, data_path, shots=None):
                     page.goto(url)
                     check(f"no horizontal overflow at {width}px", page.evaluate(
                         "document.documentElement.scrollWidth <= window.innerWidth"))
+                    switch = page.locator(".pubs-view").bounding_box()
+                    header = page.locator(".wrapper-masthead").bounding_box()
+                    check(f"view switch visible before Highlights at {width}px", switch["y"] >= header["y"] + header["height"] and
+                          switch["y"] + switch["height"] <= page.viewport_size["height"] and
+                          switch["y"] < page.locator(".pubs-highlights").bounding_box()["y"])
                     page.screenshot(path=f"{shots}/publications-{width}.png", animations="disabled")
                     key = page.locator("li.pub:visible").first.get_attribute("id")
                     page.goto(url + "#" + key)
