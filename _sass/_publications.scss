@@ -1,0 +1,157 @@
+// Publications page: publications.html and js/publications.js.
+
+body:has(.pubs) .wrapper-masthead { margin-bottom: 12px; }
+#main:has(.pubs) { max-width: 1140px; }
+.page:has(.pubs) > h1 { font-size: 24px; margin: 0 0 0.2em; }
+
+.pubs {
+  font-size: 14px;
+  line-height: 1.4;
+  [hidden] { display: none !important; }
+  .pubs-intro { color: $gray; margin: 0; }
+  h2 { font-size: 16px; line-height: 1.4; margin: 0.5em 0 0.2em; &::after { display: none; } }
+  &:has(#pubs-show-all:not([hidden])) .pubs-highlights { display: none; }
+
+  .pubs-highlights {
+    margin: 0.5em 0;
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { display: flex; gap: 0.5em; margin: 0.2em 0; }
+    li > a { flex: 1; min-width: 0; }
+    li > a, .pub-meta-venue { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pub-meta { display: flex; gap: 0.4em; max-width: 55%; color: $gray; }
+    @include mobile {
+      li { flex-wrap: wrap; gap: 0; }
+      li > a { flex-basis: 100%; }
+      .pub-meta { max-width: 100%; }
+    }
+  }
+
+  .pubs-controls {
+    margin: 0.5em 0;
+    padding: 0.4em 0;
+    border-top: 1px solid $lightGray;
+    border-bottom: 1px solid $lightGray;
+    input[type="search"] { width: 100%; padding: 0.25em 0.4em; font: inherit; }
+  }
+  .pubs-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3em 1em; }
+  .pubs-search { flex: 1; min-width: 12em; }
+  .pubs-review-legend { margin: 0.2em 0 0; color: $gray; }
+  .pubs-view legend, .pubs-view input, .pubs-search > span {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .pubs-view {
+    display: flex; width: fit-content; max-width: 100%;
+    margin: 0; padding: 0; border: 0;
+    label {
+      padding: 0.4em 0.6em;
+      border: 1px solid $primary;
+      color: $primary;
+      background: $white;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      &:first-of-type { border-radius: 0.4em 0 0 0.4em; }
+      &:last-of-type { border-radius: 0 0.4em 0.4em 0; border-left: 0; }
+    }
+    input:checked + label { background: $primary; color: $white; }
+    input:focus-visible + label { outline: 2px solid $primary; outline-offset: 3px; }
+  }
+  .chip-group { margin: 0.15em 0; }
+  .pubs-kind-review {
+    display: flex; gap: 0.6em;
+    .chip-group:first-child { min-width: 0; }
+    .chip-group:last-child { flex-shrink: 0; }
+  }
+  .chip-group-name { color: $gray; margin-right: 0.4em; }
+  .more-tags, .more-tags summary, .pub-links, .pub-labels { display: inline; }
+  .more-tags::details-content { display: inline; }
+  .pubs-topics:has([aria-pressed="true"]) > summary::after { content: " (active)"; }
+  summary { cursor: pointer; color: $primary; }
+  .pubs-status { margin: 0; }
+  button { font: inherit; cursor: pointer; }
+
+  .chip {
+    display: inline-block;
+    margin: 0.1em 0.2em 0.1em 0;
+    padding: 0 0.45em;
+    border: 1px solid $lightGray;
+    border-radius: 1em;
+    background: $white;
+    color: $darkGray;
+    &:hover { border-color: $primary; }
+    &[aria-pressed="true"] { background: $primary; border-color: $primary; color: $white; }
+    .n { color: $gray; }
+    &[aria-pressed="true"] .n { color: $white; }
+  }
+
+  // Leave room for the sticky masthead, including its wrapped navigation.
+  .pub, .pubs-controls {
+    scroll-margin-top: 11rem;
+    @include mobile { scroll-margin-top: 10rem; }
+  }
+
+  .pubs-year > h2 { border-bottom: 1px solid $lightGray; }
+  ol.pubs-list { list-style: none; padding: 0; margin: 0; }
+  .pub { margin: 0 0 0.45em; }
+  .pub, .pubs-highlights li { border-left: 3px solid transparent; padding-left: 0.6em; }
+  li[data-refereed="true"] { border-left-color: $primary; }
+  .pub p { margin: 0; }
+  .pub-title, .pub-authors, .pub-venue { max-width: none; }
+  .pub-title { font-weight: 600; }
+  .pub p:not(.pub-title), .pub details, .pub-meta, .pubs-search,
+  .pubs-review-legend, .pubs-status, .chip { font-size: 13px; }
+  .pub-venue, .pub-review { color: $darkGray; }
+  .pub-kind { margin-left: 0.4em; color: $gray; }
+  .pub-review { font-weight: 600; white-space: nowrap; }
+  .pub-kind:first-child { margin-left: 0; }
+  .pub-links a { margin-right: 0.5em; }
+  .pub-labels a { color: $gray; }
+  .pub-labels a::after { display: none; }
+  .pub-labels a + a::before, span + .pub-note::before { content: "\00b7  "; }
+  .pub-links + .pub-labels::before, .pub-labels::after { content: "\00b7"; margin: 0 0.3em; color: $gray; }
+  .pub details { display: inline-block; margin-right: 0.5em; }
+  .pub details[open] { display: block; }
+  pre.cite-bibtex {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: $mono;
+    font-size: 13px;
+    background: $paleLightGray;
+    color: $darkGray;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    box-shadow: none;
+  }
+  button.copy { margin-right: 0.5em; }
+  .pub.pub-target, &:not(.pubs-enhanced) .pub:target { outline: 2px solid $primary; outline-offset: 4px; }
+
+  button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+  }
+  @include mobile {
+    .chip-group { overflow-x: auto; white-space: nowrap; }
+    .more-tags summary { display: inline-block; }
+    button, .chip, .pubs-view label, input[type="search"], summary { min-height: 32px; box-sizing: border-box; }
+    button, .chip, summary { padding-top: 6px; padding-bottom: 6px; }
+    .pubs-toolbar { gap: 0.4em; }
+    .pub a, .pubs-highlights a { display: inline-block; padding: 3px 0; min-height: 24px; box-sizing: border-box; }
+  }
+}
+
+// View switch without JS: browsers with :has() hide abstracts (and years
+// holding only abstracts) unless All is selected; others show them.
+// Fragment targets and their year sections remain visible in either view.
+body:has(#show-abstracts:not(:checked)) .pub[data-kind="abstract"]:not(:target) { display: none; }
+body:has(#show-abstracts:not(:checked)) .pubs-year:not(:has(.pub:not([data-kind="abstract"]))):not(:has(:target)) { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.pubs) { scroll-behavior: auto; }
+  .page:has(.pubs) { animation: none; }
+  .pubs * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .pubs-controls, .pub-cite, .pub-abstract, .pub-labels, .copy { display: none !important; }
+}

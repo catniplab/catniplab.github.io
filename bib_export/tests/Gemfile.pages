@@ -1,0 +1,4 @@
+# GitHub Pages production gem set (Jekyll 3.10), used only by build_site.sh.
+source "https://rubygems.org"
+gem "github-pages", group: :jekyll_plugins
+gem "webrick"

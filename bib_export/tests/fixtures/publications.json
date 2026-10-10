@@ -1,0 +1,396 @@
+[
+  {
+    "key": "Sagodi2026b",
+    "kind": "conference",
+    "kind_name": "Conference paper",
+    "refereed": true,
+    "year": 2026,
+    "month": 12,
+    "year_label": "2026",
+    "authors": [
+      {
+        "family": "Ságodi",
+        "von": "",
+        "given": "Ábel",
+        "jr": "",
+        "display": "Ságodi, Á.",
+        "member": true
+      },
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      }
+    ],
+    "authors_html": "<strong class=\"member\">Ságodi, Á.</strong>, &amp; <strong class=\"member\">Park, I. M.</strong>",
+    "title": "Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees",
+    "title_html": "Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees",
+    "venue_html": "Advances in Neural Information Processing Systems (NeurIPS)",
+    "note_html": "",
+    "abstract_html": "Universal approximation theorems establish the expressive capacity of neural network architectures.",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2602.08640"
+      },
+      {
+        "label": "OpenReview",
+        "url": "https://openreview.net/forum?id=JFUIDA4w6C"
+      }
+    ],
+    "themes": [
+      "language"
+    ],
+    "tags": [
+      "continuous-attractors",
+      "dynamical-archetypes"
+    ],
+    "labels": [
+      {
+        "group": "theme",
+        "id": "language",
+        "name": "Improving our language for neural computation"
+      },
+      {
+        "group": "research",
+        "id": "continuous-attractors",
+        "name": "Continuous attractors"
+      },
+      {
+        "group": "research",
+        "id": "dynamical-archetypes",
+        "name": "Dynamical archetypes"
+      }
+    ],
+    "selected": true,
+    "apa_html": "Ságodi, Á., & Park, I. M. (2026). Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees. In <i>Advances in Neural Information Processing Systems (NeurIPS)</i>. https://openreview.net/forum?id=JFUIDA4w6C",
+    "apa_text": "Ságodi, Á., & Park, I. M. (2026). Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees. In Advances in Neural Information Processing Systems (NeurIPS). https://openreview.net/forum?id=JFUIDA4w6C",
+    "bibtex": "@inproceedings{Sagodi2026b,\n  author = {S\\'agodi, \\'Abel and Park, Il Memming},\n  title = {Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees},\n  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},\n  year = 2026,\n  month = dec,\n  url = {https://openreview.net/forum?id=JFUIDA4w6C},\n  eprint = {2602.08640},\n  archiveprefix = {arXiv},\n  abstract = {Universal approximation theorems establish the expressive capacity of neural network architectures.},\n}"
+  },
+  {
+    "key": "Sagodi2026a",
+    "kind": "abstract",
+    "kind_name": "Conference abstract",
+    "refereed": false,
+    "year": 2026,
+    "month": 3,
+    "year_label": "2026",
+    "authors": [
+      {
+        "family": "Ságodi",
+        "von": "",
+        "given": "Ábel",
+        "jr": "",
+        "display": "Ságodi, Á.",
+        "member": true
+      },
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      }
+    ],
+    "authors_html": "<strong class=\"member\">Ságodi, Á.</strong>, &amp; <strong class=\"member\">Park, I. M.</strong>",
+    "title": "Dynamical archetype analysis: Autonomous computation",
+    "title_html": "Dynamical archetype analysis: Autonomous computation",
+    "venue_html": "Computational and Systems Neuroscience (COSYNE)",
+    "note_html": "",
+    "abstract_html": "",
+    "links": [],
+    "themes": [
+      "language"
+    ],
+    "tags": [
+      "dynamical-archetypes"
+    ],
+    "labels": [
+      {
+        "group": "theme",
+        "id": "language",
+        "name": "Improving our language for neural computation"
+      },
+      {
+        "group": "research",
+        "id": "dynamical-archetypes",
+        "name": "Dynamical archetypes"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Ságodi, Á., & Park, I. M. (2026, March). <i>Dynamical archetype analysis: Autonomous computation</i> [Conference abstract]. Computational and Systems Neuroscience (COSYNE).",
+    "apa_text": "Ságodi, Á., & Park, I. M. (2026, March). Dynamical archetype analysis: Autonomous computation [Conference abstract]. Computational and Systems Neuroscience (COSYNE).",
+    "bibtex": "@inproceedings{Sagodi2026a,\n  author = {S\\'agodi, \\'Abel and Park, Il Memming},\n  title = {Dynamical archetype analysis: Autonomous computation},\n  booktitle = {Computational and Systems Neuroscience ({COSYNE})},\n  year = 2026,\n  month = mar,\n}"
+  },
+  {
+    "key": "Dowling2026a",
+    "kind": "preprint",
+    "kind_name": "Preprint",
+    "refereed": false,
+    "year": 2026,
+    "month": null,
+    "year_label": "2026",
+    "authors": [
+      {
+        "family": "Dowling",
+        "von": "",
+        "given": "Matthew",
+        "jr": "",
+        "display": "Dowling, M.",
+        "member": false
+      },
+      {
+        "family": "Jeon",
+        "von": "",
+        "given": "HyungJu",
+        "jr": "",
+        "display": "Jeon, H.",
+        "member": false
+      },
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      }
+    ],
+    "authors_html": "Dowling, M., Jeon, H., &amp; <strong class=\"member\">Park, I. M.</strong>",
+    "title": "Memory by Design",
+    "title_html": "Memory by Design",
+    "venue_html": "arXiv:2601.00001",
+    "note_html": "",
+    "abstract_html": "",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2601.00001"
+      }
+    ],
+    "themes": [],
+    "tags": [
+      "state-space-models"
+    ],
+    "labels": [
+      {
+        "group": "research",
+        "id": "state-space-models",
+        "name": "State-space models"
+      }
+    ],
+    "selected": true,
+    "apa_html": "Dowling, M., Jeon, H., & Park, I. M. (2026). <i>Memory by Design</i>. arXiv. https://doi.org/10.48550/arXiv.2601.00001",
+    "apa_text": "Dowling, M., Jeon, H., & Park, I. M. (2026). Memory by Design. arXiv. https://doi.org/10.48550/arXiv.2601.00001",
+    "bibtex": "@unpublished{Dowling2026a,\n  author = {Dowling, Matthew and Jeon, HyungJu and Park, Il Memming},\n  title = {Memory by Design},\n  year = 2026,\n  eprint = {2601.00001},\n  archiveprefix = {arXiv},\n}"
+  },
+  {
+    "key": "Sokol2023b",
+    "kind": "thesis",
+    "kind_name": "Thesis",
+    "refereed": false,
+    "year": 2023,
+    "month": 5,
+    "year_label": "2023",
+    "authors": [
+      {
+        "family": "Sokół",
+        "von": "",
+        "given": "Piotr",
+        "jr": "",
+        "display": "Sokół, P.",
+        "member": false
+      }
+    ],
+    "authors_html": "Sokół, P.",
+    "title": "Geometry of learning and representation in neural networks",
+    "title_html": "Geometry of learning and representation in neural networks",
+    "venue_html": "Doctoral dissertation, Stony Brook University",
+    "note_html": "",
+    "abstract_html": "",
+    "links": [],
+    "themes": [],
+    "tags": [
+      "kernel-methods"
+    ],
+    "labels": [
+      {
+        "group": "method",
+        "id": "kernel-methods",
+        "name": "Kernel methods"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Sokół, P. (2023). <i>Geometry of learning and representation in neural networks</i> [Unpublished doctoral dissertation]. Stony Brook University.",
+    "apa_text": "Sokół, P. (2023). Geometry of learning and representation in neural networks [Unpublished doctoral dissertation]. Stony Brook University.",
+    "bibtex": "@phdthesis{Sokol2023b,\n  author = {Sok{\\'o}{\\l}, Piotr},\n  title = {Geometry of learning and representation in neural networks},\n  school = {Stony Brook University},\n  year = 2023,\n  month = may,\n}"
+  },
+  {
+    "key": "Park2014d",
+    "kind": "journal",
+    "kind_name": "Journal article",
+    "refereed": true,
+    "year": 2014,
+    "month": null,
+    "year_label": "2014",
+    "authors": [
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      },
+      {
+        "family": "Meister",
+        "von": "",
+        "given": "Miriam L R",
+        "jr": "",
+        "display": "Meister, M. L. R.",
+        "member": false
+      },
+      {
+        "family": "Huk",
+        "von": "",
+        "given": "Alexander C",
+        "jr": "",
+        "display": "Huk, A. C.",
+        "member": false
+      },
+      {
+        "family": "Pillow",
+        "von": "",
+        "given": "Jonathan W",
+        "jr": "",
+        "display": "Pillow, J. W.",
+        "member": false
+      }
+    ],
+    "authors_html": "<strong class=\"member\">Park, I. M.</strong>, Meister, M. L. R., Huk, A. C., &amp; Pillow, J. W.",
+    "title": "Encoding and decoding in parietal cortex during sensorimotor decision-making",
+    "title_html": "Encoding and decoding in parietal cortex during sensorimotor decision-making",
+    "venue_html": "Nature Neuroscience, 17(10), 1395–1403",
+    "note_html": "",
+    "abstract_html": "",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1038/nn.3800"
+      }
+    ],
+    "themes": [
+      "inference"
+    ],
+    "tags": [
+      "state-space-models"
+    ],
+    "labels": [
+      {
+        "group": "theme",
+        "id": "inference",
+        "name": "Inference of effective dynamical systems"
+      },
+      {
+        "group": "research",
+        "id": "state-space-models",
+        "name": "State-space models"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Park, I. M., Meister, M. L. R., Huk, A. C., & Pillow, J. W. (2014). Encoding and decoding in parietal cortex during sensorimotor decision-making. <i>Nature Neuroscience</i>, <i>17</i>(10), 1395–1403. https://doi.org/10.1038/nn.3800",
+    "apa_text": "Park, I. M., Meister, M. L. R., Huk, A. C., & Pillow, J. W. (2014). Encoding and decoding in parietal cortex during sensorimotor decision-making. Nature Neuroscience, 17(10), 1395–1403. https://doi.org/10.1038/nn.3800",
+    "bibtex": "@article{Park2014d,\n  author = {Park, Il Memming and Meister, Miriam L R and Huk, Alexander C and Pillow, Jonathan W},\n  title = {Encoding and decoding in parietal cortex during sensorimotor decision-making},\n  journal = {Nature Neuroscience},\n  year = 2014,\n  volume = {17},\n  number = {10},\n  pages = {1395--1403},\n  doi = {10.1038/nn.3800},\n}"
+  },
+  {
+    "key": "Park2009a",
+    "kind": "abstract",
+    "kind_name": "Conference abstract",
+    "refereed": false,
+    "year": 2009,
+    "month": null,
+    "year_label": "2009",
+    "authors": [
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il",
+        "jr": "",
+        "display": "Park, I.",
+        "member": true
+      },
+      {
+        "family": "Rao",
+        "von": "",
+        "given": "Murali",
+        "jr": "",
+        "display": "Rao, M.",
+        "member": false
+      }
+    ],
+    "authors_html": "<strong class=\"member\">Park, I.</strong>, &amp; Rao, M.",
+    "title": "Point Process Model for Precisely Timed Spike Trains.",
+    "title_html": "Point Process Model for Precisely Timed Spike Trains.",
+    "venue_html": "Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009",
+    "note_html": "",
+    "abstract_html": "",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.3389/conf.neuro.06.2009.03.227"
+      }
+    ],
+    "themes": [],
+    "tags": [
+      "spike-timing"
+    ],
+    "labels": [
+      {
+        "group": "research",
+        "id": "spike-timing",
+        "name": "Spike timing"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Park, I., & Rao, M. (2009). <i>Point Process Model for Precisely Timed Spike Trains</i> [Conference abstract]. Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009. https://doi.org/10.3389/conf.neuro.06.2009.03.227",
+    "apa_text": "Park, I., & Rao, M. (2009). Point Process Model for Precisely Timed Spike Trains [Conference abstract]. Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009. https://doi.org/10.3389/conf.neuro.06.2009.03.227",
+    "bibtex": "@inproceedings{Park2009a,\n  author = {Park, Il and Rao, Murali},\n  title = {Point Process Model for Precisely Timed Spike Trains.},\n  booktitle = {Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009},\n  year = 2009,\n  doi = {doi: 10.3389/conf.neuro.06.2009.03.227},\n}"
+  },
+  {
+    "key": "HostileFixture",
+    "kind": "journal",
+    "kind_name": "Journal article",
+    "refereed": true,
+    "year": 2000,
+    "month": null,
+    "year_label": "2000",
+    "authors": [
+      {
+        "family": "Fixture <img data-pub-fixture-xss=\"author\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"",
+        "von": "",
+        "given": "",
+        "jr": "",
+        "display": "Fixture <img data-pub-fixture-xss=\"author\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"",
+        "member": false
+      }
+    ],
+    "authors_html": "Fixture &lt;img data-pub-fixture-xss=&quot;author&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;",
+    "title": "Hostile <img data-pub-fixture-xss=\"title\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"",
+    "title_html": "Hostile &lt;img data-pub-fixture-xss=&quot;title&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;",
+    "venue_html": "Journal &lt;img data-pub-fixture-xss=&quot;journal&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;",
+    "note_html": "Note &lt;img data-pub-fixture-xss=&quot;note&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;",
+    "abstract_html": "Abstract &lt;img data-pub-fixture-xss=&quot;abstract&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;",
+    "links": [],
+    "themes": [],
+    "tags": [],
+    "labels": [],
+    "selected": false,
+    "apa_html": "Fixture &lt;img data-pub-fixture-xss=&quot;author&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;. (2000). Hostile &lt;img data-pub-fixture-xss=&quot;title&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;. <i>Journal &lt;img data-pub-fixture-xss=&quot;journal&quot; src=x onerror=&quot;window.pubFixtureXss=1&quot;&gt; &amp; &quot;quote&quot;</i>.",
+    "apa_text": "Fixture <img data-pub-fixture-xss=\"author\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\". (2000). Hostile <img data-pub-fixture-xss=\"title\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\". Journal <img data-pub-fixture-xss=\"journal\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\".",
+    "bibtex": "@article{HostileFixture,\n  author = {{Fixture <img data-pub-fixture-xss=\"author\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"}},\n  title = {Hostile <img data-pub-fixture-xss=\"title\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"},\n  journal = {Journal <img data-pub-fixture-xss=\"journal\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"},\n  year = 2000,\n  note = {Note <img data-pub-fixture-xss=\"note\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"},\n  abstract = {Abstract <img data-pub-fixture-xss=\"abstract\" src=x onerror=\"window.pubFixtureXss=1\"> & \"quote\"},\n}"
+  }
+]

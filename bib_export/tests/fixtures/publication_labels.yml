@@ -1,0 +1,20 @@
+themes:
+  - {id: inference, name: Inference of effective dynamical systems}
+  - {id: language, name: Improving our language for neural computation}
+facets:
+  - id: research
+    name: Research topic
+    tags:
+      - {id: continuous-attractors, name: Continuous attractors}
+      - {id: state-space-models, name: State-space models}
+      - {id: neural-coding, name: Neural coding}
+      - {id: functional-connectivity, name: Functional connectivity}
+      - {id: point-processes, name: Point processes}
+      - {id: metastability, name: Metastability}
+      - {id: latent-variable-models, name: Latent variable models}
+      - {id: spike-timing, name: Spike timing}
+      - {id: dynamical-archetypes, name: Dynamical archetypes}
+  - id: method
+    name: Method
+    tags:
+      - {id: kernel-methods, name: Kernel methods}

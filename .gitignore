@@ -10,3 +10,5 @@ package.json
 .jekyll-cache
 vendor/
 *~
+__pycache__/
+.pytest_cache/

@@ -1,0 +1,67 @@
+# Label vocabulary for the publications page.
+# The bib refers to ids only (fields `themes` and `tags`); renaming a display
+# name never touches the bib. Theme ids map to the ### sections of research.md.
+# Tag ids are kebab-case and unique across facets.
+themes:
+  - id: inference
+    name: Inference of effective dynamical systems
+    short: Dynamical systems inference
+  - id: language
+    name: Improving our language for neural computation
+    short: Language for neural computation
+  - id: neurotech
+    name: Neurotechnology for real-time experiments
+    short: Real-time neurotechnology
+  - id: integrative
+    name: Integrative neuroscience
+    short: Integrative neuroscience
+facets:
+  - id: research      # sub-research areas
+    name: Research topic
+    tags:
+      - {id: point-processes, name: Point processes and spike trains}
+      - {id: state-space-models, name: State-space models}
+      - {id: neural-coding, name: Neural coding and decoding}
+      - {id: oscillations, name: Oscillations and limit cycles}
+      - {id: functional-connectivity, name: Functional connectivity}
+      - {id: latent-variable-models, name: Latent variable models}
+      - {id: continuous-attractors, name: Continuous attractors}
+      - {id: neural-network-theory, name: Theory of artificial neural networks}
+      - {id: entropy-estimation, name: Entropy estimation}
+      - {id: neural-control, name: Control of neural dynamics}
+      - {id: receptive-fields, name: Receptive field models}
+      - {id: metastability, name: Metastability and multistability}
+      - {id: dynamical-archetypes, name: Dynamical archetypes}
+      - {id: universal-approximation, name: Universal approximation}
+      - {id: computational-neuroscience, name: Computational neuroscience}
+  - id: area          # neuroscience areas
+    name: Neuroscience area
+    tags:
+      - {id: decision-making, name: Decision-making}
+      - {id: vision, name: Vision}
+      - {id: olfaction, name: Olfaction}
+      - {id: working-memory, name: Working memory}
+      - {id: brain-disorders, name: Brain disorders}
+      - {id: motor-control, name: Motor control}
+      - {id: sensorimotor, name: Sensorimotor and embodiment}
+      - {id: audition, name: Audition}
+      - {id: gustation, name: Taste}
+      - {id: head-direction, name: Head direction}
+  - id: method        # ML / statistics / engineering topics
+    name: Method
+    tags:
+      - {id: information-theory, name: Information theory}
+      - {id: kernel-methods, name: Kernel methods}
+      - {id: bayesian-inference, name: Bayesian inference}
+      - {id: variational-inference, name: Variational inference}
+      - {id: real-time, name: Real-time and closed-loop methods}
+      - {id: gaussian-processes, name: Gaussian processes}
+      - {id: glm, name: Generalized linear models}
+      - {id: transfer-learning, name: Transfer and meta-learning}
+      - {id: adaptive-filtering, name: Adaptive filtering}
+      - {id: recurrent-neural-networks, name: Recurrent neural networks}
+      - {id: active-learning, name: Active learning and experimental design}
+      - {id: logic, name: Logic}
+      - {id: machine-learning, name: Machine learning}
+      - {id: natural-language-processing, name: Natural language processing}
+      - {id: statistics, name: Statistics}
