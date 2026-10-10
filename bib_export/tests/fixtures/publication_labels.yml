@@ -7,6 +7,13 @@ facets:
     tags:
       - {id: continuous-attractors, name: Continuous attractors}
       - {id: state-space-models, name: State-space models}
+      - {id: neural-coding, name: Neural coding}
+      - {id: functional-connectivity, name: Functional connectivity}
+      - {id: point-processes, name: Point processes}
+      - {id: metastability, name: Metastability}
+      - {id: latent-variable-models, name: Latent variable models}
+      - {id: spike-timing, name: Spike timing}
+      - {id: dynamical-archetypes, name: Dynamical archetypes}
   - id: method
     name: Method
     tags:

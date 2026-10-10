@@ -43,6 +43,13 @@
     .n { color: $gray; font-size: 0.85em; }
     &[aria-pressed="true"] .n { color: $white; }
   }
+  a.chip::after { display: none; }
+
+  // Leave room for the sticky masthead, including its wrapped navigation.
+  .pub, .pubs-controls {
+    scroll-margin-top: 11rem;
+    @include mobile { scroll-margin-top: 10rem; }
+  }
 
   .pubs-year > h2 { margin-top: 1.5em; }
   ol.pubs-list { list-style: none; padding: 0; margin: 0; }
@@ -52,6 +59,7 @@
   .pub-title { font-weight: 600; }
   .pub-venue, .pub-note { color: $darkGray; }
   .pub-kind { margin-left: 0.4em; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.04em; color: $gray; }
+  .pub-kind:first-child { margin-left: 0; }
   .pub-links a { margin-right: 0.8em; font-size: 0.9em; }
   .pub-labels .chip { font-size: 0.75em; }
   .pub details { margin: 0.2em 0; font-size: 0.9em; }
@@ -64,9 +72,11 @@
     background: $paleLightGray;
     color: $darkGray;
     padding: 0.5em;
+    margin: 0.5em 0;
+    box-shadow: none;
   }
   button.copy { margin-right: 0.5em; font: inherit; font-size: 0.85em; cursor: pointer; }
-  .pub:target { outline: 2px solid $primary; outline-offset: 4px; }
+  .pub.pub-target, &:not(.pubs-enhanced) .pub:target { outline: 2px solid $primary; outline-offset: 4px; }
 
   button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
     outline: 2px solid $primary;

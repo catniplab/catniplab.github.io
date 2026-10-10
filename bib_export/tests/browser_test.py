@@ -15,7 +15,7 @@ import threading
 import unicodedata
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import parse_qs, urlencode, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -69,6 +69,15 @@ def main(site, data_path, shots=None):
             def shown():
                 return page.locator("li.pub:visible").count()
 
+            def chip_counts_match(target_page, abstracts=False):
+                chips = target_page.locator(".pubs-controls button.chip").evaluate_all("""els => els.map(el => ({
+                    group: el.dataset.group, value: el.dataset.value, n: Number(el.querySelector('.n').textContent)
+                }))""")
+                return bool(chips) and all(c["n"] == sum(
+                    (abstracts or e["kind"] != "abstract") and
+                    (e["kind"] == c["value"] if c["group"] == "kind" else c["value"] in e[c["group"] + "s"])
+                    for e in data) for c in chips)
+
             page.goto(url)
             check("default hides abstracts", shown() == default_n, f"{shown()} != {default_n}")
             check("count text", page.inner_text("#pubs-count") == f"Showing {default_n} of {total}",
@@ -80,19 +89,55 @@ def main(site, data_path, shots=None):
             # A missing script is the expected RED baseline. Do not wait for
             # controls that are deliberately hidden until enhancement runs.
             if enhanced:
+                check("default chip counts match standalone filters", chip_counts_match(page))
                 page.check("#show-abstracts")
                 check("toggle shows abstracts", shown() == total, f"{shown()} != {total}")
                 check("toggle in URL", "abstracts=1" in page.url, page.url)
+                check("chip counts include abstracts when enabled", chip_counts_match(page, True))
                 page.uncheck("#show-abstracts")
+                check("chip counts return to publication scope", chip_counts_match(page))
 
-                accented = next((a["family"] for e in data for a in e["authors"]
-                                 if e["kind"] != "abstract" and ascii_fold(a["family"]) != a["family"].lower()), None)
-                if accented:
-                    page.fill("#pubs-q", ascii_fold(accented))
-                    texts = page.locator("li.pub:visible").all_inner_texts()
-                    check("accent-insensitive search", bool(texts) and all(
-                        ascii_fold(accented) in ascii_fold(t) for t in texts), f"{len(texts)} hits")
-                    page.fill("#pubs-q", "")
+                accented = sorted({ascii_fold(a["family"]) for e in data for a in e["authors"]
+                                   if ascii_fold(a["family"]) != a["family"].lower()})
+                for abstracts in (False, True):
+                    page.set_checked("#show-abstracts", abstracts)
+                    for query in accented:
+                        page.fill("#pubs-q", query)
+                        expected = {e["key"] for e in data if (abstracts or e["kind"] != "abstract") and
+                                    any(query in ascii_fold(a["family"]) for a in e["authors"])}
+                        actual = set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)"))
+                        texts = page.locator("li.pub:visible").all_inner_texts()
+                        check(f"accent search {query}, abstracts={abstracts}: all matching authors shown",
+                              bool(expected) and expected <= actual and all(query in ascii_fold(t) for t in texts))
+                page.click("#pubs-clear")
+
+                page.clock.install()
+                page.clock.pause_at(page.evaluate("Date.now()") + 1000)
+                page.evaluate("""() => {
+                    window.savedReplace = history.replaceState;
+                    window.urlWrites = 0;
+                    history.replaceState = function (...args) {
+                        window.urlWrites++;
+                        return window.savedReplace.apply(this, args);
+                    };
+                }""")
+                page.fill("#pubs-q", "par")
+                page.clock.fast_forward(200)
+                page.fill("#pubs-q", "park")
+                check("search filters before URL write", shown() == sum(
+                    e["kind"] != "abstract" and any("park" in ascii_fold(a["family"]) for a in e["authors"])
+                    for e in data))
+                page.clock.fast_forward(299)
+                check("search URL waits for pause", page.evaluate("window.urlWrites") == 0 and "?" not in page.url)
+                page.clock.fast_forward(1)
+                check("search URL writes once after 300ms", page.evaluate("window.urlWrites") == 1 and
+                      parse_qs(urlsplit(page.url).query).get("q") == ["park"])
+                page.fill("#pubs-q", "no-matching-publication")
+                page.click("#pubs-clear")
+                page.clock.fast_forward(300)
+                check("clear cancels pending search URL", "?" not in page.url and shown() == default_n)
+                page.evaluate("() => { history.replaceState = window.savedReplace; }")
+                page.clock.resume()
 
                 theme = next((t for e in data if e["kind"] != "abstract" for t in e["themes"]), None)
                 if theme:
@@ -101,6 +146,12 @@ def main(site, data_path, shots=None):
                     chip.click()
                     check("theme chip filters", shown() == expected, f"{shown()} != {expected}")
                     check("chip pressed", chip.get_attribute("aria-pressed") == "true")
+                    check("counts ignore other active filters", chip_counts_match(page))
+                    year_sections = page.locator("section.pubs-year")
+                    check("empty year headings hide under JS", any(
+                        not section.is_visible() for section in year_sections.all()) and all(
+                        section.locator("h2").is_visible() == (section.locator("li.pub:not([hidden])").count() > 0)
+                        for section in year_sections.all()))
                     page.reload()
                     check("URL state survives reload", shown() == expected, f"{shown()} != {expected}")
                     page.click("#pubs-clear")
@@ -120,10 +171,35 @@ def main(site, data_path, shots=None):
                                 filters["theme"] in e["themes"] and filters["tag"] in e["tags"]}
                     actual = set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)"))
                     check("filter groups combine with AND", actual == expected)
+                    page.goto(url + "?" + urlencode({k: v + "," + v for k, v in filters.items()}))
+                    check("duplicate URL filters are normalized",
+                          parse_qs(urlsplit(page.url).query) == {k: [v] for k, v in filters.items()})
+                    page.locator(f'.pubs-controls button[data-group="theme"][data-value="{filters["theme"]}"]').click()
+                    check("duplicate filter deselects with one click", "theme" not in parse_qs(urlsplit(page.url).query))
+
+                page.goto(url)
+                more = page.locator("details.more-tags").first
+                check("fixture exercises more tags", more.count() == 1 and more.locator("button.chip").count() > 0)
+                more.locator("summary").click()
+                extra_chip = more.locator("button.chip").first
+                extra_tag = extra_chip.get_attribute("data-value")
+                extra_chip.click()
+                expected = {e["key"] for e in data if e["kind"] != "abstract" and extra_tag in e["tags"]}
+                actual = set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)"))
+                check("more tag filters entries", bool(expected) and actual == expected)
+                page.click("#pubs-clear")
+                zero_chip = page.locator('.pubs-controls button[data-group="tag"]').filter(
+                    has=page.locator(".n", has_text="0")).first
+                check("abstract-only tag remains available", zero_chip.count() == 1)
+                zero_chip.click()
+                check("abstract-only tag defaults to zero entries", shown() == 0)
+                page.check("#show-abstracts")
+                check("abstract-only tag works after toggle", shown() > 0 and chip_counts_match(page, True))
 
                 page.goto(url + "?tag=no-such-tag&abstracts=yes&kind=&q=")
                 check("garbage params give default view", shown() == default_n, f"{shown()}")
                 before = len(errors)
+                page.goto("about:blank")
                 page.goto(url + "#%E0")
                 check("malformed fragment gives default view", shown() == default_n)
                 check("malformed fragment has no page error", len(errors) == before)
@@ -143,6 +219,24 @@ def main(site, data_path, shots=None):
                     page.goto(url + "#" + abstract_key)
                     page.uncheck("#show-abstracts")
                     check("filter hiding target removes fragment", "#" not in page.url, page.url)
+
+                key = next(e["key"] for e in data if e["kind"] != "abstract")
+                for throttled in (False, True):
+                    page.goto(url + "#" + key)
+                    target = page.locator(f'[id="{key}"]')
+                    check(f"hash highlight, throttled={throttled}", target.evaluate(
+                        "el => getComputedStyle(el).outlineStyle === 'solid'"))
+                    if throttled:
+                        page.evaluate("""() => {
+                            history.replaceState = () => { throw new DOMException('Throttled', 'SecurityError'); };
+                        }""")
+                    page.click("#pubs-clear")
+                    check(f"clear removes target outline, throttled={throttled}", target.evaluate(
+                        "el => getComputedStyle(el).outlineStyle === 'none'"))
+                    if throttled:
+                        page.fill("#pubs-q", "no-matching-publication")
+                        page.clock.fast_forward(300)
+                        check("history SecurityError leaves filtering functional", shown() == 0)
 
                 page.goto(url)
                 page.evaluate("history.pushState(null, '', '?abstracts=1'); window.dispatchEvent(new PopStateEvent('popstate'))")
@@ -183,6 +277,17 @@ def main(site, data_path, shots=None):
             nojs_ctx.route("**/*", local_only)
             nojs = nojs_ctx.new_page()
             nojs.goto(url)
+            check("intro separates publications and abstracts", nojs.locator(".pubs-intro").text_content().startswith(
+                f"{default_n} publications and {total - default_n} conference abstracts."))
+            check("server-rendered chip counts match default scope", chip_counts_match(nojs))
+            check("highlight metadata has no empty separators", all(
+                all(part.strip() for part in text.split("\u00b7"))
+                for text in nojs.locator(".pub-meta").all_text_contents()))
+            check("venues have no leading whitespace", all(
+                text == text.lstrip() for text in nojs.locator(".pub-venue").all_text_contents()))
+            check("adjacent links have text separators", nojs.locator(".pub-links, .pub-labels").evaluate_all("""els =>
+                els.every(el => Array.from(el.querySelectorAll('a')).slice(1).every(a =>
+                    a.previousSibling.nodeType === Node.TEXT_NODE && /\\s/.test(a.previousSibling.textContent)))"""))
             check("no-JS: controls hidden", not nojs.locator(".pubs-js").is_visible())
             check("no-JS: abstracts hidden by CSS", nojs.locator("li.pub:visible").count() == default_n)
             nojs.check("#show-abstracts")
@@ -204,11 +309,25 @@ def main(site, data_path, shots=None):
                     target_top = page.locator(f'[id="{key}"]').bounding_box()["y"]
                     header = page.locator(".wrapper-masthead").bounding_box()
                     check(f"hash target below header at {width}px", target_top >= header["y"] + header["height"])
+                    nojs.set_viewport_size({"width": width, "height": 900})
+                    nojs.goto("about:blank")
+                    nojs.goto(url + "#" + key)
+                    target = nojs.locator(f'[id="{key}"]')
+                    header = nojs.locator(".wrapper-masthead").bounding_box()
+                    check(f"no-JS hash below header at {width}px", target.bounding_box()["y"] >= header["y"] + header["height"])
+                    check(f"no-JS target outline at {width}px", target.evaluate(
+                        "el => getComputedStyle(el).outlineStyle === 'solid'"))
                     if width == 375:
                         cite = page.locator("li.pub:visible details.pub-cite").first
                         cite.locator("summary").click()
                         check("mobile citation wraps", page.evaluate(
                             "document.documentElement.scrollWidth <= window.innerWidth"))
+                        check("citation resets base shadow and margin", cite.locator("pre").evaluate("""el => {
+                            const s = getComputedStyle(el);
+                            return s.boxShadow === 'none' && parseFloat(s.marginTop) === parseFloat(s.fontSize) * 0.5;
+                        }"""))
+                        check("label chips suppress hover underline", page.locator(".pub-labels a.chip").first.evaluate(
+                            "el => getComputedStyle(el, '::after').display === 'none'"))
                         cite.scroll_into_view_if_needed()
                         page.screenshot(path=f"{shots}/publications-375-citation.png", animations="disabled")
             browser.close()

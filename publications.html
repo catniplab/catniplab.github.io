@@ -5,10 +5,12 @@ permalink: /publications.html
 description: Publications of the CATNIP Lab (Il Memming Park) with search, topic labels, abstracts and citations.
 ---
 {%- assign pubs = site.data.publications -%}
+{%- assign publications = pubs | where_exp: "p", "p.kind != 'abstract'" -%}
+{%- assign abstracts = pubs | where: "kind", "abstract" -%}
 {%- assign vocab = site.data.publication_labels -%}
 {%- assign kind_order = "journal,conference,preprint,manuscript,thesis,chapter,book,patent,other" | split: "," -%}
 <div class="pubs">
-<p class="pubs-intro">{{ pubs.size | escape }} entries. Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
+<p class="pubs-intro">{{ publications.size | escape }} publications and {{ abstracts.size | escape }} conference abstracts. Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
 
 {%- assign highlights = pubs | where: "selected", true -%}
 {%- if highlights.size > 0 %}
@@ -17,7 +19,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
   <ul>
   {%- for p in highlights %}
     <li><a href="#{{ p.key | escape }}">{{ p.title_html }}</a>
-      <span class="pub-meta">{{ p.authors_html }} &middot; {{ p.venue_html }} &middot; {{ p.year_label | escape }}</span></li>
+      <span class="pub-meta">{% if p.authors_html != "" %}{{ p.authors_html }} &middot; {% endif %}{% if p.venue_html != "" %}{{ p.venue_html }} &middot; {% endif %}{{ p.year_label | escape }}</span></li>
   {%- endfor %}
   </ul>
 </section>
@@ -31,8 +33,9 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     {%- if vocab.themes %}
     <div class="chip-group" role="group" aria-label="Themes"><span class="chip-group-name">Themes</span>
       {%- for t in vocab.themes %}
-      {%- assign n = pubs | where_exp: "p", "p.themes contains t.id" | size %}
-      {%- if n > 0 %}<button type="button" class="chip" data-group="theme" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
+      {%- assign matches = pubs | where_exp: "p", "p.themes contains t.id" %}
+      {%- assign n = matches | where_exp: "p", "p.kind != 'abstract'" | size %}
+      {%- if matches.size > 0 %}<button type="button" class="chip" data-group="theme" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
       {%- endfor %}
     </div>
     {%- endif %}
@@ -45,14 +48,16 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     {%- for facet in vocab.facets %}
     <div class="chip-group" role="group" aria-label="{{ facet.name | escape }}"><span class="chip-group-name">{{ facet.name | escape }}</span>
       {%- for t in facet.tags limit: 8 %}
-      {%- assign n = pubs | where_exp: "p", "p.tags contains t.id" | size %}
-      {%- if n > 0 %}<button type="button" class="chip" data-group="tag" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
+      {%- assign matches = pubs | where_exp: "p", "p.tags contains t.id" %}
+      {%- assign n = matches | where_exp: "p", "p.kind != 'abstract'" | size %}
+      {%- if matches.size > 0 %}<button type="button" class="chip" data-group="tag" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
       {%- endfor %}
       {%- if facet.tags.size > 8 %}
       <details class="more-tags"><summary>more</summary>
         {%- for t in facet.tags offset: 8 %}
-        {%- assign n = pubs | where_exp: "p", "p.tags contains t.id" | size %}
-        {%- if n > 0 %}<button type="button" class="chip" data-group="tag" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
+        {%- assign matches = pubs | where_exp: "p", "p.tags contains t.id" %}
+        {%- assign n = matches | where_exp: "p", "p.kind != 'abstract'" | size %}
+        {%- if matches.size > 0 %}<button type="button" class="chip" data-group="tag" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
         {%- endfor %}
       </details>
       {%- endif %}
@@ -72,12 +77,12 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     <li id="{{ p.key | escape }}" class="pub" data-kind="{{ p.kind | escape }}" data-themes="{{ p.themes | join: ' ' | escape }}" data-tags="{{ p.tags | join: ' ' | escape }}" data-year="{{ p.year_label | escape }}">
       <p class="pub-title">{{ p.title_html }}</p>
       {%- if p.authors_html != "" %}<p class="pub-authors">{{ p.authors_html }}</p>{% endif %}
-      <p class="pub-venue">{{ p.venue_html }}{% if p.note_html != "" %} <span class="pub-note">{{ p.note_html }}</span>{% endif %} <span class="pub-kind">{{ p.kind_name | escape }}</span></p>
+      <p class="pub-venue">{% if p.venue_html != "" %}{{ p.venue_html }} {% endif %}{% if p.note_html != "" %}<span class="pub-note">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span></p>
       {%- if p.links.size > 0 %}
-      <p class="pub-links">{% for l in p.links %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>
+      <p class="pub-links">{% for l in p.links %}{% unless forloop.first %}&#32;{% endunless %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>
       {%- endif %}
       {%- if p.labels.size > 0 %}
-      <p class="pub-labels">{% for l in p.labels %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a class="chip" href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>
+      <p class="pub-labels">{% for l in p.labels %}{% unless forloop.first %}&#32;{% endunless %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a class="chip" href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>
       {%- endif %}
       {%- if p.abstract_html != "" %}
       <details class="pub-abstract"><summary>Abstract</summary><p>{{ p.abstract_html }}</p></details>

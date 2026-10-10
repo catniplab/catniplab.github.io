@@ -13,6 +13,8 @@
   var years = Array.prototype.slice.call(root.querySelectorAll("section.pubs-year"));
   var chips = Array.prototype.slice.call(root.querySelectorAll(".pubs-controls button.chip"));
   var state = { q: "", abstracts: false, theme: [], kind: [], tag: [] };
+  var fragment = location.hash;
+  var urlTimer;
 
   function fold(s) {
     return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -51,7 +53,7 @@
 
   function targetRecord() {
     var id;
-    try { id = decodeURIComponent(location.hash.slice(1)); }
+    try { id = decodeURIComponent(fragment.slice(1)); }
     catch (err) {
       if (err instanceof URIError) return null;
       throw err;
@@ -59,43 +61,56 @@
     return recs.filter(function (r) { return r.li.id === id; })[0] || null;
   }
 
-  function writeUrl(preserveTarget) {
+  function writeUrl() {
     var p = new URLSearchParams();
     if (state.q) p.set("q", state.q);
     if (state.abstracts) p.set("abstracts", "1");
     GROUPS.forEach(function (g) { if (state[g].length) p.set(g, state[g].join(",")); });
     var s = p.toString();
-    var hash = location.hash;
-    var target = targetRecord();
-    if (!preserveTarget && target && !visible(target)) hash = "";
-    history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + hash);
+    try {
+      history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + fragment);
+    } catch (err) {
+      // History throttling must not interrupt filtering or fragment cleanup.
+      if (err.name !== "SecurityError") throw err;
+    }
   }
 
   function readUrl() {
     var p = new URLSearchParams(location.search);
+    fragment = location.hash;
     state.q = p.get("q") || "";
     state.abstracts = p.get("abstracts") === "1";
     GROUPS.forEach(function (g) {
       var ok = known(g);
-      state[g] = (p.get(g) || "").split(",").filter(function (v) { return ok.indexOf(v) >= 0; });
+      state[g] = (p.get(g) || "").split(",").filter(function (v, i, all) {
+        return ok.indexOf(v) >= 0 && all.indexOf(v) === i;
+      });
     });
   }
 
-  function apply(preserveTarget) {
+  function apply(preserveTarget, delayUrl) {
     var shown = 0;
+    var target = targetRecord();
+    if (!preserveTarget && target && !visible(target)) { fragment = ""; target = null; }
     recs.forEach(function (r) {
       var v = visible(r);
       r.li.hidden = !v;
+      r.li.classList.toggle("pub-target", r === target && v);
       if (v) shown++;
     });
     years.forEach(function (s) { s.hidden = !s.querySelector("li.pub:not([hidden])"); });
     count.textContent = "Showing " + shown + " of " + recs.length;
     chips.forEach(function (c) {
       c.setAttribute("aria-pressed", String(state[c.dataset.group].indexOf(c.dataset.value) >= 0));
+      c.querySelector(".n").textContent = recs.filter(function (r) {
+        return (state.abstracts || r.kind !== "abstract") &&
+          r.labels[c.dataset.group].indexOf(c.dataset.value) >= 0;
+      }).length;
     });
     box.checked = state.abstracts;
     q.value = state.q;
-    writeUrl(preserveTarget);
+    clearTimeout(urlTimer);
+    if (delayUrl) urlTimer = setTimeout(writeUrl, 300); else writeUrl();
   }
 
   function reset() {
@@ -104,19 +119,14 @@
     GROUPS.forEach(function (g) { state[g] = []; });
   }
 
-  function scrollBelowHeader(el) {
-    var header = document.querySelector(".wrapper-masthead");
-    el.style.scrollMarginTop = ((header ? header.getBoundingClientRect().height : 0) + 16) + "px";
-    el.scrollIntoView();
-  }
-
   function revealTarget() {
     var r = targetRecord();
-    if (!r) return;
-    if (r.kind === "abstract") state.abstracts = true;
-    if (!visible(r)) { var keep = state.abstracts; reset(); state.abstracts = keep; }
+    if (r) {
+      if (r.kind === "abstract") state.abstracts = true;
+      if (!visible(r)) { var keep = state.abstracts; reset(); state.abstracts = keep; }
+    }
     apply(true);
-    scrollBelowHeader(r.li);
+    if (r) r.li.scrollIntoView();
   }
 
   function selectText(el) {
@@ -150,7 +160,7 @@
     });
   });
 
-  q.addEventListener("input", function () { state.q = q.value; apply(); });
+  q.addEventListener("input", function () { state.q = q.value; apply(false, true); });
   box.addEventListener("change", function () { state.abstracts = box.checked; apply(); });
   chips.forEach(function (c) {
     c.addEventListener("click", function () {
@@ -167,24 +177,23 @@
       ev.preventDefault();
       state[a.dataset.group] = [a.dataset.value];
       apply();
-      scrollBelowHeader(root.querySelector(".pubs-controls"));
+      root.querySelector(".pubs-controls").scrollIntoView();
     });
   });
   document.getElementById("pubs-clear").addEventListener("click", function () {
     reset();
-    history.replaceState(null, "", location.pathname);
+    fragment = "";
     apply();
   });
-  window.addEventListener("hashchange", revealTarget);
+  window.addEventListener("hashchange", function () { fragment = location.hash; revealTarget(); });
   window.addEventListener("popstate", function () {
     readUrl();
-    apply(true);
     revealTarget();
   });
 
+  root.classList.add("pubs-enhanced");
   root.querySelector(".pubs-js").hidden = false;
   readUrl();
   // Retain an incoming fragment until revealTarget has made its entry visible.
-  apply(true);
   revealTarget();
 })();

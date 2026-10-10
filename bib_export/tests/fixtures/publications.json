@@ -44,7 +44,8 @@
       "language"
     ],
     "tags": [
-      "continuous-attractors"
+      "continuous-attractors",
+      "dynamical-archetypes"
     ],
     "labels": [
       {
@@ -56,6 +57,11 @@
         "group": "research",
         "id": "continuous-attractors",
         "name": "Continuous attractors"
+      },
+      {
+        "group": "research",
+        "id": "dynamical-archetypes",
+        "name": "Dynamical archetypes"
       }
     ],
     "selected": true,
@@ -98,12 +104,19 @@
     "themes": [
       "language"
     ],
-    "tags": [],
+    "tags": [
+      "dynamical-archetypes"
+    ],
     "labels": [
       {
         "group": "theme",
         "id": "language",
         "name": "Improving our language for neural computation"
+      },
+      {
+        "group": "research",
+        "id": "dynamical-archetypes",
+        "name": "Dynamical archetypes"
       }
     ],
     "selected": false,
@@ -167,7 +180,7 @@
         "name": "State-space models"
       }
     ],
-    "selected": false,
+    "selected": true,
     "apa_html": "Dowling, M., Jeon, H., & Park, I. M. (2026). <i>Memory by Design</i>. arXiv. https://doi.org/10.48550/arXiv.2601.00001",
     "apa_text": "Dowling, M., Jeon, H., & Park, I. M. (2026). Memory by Design. arXiv. https://doi.org/10.48550/arXiv.2601.00001",
     "bibtex": "@unpublished{Dowling2026a,\n  author = {Dowling, Matthew and Jeon, HyungJu and Park, Il Memming},\n  title = {Memory by Design},\n  year = 2026,\n  eprint = {2601.00001},\n  archiveprefix = {arXiv},\n}"
@@ -326,8 +339,16 @@
       }
     ],
     "themes": [],
-    "tags": [],
-    "labels": [],
+    "tags": [
+      "spike-timing"
+    ],
+    "labels": [
+      {
+        "group": "research",
+        "id": "spike-timing",
+        "name": "Spike timing"
+      }
+    ],
     "selected": false,
     "apa_html": "Park, I., & Rao, M. (2009). <i>Point Process Model for Precisely Timed Spike Trains</i> [Conference abstract]. Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009. https://doi.org/10.3389/conf.neuro.06.2009.03.227",
     "apa_text": "Park, I., & Rao, M. (2009). Point Process Model for Precisely Timed Spike Trains [Conference abstract]. Frontiers in Systems Neuroscience. Conference Abstract: Computational and systems neuroscience 2009. https://doi.org/10.3389/conf.neuro.06.2009.03.227",

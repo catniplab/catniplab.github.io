@@ -38,7 +38,8 @@ def main(out_dir, data_path, src_dir):
     n_abs_data = sum(e["kind"] == "abstract" for e in data)
     if n_abs_page != n_abs_data:
         problems.append(f"abstract entries: page {n_abs_page}, data {n_abs_data}")
-    bad = [h for h in re.findall(r'href="([^"]*)"', page) if not h.startswith(ALLOWED_HREF)]
+    bad = [h for h in re.findall(r'href="([^"]*)"', page)
+           if h.startswith("//") or not h.startswith(ALLOWED_HREF)]
     if bad:
         problems.append(f"disallowed hrefs: {bad[:10]}")
     raw = page.encode("utf-8")
