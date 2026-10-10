@@ -2482,6 +2482,92 @@
     "bibtex": "@inproceedings{Dowling2023c,\n  author = {Matthew Dowling and Yuan Zhao and Il Memming Park},\n  title = {Linear time {GP}s for inferring latent trajectories from neural spike trains},\n  booktitle = {International Conference on Machine Learning (ICML)},\n  year = 2023,\n  month = Jul,\n  url = {https://openreview.net/forum?id=1hWB5XEUMa},\n  eprint = {2306.01802},\n  archiveprefix = {arXiv},\n  primaryclass = {q-bio.NC},\n  abstract = {Latent Gaussian process (GP) models are widely used in neuroscience to uncover hidden state evolutions from sequential observations, mainly in neural activity recordings. While latent GP models provide a principled and powerful solution in theory, the intractable posterior in non-conjugate settings necessitates approximate inference schemes, which may lack scalability. In this work, we propose cvHM, a general inference framework for latent GP models leveraging Hida-Mat\\'ern kernels and conjugate computation variational inference (CVI). With cvHM, we are able to perform variational inference of latent neural trajectories with linear time complexity for arbitrary likelihoods. The reparameterization of stationary kernels using Hida-Mat\\'ern GPs helps us connect the latent variable models that encode prior assumptions through dynamical systems to those that encode trajectory assumptions through GPs. In contrast to previous work, we use bidirectional information filtering, leading to a more concise implementation. Furthermore, we employ the Whittle approximate likelihood to achieve highly efficient hyperparameter learning.},\n  arxivid = {2306.01802},\n}"
   },
   {
+    "key": "Kepple2023a",
+    "kind": "patent",
+    "kind_name": "Patent",
+    "refereed": false,
+    "year": 2023,
+    "month": 7,
+    "year_label": "2023",
+    "authors": [
+      {
+        "family": "Kepple",
+        "von": "",
+        "given": "Daniel Robert",
+        "jr": "",
+        "display": "Kepple, D. R.",
+        "member": false
+      },
+      {
+        "family": "Lee",
+        "von": "",
+        "given": "Dae Won",
+        "jr": "",
+        "display": "Lee, D. W.",
+        "member": false
+      },
+      {
+        "family": "Isler",
+        "von": "",
+        "given": "Ibrahim Volkan",
+        "jr": "",
+        "display": "Isler, I. V.",
+        "member": false
+      },
+      {
+        "family": "Rajan",
+        "von": "",
+        "given": "Kanaka",
+        "jr": "",
+        "display": "Rajan, K.",
+        "member": false
+      },
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      },
+      {
+        "family": "Lee",
+        "von": "",
+        "given": "Daniel Dongyuel",
+        "jr": "",
+        "display": "Lee, D. D.",
+        "member": false
+      }
+    ],
+    "authors_html": "Kepple, D. R., Lee, D. W., Isler, I. V., Rajan, K., <strong class=\"member\">Park, I. M.</strong>, &amp; Lee, D. D.",
+    "title": "Jointly learning visual motion and confidence from local patches in event cameras",
+    "title_html": "Jointly learning visual motion and confidence from local patches in event cameras",
+    "venue_html": "United States Patent and Trademark Office, 11,694,304",
+    "note_html": "Assignee: Samsung Electronics",
+    "abstract_html": "A method may include obtaining a set of events, of a set of pixels of a dynamic vision sensor, associated with an object; determining a set of voltages of the set of pixels, based on the set of events; generating a set of images, based on the set of voltages of the set of pixels; inputting the set of images into a first neural network configured to output a visual motion estimation of the object; inputting the set of images into a second neural network configured to output a confidence score of the visual motion estimation output by the first neural network; obtaining the visual motion estimation of the object and the confidence score of the visual motion estimation of the object, based on inputting the set of images into the first neural network and the second neural network; and providing the visual motion estimation of the object and the confidence score.",
+    "links": [
+      {
+        "label": "Link",
+        "url": "https://patents.google.com/patent/US11694304B2/en"
+      }
+    ],
+    "themes": [],
+    "tags": [
+      "vision"
+    ],
+    "labels": [
+      {
+        "group": "area",
+        "id": "vision",
+        "name": "Vision"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Kepple, D. R., Lee, D. W., Isler, I. V., Rajan, K., Park, I. M., & Lee, D. D. (2023). <i>Jointly learning visual motion and confidence from local patches in event cameras</i> (U.S. Patent No. 11,694,304). United States Patent and Trademark Office. https://patents.google.com/patent/US11694304B2/en",
+    "apa_text": "Kepple, D. R., Lee, D. W., Isler, I. V., Rajan, K., Park, I. M., & Lee, D. D. (2023). Jointly learning visual motion and confidence from local patches in event cameras (U.S. Patent No. 11,694,304). United States Patent and Trademark Office. https://patents.google.com/patent/US11694304B2/en",
+    "bibtex": "@misc{Kepple2023a,\n  author = {Kepple, Daniel Robert and Lee, Dae Won and Isler, Ibrahim Volkan and Rajan, Kanaka and Park, Il Memming and Lee, Daniel Dongyuel},\n  title = {Jointly learning visual motion and confidence from local patches in event cameras},\n  journal = {United States Patent and Trademark Office},\n  year = 2023,\n  month = jul,\n  number = {11,694,304},\n  note = {Assignee: Samsung Electronics},\n  url = {https://patents.google.com/patent/US11694304B2/en},\n  abstract = {A method may include obtaining a set of events, of a set of pixels of a dynamic vision sensor, associated with an object; determining a set of voltages of the set of pixels, based on the set of events; generating a set of images, based on the set of voltages of the set of pixels; inputting the set of images into a first neural network configured to output a visual motion estimation of the object; inputting the set of images into a second neural network configured to output a confidence score of the visual motion estimation output by the first neural network; obtaining the visual motion estimation of the object and the confidence score of the visual motion estimation of the object, based on inputting the set of images into the first neural network and the second neural network; and providing the visual motion estimation of the object and the confidence score.},\n}"
+  },
+  {
     "key": "Stone2023b",
     "kind": "journal",
     "kind_name": "Journal article",
