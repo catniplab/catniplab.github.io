@@ -280,11 +280,17 @@ def links_of(key, f):
     return out
 
 
-def venue_html(kind, entry_type, f):
+def venue_html(key, kind, entry_type, f):
     """Short venue line for the list (not a citation)."""
     def h(name):
         return tex_to_html(f.get(name, ""))
     number = h("number") or h("issue")
+    link = eprint_link(key, f) if kind == "preprint" else None
+    if link:
+        # the archive, not the stale journal text ("ArXiv e-prints")
+        label, _ = link
+        eid = re.sub(r"^arxiv:\s*", "", f["eprint"].strip(), flags=re.I)
+        return html.escape(f"arXiv:{eid}" if label == "arXiv" else label)
     if kind == "journal":
         vol = h("volume")
         parts = [h("journal"), vol + (f"({number})" if number and vol else number), h("pages")]
@@ -603,7 +609,7 @@ def entry_json(entry, themes, tags, members):
         "authors_html": authors_html(authors),
         "title": tex_to_text(f.get("title", "")),
         "title_html": tex_to_html(f.get("title", "")),
-        "venue_html": venue_html(kind, entry.entry_type, f),
+        "venue_html": venue_html(key, kind, entry.entry_type, f),
         "note_html": tex_to_html(f.get("note", "")),
         "abstract_html": tex_to_html(f.get("abstract", "")),
         "links": links_of(key, f),

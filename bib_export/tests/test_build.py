@@ -207,6 +207,21 @@ def _venue(build_one, bib):
     return e["venue_html"]
 
 
+@pytest.mark.parametrize("body, expected", [
+    ("eprint = {2604.23903}, archivePrefix = {arXiv},", "arXiv:2604.23903"),
+    ("journal = {ArXiv e-prints}, eprint = {1511.07367},", "arXiv:1511.07367"),
+    ("eprint = {arXiv:2602.08640},", "arXiv:2602.08640"),
+    ("eprint = {2001.00001}, archivePrefix = {bioRxiv},", "bioRxiv"),
+])
+def test_venue_preprint_names_archive(build_one, body, expected):
+    assert _venue(build_one, "@unpublished{K, title = {T}, " + body + " year = {2026}}") == expected
+
+
+def test_venue_article_with_eprint_keeps_journal(build_one):
+    assert _venue(build_one, "@article{K, title = {T}, journal = {Neuron}, "
+                             "eprint = {2604.23903}, archivePrefix = {arXiv}}") == "Neuron"
+
+
 def test_venue_journal(build_one):
     assert _venue(build_one, "@article{K, title = {T}, journal = {Entropy}, volume = {15}, "
                              "number = {5}, pages = {1738--1755}}") == "Entropy, 15(5), 1738\u20131755"
