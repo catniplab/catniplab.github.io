@@ -14,8 +14,10 @@ import re
 import sys
 import threading
 import unicodedata
+from html import unescape
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from statistics import median
 from urllib.parse import parse_qs, urlencode, urlsplit
 
 from playwright.sync_api import expect, sync_playwright
@@ -115,6 +117,17 @@ def main(site, data_path, shots=None):
             # controls that are deliberately hidden until enhancement runs.
             if enhanced:
                 check("topic facets collapsed initially", not page.locator(".pubs-topics").evaluate("el => el.open"))
+                check("Search retains its accessible name", page.get_by_role("searchbox", name="Search", exact=True).count() == 1)
+                check("Search label is visually hidden", page.locator(".pubs-search > span").evaluate(
+                    "el => getComputedStyle(el).clipPath === 'inset(50%)'"))
+                check("Review has its own visible labelled group", page.get_by_role("group", name="Review", exact=True)
+                      .locator('.chip-group-name').inner_text() == "Review" and
+                      page.get_by_role("group", name="Kind", exact=True).locator('[data-group="review"]').count() == 0)
+                full_names = {label["id"]: label["name"] for e in data for label in e["labels"] if label["group"] == "theme"}
+                check("theme chip titles retain full names", all(
+                    chip.get_attribute("title") == full_names[chip.get_attribute("data-value")]
+                    for chip in page.locator('button[data-group="theme"]').all()))
+                check("Highlights visible on landing", page.locator(".pubs-highlights").is_visible())
                 check("Papers and Highlights markers match JSON", markers_match(page))
                 check("default chip counts match standalone filters", chip_counts_match(page))
                 check("Show all hidden without filtering", not page.locator("#pubs-show-all").is_visible())
@@ -123,6 +136,7 @@ def main(site, data_path, shots=None):
                 check("All view in URL", parse_qs(urlsplit(page.url).query) == {"abstracts": ["1"]}, page.url)
                 check("chip counts include abstracts when enabled", chip_counts_match(page, True))
                 check("All and Highlights markers match JSON", markers_match(page))
+                check("Highlights visible in unfiltered All view", page.locator(".pubs-highlights").is_visible())
                 select_view(page, False)
                 check("chip counts return to publication scope", chip_counts_match(page))
                 review_chip = page.locator('button[data-group="review"][data-value="refereed"]')
@@ -132,6 +146,7 @@ def main(site, data_path, shots=None):
                     check(f"Peer-reviewed standalone count, All={abstracts}",
                           review_chip.locator(".n").text_content() == str(len(expected)))
                     review_chip.click()
+                    check(f"Highlights hide with review filter, All={abstracts}", not page.locator(".pubs-highlights").is_visible())
                     check(f"Peer-reviewed filter matches JSON, All={abstracts}",
                           set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
                     check(f"review=refereed in URL, All={abstracts}", parse_qs(urlsplit(page.url).query).get("review") == ["refereed"])
@@ -181,6 +196,7 @@ def main(site, data_path, shots=None):
                     e["kind"] != "abstract" and any("park" in ascii_fold(a["family"]) for a in e["authors"])
                     for e in data))
                 check("Show all appears when search hides entries", page.locator("#pubs-show-all").is_visible())
+                check("Highlights hide with search", not page.locator(".pubs-highlights").is_visible())
                 page.clock.fast_forward(299)
                 check("search URL waits for pause", page.evaluate("window.urlWrites") == 0 and "?" not in page.url)
                 page.clock.fast_forward(1)
@@ -190,6 +206,7 @@ def main(site, data_path, shots=None):
                 page.click("#pubs-clear")
                 page.clock.fast_forward(300)
                 check("clear cancels pending search URL", "?" not in page.url and shown() == default_n)
+                check("Clear restores Highlights", page.locator(".pubs-highlights").is_visible())
                 page.evaluate("() => { history.replaceState = window.savedReplace; }")
                 page.clock.resume()
 
@@ -199,6 +216,7 @@ def main(site, data_path, shots=None):
                     chip = page.locator(f'.pubs-controls button[data-group="theme"][data-value="{theme}"]')
                     chip.click()
                     check("theme chip filters", shown() == expected, f"{shown()} != {expected}")
+                    check("Highlights hide with theme filter", not page.locator(".pubs-highlights").is_visible())
                     check("chip pressed", chip.get_attribute("aria-pressed") == "true")
                     check("counts ignore other active filters", chip_counts_match(page))
                     year_sections = page.locator("section.pubs-year")
@@ -245,7 +263,12 @@ def main(site, data_path, shots=None):
                         page.goto(url + "?" + urlencode(params))
                         check(f"Show all available from filtered view, All={abstracts}",
                               shown() == 0 and page.locator("#pubs-show-all").is_visible())
+                        check(f"Highlights hidden with zero results, All={abstracts}",
+                              not page.locator(".pubs-highlights").is_visible())
                         page.click("#pubs-show-all")
+                        check(f"Show all moves focus to All, All={abstracts}", page.locator("#show-abstracts").evaluate(
+                            "el => el === document.activeElement"))
+                        check(f"Show all restores Highlights, All={abstracts}", page.locator(".pubs-highlights").is_visible())
                         check(f"Show all clears all filters and selects All, All={abstracts}",
                               shown() == total and page.is_checked("#show-abstracts") and
                               page.input_value("#pubs-q") == "" and
@@ -270,8 +293,29 @@ def main(site, data_path, shots=None):
                 page.locator(".pubs-topics > summary").click()
                 check("collapsed topics indicate an active filter", page.locator(".pubs-topics > summary").evaluate(
                     "el => getComputedStyle(el, '::after').content.includes('active')"))
-                page.locator(".pubs-topics > summary").click()
+                page.fill("#pubs-q", "park")
+                check("search preserves collapsed active topics", not page.locator(".pubs-topics").evaluate("el => el.open"))
+                page.fill("#pubs-q", "")
+                select_view(page, True)
+                check("view switch preserves collapsed active topics", not page.locator(".pubs-topics").evaluate("el => el.open"))
+                review_chip.click()
+                check("review filter preserves collapsed active topics", not page.locator(".pubs-topics").evaluate("el => el.open"))
                 page.click("#pubs-clear")
+                select_view(page, False)
+                entry_tag = page.locator('li.pub:visible .pub-labels a[data-group="tag"]').first
+                entry_tag_value = entry_tag.get_attribute("data-value")
+                entry_tag.click()
+                check("entry tag link filters and reveals topics", page.locator(".pubs-topics").evaluate("el => el.open") and
+                      parse_qs(urlsplit(page.url).query).get("tag") == [entry_tag_value] and
+                      set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) ==
+                      {e["key"] for e in data if e["kind"] != "abstract" and entry_tag_value in e["tags"]})
+                page.click("#pubs-clear")
+                page.goto(url + "?" + urlencode({"tag": extra_tag}))
+                more.locator("summary").click()
+                page.fill("#pubs-q", "park")
+                check("search preserves collapsed more tags", not more.evaluate("el => el.open"))
+                page.click("#pubs-clear")
+                more.locator("summary").click()
                 zero_chip = page.locator('.pubs-controls button[data-group="tag"]').filter(
                     has=page.locator(".n", has_text=re.compile(r"^0$"))).first
                 if zero_chip.count():
@@ -372,6 +416,24 @@ def main(site, data_path, shots=None):
             check("highlight metadata has no empty separators", all(
                 all(part.strip() for part in text.split("\u00b7"))
                 for text in nojs.locator(".pub-meta").all_text_contents()))
+            expected_meta = [e["year_label"] + (" " + unescape(re.sub(r"<[^>]+>", "", e["venue_html"]))
+                             if e["venue_html"] else "") for e in data if e["selected"]]
+            check("Highlights show year and venue without kind", nojs.locator(".pub-meta-venue").all_text_contents() ==
+                  expected_meta and nojs.locator(".pubs-highlights .pub-kind").count() == 0)
+            check("venue notes have a visible separator", nojs.locator(".pub-note").evaluate_all("""els => els.every(el => {
+                const content = getComputedStyle(el, '::before').content;
+                return el.previousElementSibling ? content.includes('\\u00b7') : content === 'none';
+            })"""))
+            check("entry tags are muted and borderless with dot separators", nojs.locator(".pub-labels a").evaluate_all("""els =>
+                els.length > 0 && els.every(el => {
+                    const s = getComputedStyle(el);
+                    return parseFloat(s.fontSize) === 13 && parseFloat(s.borderWidth) === 0 &&
+                        s.color === getComputedStyle(document.querySelector('.pub-kind')).color &&
+                        (!el.previousElementSibling || getComputedStyle(el, '::before').content.includes('\\u00b7'));
+                })"""))
+            check("peer-reviewed labels use neutral text color", nojs.locator(".pub-review").evaluate_all("""els =>
+                els.every(el => getComputedStyle(el).color === getComputedStyle(document.querySelector('.pub-venue')).color)
+            """))
             check("venues have no leading whitespace", all(
                 text == text.lstrip() for text in nojs.locator(".pub-venue").all_text_contents()))
             check("adjacent links have text separators", nojs.locator(".pub-links, .pub-labels").evaluate_all("""els =>
@@ -411,16 +473,47 @@ def main(site, data_path, shots=None):
                     page.goto(url)
                     check(f"no horizontal overflow at {width}px", page.evaluate(
                         "document.documentElement.scrollWidth <= window.innerWidth"))
-                    check(f"readable entry type at {width}px", page.locator(
-                        "li.pub:visible .pub-title, li.pub:visible .pub-authors, li.pub:visible .pub-venue, li.pub:visible .chip"
+                    check(f"readable entries and headings at {width}px", page.locator(
+                        "li.pub:visible .pub-title, li.pub:visible .pub-authors, li.pub:visible .pub-venue, "
+                        "li.pub:visible .pub-labels a, .pubs h2:visible"
                     ).evaluate_all("""els => els.every(el => {
                         const s = getComputedStyle(el), size = parseFloat(s.fontSize);
                         return size >= (el.matches('.pub-title') ? 14 : 13) && parseFloat(s.lineHeight) / size >= 1.35;
                     })"""))
+                    kind_box = page.get_by_role("group", name="Kind", exact=True).bounding_box()
+                    review_box = page.get_by_role("group", name="Review", exact=True).bounding_box()
+                    check(f"Kind and Review share a row at {width}px", abs(kind_box["y"] - review_box["y"]) < 1 and
+                          review_box["x"] >= kind_box["x"] + kind_box["width"])
+                    check(f"Highlights metadata stays on one line at {width}px", page.locator(".pub-meta-venue").evaluate_all(
+                        """els => els.every(el => {
+                            const s = getComputedStyle(el);
+                            return s.whiteSpace === 'nowrap' && s.textOverflow === 'ellipsis' && s.overflow === 'hidden' &&
+                                el.getBoundingClientRect().height <= Math.max(parseFloat(s.lineHeight),
+                                    parseFloat(getComputedStyle(el.closest('li')).lineHeight)) + 1;
+                        })"""))
                     if width == 375:
                         check("mobile controls and chips have 32px targets", page.locator(
                             ".pubs button:visible, .pubs .chip:visible, .pubs-view label, .pubs summary:visible"
                         ).evaluate_all("els => els.every(el => el.getBoundingClientRect().height >= 32)"))
+                        check("mobile entry and Highlights links have 24px targets", page.locator(
+                            "li.pub:visible a:visible, .pubs-highlights a:visible"
+                        ).evaluate_all("els => els.every(el => el.getBoundingClientRect().height >= 24)"))
+                        page.locator(".pubs-topics > summary").click()
+                        page.locator(".more-tags > summary").first.click()
+                        check("mobile chip groups scroll without wrapping", page.locator(".chip-group:visible").evaluate_all(
+                            """els => els.every(el => {
+                                const s = getComputedStyle(el);
+                                const tops = Array.from(el.querySelectorAll('button')).filter(b => b.getClientRects().length)
+                                    .map(b => b.getBoundingClientRect().top);
+                                return s.overflowX === 'auto' && s.whiteSpace === 'nowrap' &&
+                                    tops.every(t => Math.abs(t - tops[0]) < 1);
+                            })"""), page.locator(".chip-group:visible").evaluate_all("""els => JSON.stringify(els.map(el => ({
+                                name: el.getAttribute('aria-label'),
+                                tops: Array.from(el.querySelectorAll('button')).filter(b => b.getClientRects().length)
+                                    .map(b => b.getBoundingClientRect().top)
+                            })))"""))
+                        page.locator(".pubs-topics > summary").click()
+                        page.evaluate("window.scrollTo(0, 0)")
                     switch = page.locator(".pubs-view").bounding_box()
                     header = page.locator(".wrapper-masthead").bounding_box()
                     check(f"view switch visible before Highlights at {width}px", switch["y"] >= header["y"] + header["height"] and
@@ -435,6 +528,8 @@ def main(site, data_path, shots=None):
                         }).length;
                     }"""
                     print(f"METRIC {width}px initial screen: {page.evaluate(count_titles)} entry titles", flush=True)
+                    heights = page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.getBoundingClientRect().height)")
+                    print(f"METRIC {width}px median entry height: {median(heights):.2f}px", flush=True)
                     if width == 1280:
                         check("first laptop screen includes list entries", page.evaluate(count_titles) > 0)
                     key = page.locator("li.pub:visible").first.get_attribute("id")
@@ -461,7 +556,7 @@ def main(site, data_path, shots=None):
                             const s = getComputedStyle(el);
                             return s.boxShadow === 'none' && parseFloat(s.marginTop) === parseFloat(s.fontSize) * 0.5;
                         }"""))
-                        check("label chips suppress hover underline", page.locator(".pub-labels a.chip").first.evaluate(
+                        check("entry tags suppress hover underline", page.locator(".pub-labels a").first.evaluate(
                             "el => getComputedStyle(el, '::after').display === 'none'"))
                         cite.scroll_into_view_if_needed()
                         page.screenshot(path=f"{shots}/publications-375-citation.png", animations="disabled")

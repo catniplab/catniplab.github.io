@@ -9,7 +9,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
 {%- assign vocab = site.data.publication_labels -%}
 {%- assign kind_order = "journal,conference,invited,preprint,manuscript,thesis,chapter,book,patent,other" | split: "," -%}
 <div class="pubs">
-<p class="pubs-intro">Papers, preprints and abstracts. Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
+<p class="pubs-intro">Source: <a href="{{ site.baseurl | escape }}/bib_export/catniplab.bib">catniplab.bib</a> (BibTeX).</p>
 
 <form class="pubs-controls" role="search" aria-label="Filter publications" onsubmit="return false">
   <div class="pubs-toolbar">
@@ -23,7 +23,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
       </fieldset>
       <p class="pubs-review-legend">Bar and label: peer-reviewed</p>
     </div>
-    <label for="pubs-q" class="pubs-search pubs-js" hidden>Search
+    <label for="pubs-q" class="pubs-search pubs-js" hidden><span>Search</span>
       <input type="search" id="pubs-q" placeholder="Title, author, venue, abstract..." autocomplete="off">
     </label>
     <p class="pubs-status pubs-js" hidden><span id="pubs-count" aria-live="polite"></span>
@@ -36,17 +36,21 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
       {%- for t in vocab.themes %}
       {%- assign matches = pubs | where_exp: "p", "p.themes contains t.id" %}
       {%- assign n = matches | where_exp: "p", "p.kind != 'abstract'" | size %}
-      {%- if matches.size > 0 %}<button type="button" class="chip" data-group="theme" data-value="{{ t.id | escape }}" aria-pressed="false">{{ t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
+      {%- if matches.size > 0 %}<button type="button" class="chip" data-group="theme" data-value="{{ t.id | escape }}" title="{{ t.name | escape }}" aria-pressed="false">{{ t.short | default: t.name | escape }} <span class="n">{{ n | escape }}</span></button>{% endif %}
       {%- endfor %}
     </div>
     {%- endif %}
-    <div class="chip-group" role="group" aria-label="Kind and review"><span class="chip-group-name">Kind</span>
+    <div class="pubs-kind-review">
+    <div class="chip-group" role="group" aria-label="Kind"><span class="chip-group-name">Kind</span>
       {%- for k in kind_order %}
       {%- assign of_kind = pubs | where: "kind", k %}
       {%- if of_kind.size > 0 %}<button type="button" class="chip" data-group="kind" data-value="{{ k | escape }}" aria-pressed="false">{{ of_kind.first.kind_name | escape }} <span class="n">{{ of_kind.size | escape }}</span></button>{% endif %}
       {%- endfor %}
+    </div>
+    <div class="chip-group" role="group" aria-label="Review"><span class="chip-group-name">Review</span>
       {%- assign reviewed = papers | where: "refereed", true %}
       <button type="button" class="chip" data-group="review" data-value="refereed" aria-pressed="false">Peer-reviewed <span class="n">{{ reviewed.size | escape }}</span></button>
+    </div>
     </div>
     <details class="pubs-topics"><summary>Filter by topic</summary>
     {%- for facet in vocab.facets %}
@@ -78,7 +82,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
   <ul>
   {%- for p in highlights %}
     <li data-refereed="{{ p.refereed | escape }}"><a href="#{{ p.key | escape }}">{{ p.title_html }}</a>
-      <span class="pub-meta">{{ p.year_label | escape }} <span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</span></li>
+      <span class="pub-meta"><span class="pub-meta-venue">{{ p.year_label | escape }}{% if p.venue_html != "" %} {{ p.venue_html }}{% endif %}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</span></li>
   {%- endfor %}
   </ul>
 </section>
@@ -93,12 +97,12 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     <li id="{{ p.key | escape }}" class="pub" data-kind="{{ p.kind | escape }}" data-refereed="{{ p.refereed | escape }}" data-themes="{{ p.themes | join: ' ' | escape }}" data-tags="{{ p.tags | join: ' ' | escape }}" data-year="{{ p.year_label | escape }}">
       <p class="pub-title">{{ p.title_html }}</p>
       {%- if p.authors_html != "" %}<p class="pub-authors">{{ p.authors_html }}</p>{% endif %}
-      <p class="pub-venue">{% if p.venue_html != "" %}{{ p.venue_html }} {% endif %}{% if p.note_html != "" %}<span class="pub-note">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</p>
+      <p class="pub-venue">{% if p.venue_html != "" %}<span>{{ p.venue_html }}</span> {% endif %}{% if p.note_html != "" %}<span class="pub-note">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</p>
       {%- if p.links.size > 0 %}
       <p class="pub-links">{% for l in p.links %}{% unless forloop.first %}&#32;{% endunless %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>
       {%- endif %}
       {%- if p.labels.size > 0 %}
-      <p class="pub-labels">{% for l in p.labels %}{% unless forloop.first %}&#32;{% endunless %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a class="chip" href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>
+      <p class="pub-labels">{% for l in p.labels %}{% unless forloop.first %}&#32;{% endunless %}{% if l.group == "theme" %}{% assign grp = "theme" %}{% else %}{% assign grp = "tag" %}{% endif %}<a href="?{{ grp | escape }}={{ l.id | url_encode | escape }}" data-group="{{ grp | escape }}" data-value="{{ l.id | escape }}">{{ l.name | escape }}</a>{% endfor %}</p>
       {%- endif %}
       {%- if p.abstract_html != "" %}
       <details class="pub-abstract"><summary>Abstract</summary><p>{{ p.abstract_html }}</p></details>

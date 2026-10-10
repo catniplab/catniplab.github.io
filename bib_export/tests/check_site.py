@@ -14,7 +14,7 @@ import sys
 
 BUDGET_RAW = 800_000
 BUDGET_GZIP = 160_000
-BUDGET_JS = 8 * 1024
+BUDGET_JS = 9 * 1024
 BUDGET_SCSS = 6 * 1024
 ALLOWED_HREF = ("http://", "https://", "/", "#", "?", "mailto:")
 

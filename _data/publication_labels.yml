@@ -5,12 +5,16 @@
 themes:
   - id: inference
     name: Inference of effective dynamical systems
+    short: Dynamical systems inference
   - id: language
     name: Improving our language for neural computation
+    short: Language for neural computation
   - id: neurotech
     name: Neurotechnology for real-time experiments
+    short: Real-time neurotechnology
   - id: integrative
     name: Integrative neuroscience
+    short: Integrative neuroscience
 facets:
   - id: research      # sub-research areas
     name: Research topic

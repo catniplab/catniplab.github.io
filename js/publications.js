@@ -89,6 +89,17 @@
         return ok.indexOf(v) >= 0 && all.indexOf(v) === i;
       });
     });
+    revealTags();
+  }
+
+  function revealTags() {
+    chips.forEach(function (c) {
+      if (c.dataset.group === "tag" && state.tag.indexOf(c.dataset.value) >= 0) {
+        root.querySelector(".pubs-topics").open = true;
+        var more = c.closest(".more-tags");
+        if (more) more.open = true;
+      }
+    });
   }
 
   function apply(preserveTarget, delayUrl) {
@@ -109,11 +120,6 @@
     chips.forEach(function (c) {
       var active = state[c.dataset.group].indexOf(c.dataset.value) >= 0;
       c.setAttribute("aria-pressed", String(active));
-      if (active && c.dataset.group === "tag") {
-        root.querySelector(".pubs-topics").open = true;
-        var more = c.closest(".more-tags");
-        if (more) more.open = true;
-      }
       c.querySelector(".n").textContent = recs.filter(function (r) {
         return (state.abstracts || r.kind !== "abstract") &&
           r.labels[c.dataset.group].indexOf(c.dataset.value) >= 0;
@@ -185,12 +191,13 @@
       apply();
     });
   });
-  root.querySelectorAll(".pub-labels a.chip").forEach(function (a) {
+  root.querySelectorAll(".pub-labels a").forEach(function (a) {
     a.addEventListener("click", function (ev) {
       if (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
       if (known(a.dataset.group).indexOf(a.dataset.value) < 0) return;
       ev.preventDefault();
       state[a.dataset.group] = [a.dataset.value];
+      if (a.dataset.group === "tag") revealTags();
       apply();
       root.querySelector(".pubs-controls").scrollIntoView();
     });
@@ -201,6 +208,7 @@
       if (button === showAll) state.abstracts = true;
       fragment = "";
       apply();
+      if (button === showAll) allView.focus();
     });
   });
   window.addEventListener("hashchange", function () { fragment = location.hash; revealTarget(); });
