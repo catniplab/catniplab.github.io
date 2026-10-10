@@ -19,49 +19,49 @@ facets:
   - id: research      # sub-research areas
     name: Research topic
     tags:
+      - {id: point-processes, name: Point processes and spike trains}
       - {id: state-space-models, name: State-space models}
+      - {id: neural-coding, name: Neural coding and decoding}
+      - {id: oscillations, name: Oscillations and limit cycles}
+      - {id: functional-connectivity, name: Functional connectivity}
       - {id: latent-variable-models, name: Latent variable models}
       - {id: continuous-attractors, name: Continuous attractors}
-      - {id: universal-approximation, name: Universal approximation}
-      - {id: dynamical-archetypes, name: Dynamical archetypes}
-      - {id: metastability, name: Metastability and multistability}
-      - {id: oscillations, name: Oscillations and limit cycles}
       - {id: neural-network-theory, name: Theory of artificial neural networks}
-      - {id: neural-coding, name: Neural coding and decoding}
-      - {id: receptive-fields, name: Receptive field models}
-      - {id: functional-connectivity, name: Functional connectivity}
-      - {id: point-processes, name: Point processes and spike trains}
       - {id: entropy-estimation, name: Entropy estimation}
       - {id: neural-control, name: Control of neural dynamics}
+      - {id: receptive-fields, name: Receptive field models}
+      - {id: metastability, name: Metastability and multistability}
+      - {id: dynamical-archetypes, name: Dynamical archetypes}
+      - {id: universal-approximation, name: Universal approximation}
       - {id: computational-neuroscience, name: Computational neuroscience}
   - id: area          # neuroscience areas
     name: Neuroscience area
     tags:
-      - {id: olfaction, name: Olfaction}
-      - {id: gustation, name: Taste}
-      - {id: audition, name: Audition}
-      - {id: vision, name: Vision}
       - {id: decision-making, name: Decision-making}
-      - {id: motor-control, name: Motor control}
+      - {id: vision, name: Vision}
+      - {id: olfaction, name: Olfaction}
       - {id: working-memory, name: Working memory}
-      - {id: head-direction, name: Head direction}
-      - {id: sensorimotor, name: Sensorimotor and embodiment}
       - {id: brain-disorders, name: Brain disorders}
+      - {id: motor-control, name: Motor control}
+      - {id: sensorimotor, name: Sensorimotor and embodiment}
+      - {id: audition, name: Audition}
+      - {id: gustation, name: Taste}
+      - {id: head-direction, name: Head direction}
   - id: method        # ML / statistics / engineering topics
     name: Method
     tags:
-      - {id: kernel-methods, name: Kernel methods}
       - {id: information-theory, name: Information theory}
-      - {id: adaptive-filtering, name: Adaptive filtering}
-      - {id: real-time, name: Real-time and closed-loop methods}
-      - {id: active-learning, name: Active learning and experimental design}
+      - {id: kernel-methods, name: Kernel methods}
       - {id: bayesian-inference, name: Bayesian inference}
       - {id: variational-inference, name: Variational inference}
+      - {id: real-time, name: Real-time and closed-loop methods}
       - {id: gaussian-processes, name: Gaussian processes}
       - {id: glm, name: Generalized linear models}
-      - {id: recurrent-neural-networks, name: Recurrent neural networks}
       - {id: transfer-learning, name: Transfer and meta-learning}
-      - {id: machine-learning, name: Machine learning}
-      - {id: statistics, name: Statistics}
+      - {id: adaptive-filtering, name: Adaptive filtering}
+      - {id: recurrent-neural-networks, name: Recurrent neural networks}
+      - {id: active-learning, name: Active learning and experimental design}
       - {id: logic, name: Logic}
+      - {id: machine-learning, name: Machine learning}
       - {id: natural-language-processing, name: Natural language processing}
+      - {id: statistics, name: Statistics}

@@ -103,3 +103,19 @@ def test_main_calls_os_replace_exactly_once_on_success_and_never_on_failure(tmp_
     csv_path.write_text("key,field,value,format\nA,tags,a},tex\n")  # unbalanced brace
     assert sf.main([str(csv_path), "--bib", str(bib)]) == 1
     assert calls == []
+
+
+def test_main_keeps_file_mode(tmp_path):
+    bib, csv_path = _write(tmp_path, BIB)
+    os.chmod(bib, 0o640)
+    csv_path.write_text("key,field,value,format\nA,tags,x,tex\n")
+    assert sf.main([str(csv_path), "--bib", str(bib)]) == 0
+    assert os.stat(bib).st_mode & 0o777 == 0o640
+
+
+def test_refuse_field_sharing_a_line():
+    lines = ["@Article{A,\n", "  title = {T}, year = 2020,\n", "  pages = {1},\n", "}\n"]
+    with pytest.raises(SystemExit, match="shares a line"):
+        sf.set_field(lines, "A", "year", "2021")
+    with pytest.raises(SystemExit, match="shares a line"):
+        sf.set_field(lines, "A", "title", "N")

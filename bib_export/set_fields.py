@@ -21,6 +21,7 @@ import argparse
 import csv
 import importlib.util
 import os
+import shutil
 import sys
 import tempfile
 
@@ -51,6 +52,8 @@ def set_field(lines, key, field, value):
     for n, f in enumerate(fields):
         if f.key.lower() != field.lower():
             continue
+        if sum(g.start_line == f.start_line for g in fields) > 1 or entry.start_line == f.start_line:
+            raise SystemExit(f"{key}: field {field} shares a line; edit it by hand")
         stop = fields[n + 1].start_line if n + 1 < len(fields) else end
         if f.start_line == end:
             raise SystemExit(f"{key}: field {field} shares the closing line; edit it by hand")
@@ -115,6 +118,7 @@ def main(argv=None):
         with os.fdopen(fd, "w", encoding="utf-8", newline="") as fh:
             fh.write("".join(lines))
         _verify(bp, args.bib, tmp, wanted)
+        shutil.copymode(args.bib, tmp)  # mkstemp creates 0600; keep the bib's own mode
         os.replace(tmp, args.bib)
     except Exception as err:
         if os.path.exists(tmp):

@@ -801,3 +801,42 @@ def test_bad_refereed_is_bib_error(bp, build_one):
 def test_refereed_not_in_copied_bibtex(build_one):
     [e] = build_one("@article{K, author = {A, B}, title = {T}, year = 2020, refereed = {true}}")
     assert "refereed" not in e["bibtex"]
+
+
+# --- arXiv-only entries are preprints ----------------------------------------
+
+def test_arxiv_article_is_unrefereed_preprint_with_arxiv_venue(build_one):
+    [e] = build_one("@article{K, title = {T}, journal = {arXiv preprint arXiv:2101.00001}, "
+                    "eprint = {2101.00001}, year = 2021}")
+    assert (e["kind"], e["refereed"], e["venue_html"]) == ("preprint", False, "arXiv:2101.00001")
+
+
+@pytest.mark.parametrize("bib, kind", [
+    ("@article{K, title = {T}, journal = {ArXiv e-prints}, year = 2020}", "preprint"),
+    ("@article{K, title = {T}, journal = {bioRxiv}, year = 2020}", "preprint"),
+    ("@article{K, title = {T}, journal = {Preprint}, year = 2020}", "preprint"),
+    ("@misc{K, title = {T}, eprint = {2001.00001}, year = 2020}", "preprint"),
+    ("@article{K, title = {T}, journal = {Neuron}, year = 2020}", "journal"),
+    ("@misc{K, title = {T}, year = 2020}", "other"),
+])
+def test_preprint_kind_detection(build_one, bib, kind):
+    [e] = build_one(bib)
+    assert e["kind"] == kind
+    assert e["refereed"] is (kind == "journal")
+
+
+def test_patent_venue_normalizes_number_like_apa(build_one):
+    [e] = build_one("@misc{K, title = {T}, journal = {USPTO}, number = {20250209344:A1}, "
+                    "year = 2025, pubtype = {patent}}")
+    assert e["venue_html"] == "USPTO, 20250209344 A1"
+
+
+# --- missing pdf files -------------------------------------------------------
+
+def test_missing_pdf_file_warns(bp, build_one, tmp_path, monkeypatch, capsys):
+    (tmp_path / "there.pdf").write_bytes(b"%PDF")
+    monkeypatch.setattr(bp, "PUBLICATIONS_DIR", str(tmp_path))
+    build_one("@article{K, title = {T}, pdf = {there.pdf}, year = 2020}")
+    assert capsys.readouterr().err == ""
+    build_one("@article{K, title = {T}, pdf = {gone.pdf}, year = 2020}")
+    assert "gone.pdf" in capsys.readouterr().err

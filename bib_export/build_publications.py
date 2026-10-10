@@ -30,6 +30,7 @@ DEFAULT_BIB = os.path.join(SCRIPT_DIR, "catniplab.bib")
 DEFAULT_LABELS = os.path.join(SITE_ROOT, "_data", "publication_labels.yml")
 DEFAULT_ROSTER = os.path.join(SITE_ROOT, "_data", "lab_members.json")
 DEFAULT_OUT = os.path.join(SITE_ROOT, "_data", "publications.json")
+PUBLICATIONS_DIR = os.path.join(SITE_ROOT, "publications")
 
 KIND_NAMES = {
     "journal": "Journal article", "conference": "Conference paper",
@@ -39,6 +40,7 @@ KIND_NAMES = {
     "abstract": "Conference abstract", "patent": "Patent", "other": "Other",
 }
 PUBTYPES = {"abstract", "patent", "manuscript", "other", "invited"}
+_PREPRINT_VENUE = re.compile(r"arxiv|biorxiv|e-?prints?|preprint", re.I)
 
 
 class BibError(Exception):
@@ -126,7 +128,10 @@ def kind_of(key, entry_type, f):
         return pubtype
     t = entry_type.lower()
     if t == "article":
-        return "journal"
+        # an arXiv-only entry is filed as @article with the archive as its "journal"
+        return "preprint" if _PREPRINT_VENUE.search(f.get("journal", "")) else "journal"
+    if t == "misc" and f.get("eprint"):
+        return "preprint"
     if t in ("inproceedings", "conference"):
         return "conference"
     if t == "unpublished":
@@ -224,9 +229,14 @@ def url_label(url):
     return URL_HOST_LABELS.get(p.netloc.lower().removeprefix("www."), "Link")
 
 
+def eprint_id(f):
+    """The eprint with any 'arXiv:' prefix removed; '' when absent."""
+    return re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
+
+
 def eprint_link(key, f):
     """(label, url) for the eprint, or None. Never invented from archivePrefix alone."""
-    eid = re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
+    eid = eprint_id(f)
     prefix = f.get("archiveprefix", "").strip() or "arXiv"
     if not eid:
         if f.get("archiveprefix"):
@@ -258,6 +268,8 @@ def links_of(key, f):
         name = f["pdf"].strip()
         if re.search(r"[/\\]|\.\.", name):
             raise BibError(f"{key}: pdf must be a bare file name, got {name!r}")
+        if not os.path.exists(os.path.join(PUBLICATIONS_DIR, name)):
+            warn(f"{key}: pdf {name!r} not found in {PUBLICATIONS_DIR}")
         raw.append(("PDF", "/publications/" + name))
     ep = eprint_link(key, f)
     if ep:
@@ -290,8 +302,7 @@ def venue_html(key, kind, entry_type, f):
     if link:
         # the archive, not the stale journal text ("ArXiv e-prints")
         label, _ = link
-        eid = re.sub(r"^arxiv:\s*", "", f["eprint"].strip(), flags=re.I)
-        return html.escape(f"arXiv:{eid}" if label == "arXiv" else label)
+        return html.escape(f"arXiv:{eprint_id(f)}" if label == "arXiv" else label)
     if kind == "journal":
         vol = h("volume")
         parts = [h("journal"), vol + (f"({number})" if number and vol else number), h("pages")]
@@ -307,7 +318,7 @@ def venue_html(key, kind, entry_type, f):
     elif kind == "book":
         parts = [h("publisher")]
     elif kind == "patent":
-        parts = [h("journal"), h("number")]
+        parts = [h("journal"), h("number").replace(":", " ")]
     else:
         parts = [h("howpublished") or h("booktitle") or h("journal")]
     return ", ".join(p for p in parts if p)
@@ -383,7 +394,7 @@ def _apa_link(key, kind, f):
     """DOI first, then a preprint DOI, then the URL."""
     if f.get("doi"):
         return checked_url(key, "https://doi.org/" + normalize_doi(f["doi"]))
-    eid = re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
+    eid = eprint_id(f)
     prefix = (f.get("archiveprefix", "").strip() or "arXiv").lower()
     if kind == "preprint" and eid and prefix in ("arxiv", "biorxiv"):
         return (f"https://doi.org/10.48550/arXiv.{eid}" if prefix == "arxiv"
@@ -556,7 +567,7 @@ def selected_of(key, f):
 def refereed_of(key, kind, f):
     v = f.get("refereed", "").strip().lower()
     if not v:
-        return kind in ("journal", "conference")
+        return kind in ("journal", "conference")  # preprints are not refereed
     if v not in ("true", "false"):
         raise BibError(f"{key}: refereed must be true or false, got {v!r}")
     return v == "true"
