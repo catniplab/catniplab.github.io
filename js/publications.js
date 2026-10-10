@@ -6,15 +6,15 @@
   var root = document.querySelector(".pubs");
   if (!root) return;
 
-  var GROUPS = ["theme", "kind", "tag"];
+  var GROUPS = ["theme", "kind", "tag", "review"];
   var allView = document.getElementById("show-abstracts");
-  var publicationsView = document.getElementById("show-publications");
+  var papersView = document.getElementById("show-papers");
   var showAll = document.getElementById("pubs-show-all");
   var q = document.getElementById("pubs-q");
   var count = document.getElementById("pubs-count");
   var years = Array.prototype.slice.call(root.querySelectorAll("section.pubs-year"));
   var chips = Array.prototype.slice.call(root.querySelectorAll(".pubs-controls button.chip"));
-  var state = { q: "", abstracts: false, theme: [], kind: [], tag: [] };
+  var state = { q: "", abstracts: false, theme: [], kind: [], tag: [], review: [] };
   var fragment = location.hash;
   var urlTimer;
 
@@ -34,7 +34,8 @@
       text: fold(text),
       labels: { theme: words(li.getAttribute("data-themes")),
                 kind: [li.getAttribute("data-kind")],
-                tag: words(li.getAttribute("data-tags")) }
+                tag: words(li.getAttribute("data-tags")),
+                review: li.dataset.refereed === "true" ? ["refereed"] : [] }
     };
   });
 
@@ -106,14 +107,20 @@
     count.textContent = "Showing " + shown + " of " + recs.length;
     showAll.hidden = shown === inView;
     chips.forEach(function (c) {
-      c.setAttribute("aria-pressed", String(state[c.dataset.group].indexOf(c.dataset.value) >= 0));
+      var active = state[c.dataset.group].indexOf(c.dataset.value) >= 0;
+      c.setAttribute("aria-pressed", String(active));
+      if (active && c.dataset.group === "tag") {
+        root.querySelector(".pubs-topics").open = true;
+        var more = c.closest(".more-tags");
+        if (more) more.open = true;
+      }
       c.querySelector(".n").textContent = recs.filter(function (r) {
         return (state.abstracts || r.kind !== "abstract") &&
           r.labels[c.dataset.group].indexOf(c.dataset.value) >= 0;
       }).length;
     });
     allView.checked = state.abstracts;
-    publicationsView.checked = !state.abstracts;
+    papersView.checked = !state.abstracts;
     q.value = state.q;
     clearTimeout(urlTimer);
     if (delayUrl) urlTimer = setTimeout(writeUrl, 300); else writeUrl();
@@ -203,7 +210,7 @@
   });
 
   root.classList.add("pubs-enhanced");
-  root.querySelector(".pubs-js").hidden = false;
+  root.querySelectorAll(".pubs-js").forEach(function (el) { el.hidden = false; });
   readUrl();
   // Retain an incoming fragment until revealTarget has made its entry visible.
   revealTarget();

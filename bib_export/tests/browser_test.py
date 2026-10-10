@@ -71,7 +71,7 @@ def main(site, data_path, shots=None):
                 return page.locator("li.pub:visible").count()
 
             def select_view(target_page, abstracts):
-                option = "show-abstracts" if abstracts else "show-publications"
+                option = "show-abstracts" if abstracts else "show-papers"
                 target_page.locator(f'label[for="{option}"]').click()
 
             def chip_counts_match(target_page, abstracts=False):
@@ -80,37 +80,72 @@ def main(site, data_path, shots=None):
                 }))""")
                 return bool(chips) and all(c["n"] == sum(
                     (abstracts or e["kind"] != "abstract") and
-                    (e["kind"] == c["value"] if c["group"] == "kind" else c["value"] in e[c["group"] + "s"])
+                    (e["refereed"] if c["group"] == "review" else
+                     e["kind"] == c["value"] if c["group"] == "kind" else c["value"] in e[c["group"] + "s"])
                     for e in data) for c in chips)
+
+            def markers_match(target_page):
+                entries = target_page.locator("li.pub, .pubs-highlights li").evaluate_all("""els => {
+                    const primary = getComputedStyle(document.querySelector('.pubs-view input:checked + label')).backgroundColor;
+                    return els.map(el => ({
+                        key: el.id || el.querySelector('a').getAttribute('href').slice(1),
+                        flag: el.dataset.refereed,
+                        labels: Array.from(el.querySelectorAll('.pub-review')).map(l => l.textContent),
+                        bar: getComputedStyle(el).borderLeftColor === primary && parseFloat(getComputedStyle(el).borderLeftWidth) > 0
+                    }));
+                }""")
+                expected = {e["key"]: e["refereed"] for e in data}
+                return len(entries) == total + sum(e["selected"] for e in data) and all(
+                    e["flag"] == str(expected[e["key"]]).lower() and e["bar"] == expected[e["key"]] and
+                    e["labels"] == (["peer-reviewed"] if expected[e["key"]] else []) for e in entries)
 
             page.goto(url)
             check("default hides abstracts", shown() == default_n, f"{shown()} != {default_n}")
-            check("initial Publications radio and count", page.get_by_role(
-                "radio", name=f"Publications ({default_n})", exact=True).is_checked())
+            check("initial Papers radio and count", page.get_by_role(
+                "radio", name=f"Papers ({default_n})", exact=True).is_checked())
             check("All radio has total count", page.get_by_role(
-                "radio", name=f"All ({total})", exact=True).count() == 1)
+                "radio", name=f"All, with abstracts ({total})", exact=True).count() == 1)
             check("count text", page.inner_text("#pubs-count") == f"Showing {default_n} of {total}",
                   page.inner_text("#pubs-count"))
-            enhanced = page.locator(".pubs-js").is_visible()
+            enhanced = page.locator(".pubs-js").first.is_visible()
             check("filter controls enhanced", enhanced)
             check("copy buttons enhanced", page.locator("button.copy").count() == 2 * total)
 
             # A missing script is the expected RED baseline. Do not wait for
             # controls that are deliberately hidden until enhancement runs.
             if enhanced:
+                check("topic facets collapsed initially", not page.locator(".pubs-topics").evaluate("el => el.open"))
+                check("Papers and Highlights markers match JSON", markers_match(page))
                 check("default chip counts match standalone filters", chip_counts_match(page))
                 check("Show all hidden without filtering", not page.locator("#pubs-show-all").is_visible())
                 select_view(page, True)
                 check("one click on All shows every entry", shown() == total, f"{shown()} != {total}")
                 check("All view in URL", parse_qs(urlsplit(page.url).query) == {"abstracts": ["1"]}, page.url)
                 check("chip counts include abstracts when enabled", chip_counts_match(page, True))
+                check("All and Highlights markers match JSON", markers_match(page))
                 select_view(page, False)
                 check("chip counts return to publication scope", chip_counts_match(page))
-                page.locator("#show-publications").focus()
+                review_chip = page.locator('button[data-group="review"][data-value="refereed"]')
+                for abstracts in (False, True):
+                    select_view(page, abstracts)
+                    expected = {e["key"] for e in data if e["refereed"] and (abstracts or e["kind"] != "abstract")}
+                    check(f"Peer-reviewed standalone count, All={abstracts}",
+                          review_chip.locator(".n").text_content() == str(len(expected)))
+                    review_chip.click()
+                    check(f"Peer-reviewed filter matches JSON, All={abstracts}",
+                          set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
+                    check(f"review=refereed in URL, All={abstracts}", parse_qs(urlsplit(page.url).query).get("review") == ["refereed"])
+                    page.reload()
+                    check(f"review URL round trip, All={abstracts}", review_chip.get_attribute("aria-pressed") == "true" and
+                          set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
+                    page.click("#pubs-clear")
+                    check(f"Clear removes review filter, All={abstracts}", "review" not in parse_qs(urlsplit(page.url).query))
+                select_view(page, False)
+                page.locator("#show-papers").focus()
                 page.keyboard.press("ArrowRight")
                 check("keyboard right arrow selects All", page.is_checked("#show-abstracts") and shown() == total)
                 page.keyboard.press("ArrowLeft")
-                check("keyboard left arrow selects Publications", page.is_checked("#show-publications") and shown() == default_n)
+                check("keyboard left arrow selects Papers", page.is_checked("#show-papers") and shown() == default_n)
 
                 accented = sorted({ascii_fold(a["family"]) for e in data for a in e["authors"]
                                    if ascii_fold(a["family"]) != a["family"].lower()})
@@ -174,8 +209,8 @@ def main(site, data_path, shots=None):
                     page.reload()
                     check("URL state survives reload", shown() == expected, f"{shown()} != {expected}")
                     page.click("#pubs-clear")
-                    check("Clear filters preserves Publications view", shown() == default_n and
-                          page.is_checked("#show-publications") and "?" not in page.url, page.url)
+                    check("Clear filters preserves Papers view", shown() == default_n and
+                          page.is_checked("#show-papers") and "?" not in page.url, page.url)
 
                 themes = sorted({t for e in data for t in e["themes"]})[:2]
                 tagged = next((e for e in data if e["kind"] != "abstract" and e["themes"] and e["tags"]), None)
@@ -191,6 +226,13 @@ def main(site, data_path, shots=None):
                                 filters["theme"] in e["themes"] and filters["tag"] in e["tags"]}
                     actual = set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)"))
                     check("filter groups combine with AND", actual == expected)
+                    check("active topic group stays visible", page.locator(".pubs-topics").evaluate("el => el.open") and
+                          page.locator(f'button[data-group="tag"][data-value="{filters["tag"]}"]').is_visible())
+                    filters["review"] = "refereed"
+                    page.goto(url + "?" + urlencode(filters))
+                    expected = {e["key"] for e in data if e["key"] in expected and e["refereed"]}
+                    check("review combines with theme, kind and tag by AND",
+                          set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)")) == expected)
                     page.goto(url + "?" + urlencode({k: v + "," + v for k, v in filters.items()}))
                     check("duplicate URL filters are normalized",
                           parse_qs(urlsplit(page.url).query) == {k: [v] for k, v in filters.items()})
@@ -213,6 +255,7 @@ def main(site, data_path, shots=None):
                               not page.locator("#pubs-show-all").is_visible())
 
                 page.goto(url)
+                page.locator(".pubs-topics > summary").click()
                 more = page.locator("details.more-tags").first
                 check("fixture exercises more tags", more.count() == 1 and more.locator("button.chip").count() > 0)
                 more.locator("summary").click()
@@ -222,6 +265,12 @@ def main(site, data_path, shots=None):
                 expected = {e["key"] for e in data if e["kind"] != "abstract" and extra_tag in e["tags"]}
                 actual = set(page.locator("li.pub:visible").evaluate_all("els => els.map(el => el.id)"))
                 check("more tag filters entries", bool(expected) and actual == expected)
+                page.reload()
+                check("active more tag revealed after reload", extra_chip.is_visible() and more.evaluate("el => el.open"))
+                page.locator(".pubs-topics > summary").click()
+                check("collapsed topics indicate an active filter", page.locator(".pubs-topics > summary").evaluate(
+                    "el => getComputedStyle(el, '::after').content.includes('active')"))
+                page.locator(".pubs-topics > summary").click()
                 page.click("#pubs-clear")
                 zero_chip = page.locator('.pubs-controls button[data-group="tag"]').filter(
                     has=page.locator(".n", has_text=re.compile(r"^0$"))).first
@@ -315,9 +364,10 @@ def main(site, data_path, shots=None):
             nojs_ctx.route("**/*", local_only)
             nojs = nojs_ctx.new_page()
             nojs.goto(url)
-            check("server-rendered view names and counts", nojs.get_by_role("group", name="Publication view").count() == 1 and
-                  nojs.get_by_role("radio", name=f"Publications ({default_n})", exact=True).is_checked() and
-                  nojs.get_by_role("radio", name=f"All ({total})", exact=True).count() == 1)
+            check("no-JS markers match JSON", markers_match(nojs))
+            check("server-rendered view names and counts", nojs.get_by_role("group", name="Entry format").count() == 1 and
+                  nojs.get_by_role("radio", name=f"Papers ({default_n})", exact=True).is_checked() and
+                  nojs.get_by_role("radio", name=f"All, with abstracts ({total})", exact=True).count() == 1)
             check("server-rendered chip counts match default scope", chip_counts_match(nojs))
             check("highlight metadata has no empty separators", all(
                 all(part.strip() for part in text.split("\u00b7"))
@@ -327,20 +377,28 @@ def main(site, data_path, shots=None):
             check("adjacent links have text separators", nojs.locator(".pub-links, .pub-labels").evaluate_all("""els =>
                 els.every(el => Array.from(el.querySelectorAll('a')).slice(1).every(a =>
                     a.previousSibling.nodeType === Node.TEXT_NODE && /\\s/.test(a.previousSibling.textContent)))"""))
-            check("no-JS: controls hidden", not nojs.locator(".pubs-js").is_visible())
+            check("no-JS: controls hidden", not nojs.locator(".pubs-js").first.is_visible())
             check("no-JS: abstracts hidden by CSS", nojs.locator("li.pub:visible").count() == default_n)
+            check("no-JS: peer-reviewed paper labels visible", nojs.locator("li.pub:visible .pub-review:visible").count() ==
+                  sum(e["refereed"] and e["kind"] != "abstract" for e in data))
             select_view(nojs, True)
             check("no-JS: All shows every entry and year", nojs.locator("li.pub:visible").count() == total and
                   nojs.locator(".pubs-year:visible").count() == len({e["year_label"] for e in data}))
+            check("no-JS: all peer-reviewed labels visible", nojs.locator("li.pub:visible .pub-review:visible").count() ==
+                  sum(e["refereed"] for e in data))
+            nojs.emulate_media(media="print")
+            check("print retains peer-reviewed labels", nojs.locator("li.pub:visible .pub-review:visible").count() ==
+                  sum(e["refereed"] for e in data))
+            nojs.emulate_media(media="screen")
             select_view(nojs, False)
-            check("no-JS: Publications hides abstracts and empty years", nojs.locator("li.pub:visible").count() == default_n and
+            check("no-JS: Papers hides abstracts and empty years", nojs.locator("li.pub:visible").count() == default_n and
                   nojs.locator(".pubs-year:visible").count() == len({e["year_label"] for e in data if e["kind"] != "abstract"}))
-            nojs.locator("#show-publications").focus()
+            nojs.locator("#show-papers").focus()
             nojs.keyboard.press("ArrowRight")
             check("no-JS: arrow key selects All", nojs.is_checked("#show-abstracts") and
                   nojs.locator("li.pub:visible").count() == total)
             nojs.keyboard.press("ArrowLeft")
-            check("no-JS: arrow key selects Publications", nojs.is_checked("#show-publications") and
+            check("no-JS: arrow key selects Papers", nojs.is_checked("#show-papers") and
                   nojs.locator("li.pub:visible").count() == default_n)
             nojs.locator("li.pub:visible details.pub-cite summary").first.focus()
             nojs.keyboard.press("Enter")
@@ -349,22 +407,44 @@ def main(site, data_path, shots=None):
             if shots:
                 Path(shots).mkdir(parents=True, exist_ok=True)
                 for width in (375, 1280):
-                    page.set_viewport_size({"width": width, "height": 900})
+                    page.set_viewport_size({"width": width, "height": 812 if width == 375 else 800})
                     page.goto(url)
                     check(f"no horizontal overflow at {width}px", page.evaluate(
                         "document.documentElement.scrollWidth <= window.innerWidth"))
+                    check(f"readable entry type at {width}px", page.locator(
+                        "li.pub:visible .pub-title, li.pub:visible .pub-authors, li.pub:visible .pub-venue, li.pub:visible .chip"
+                    ).evaluate_all("""els => els.every(el => {
+                        const s = getComputedStyle(el), size = parseFloat(s.fontSize);
+                        return size >= (el.matches('.pub-title') ? 14 : 13) && parseFloat(s.lineHeight) / size >= 1.35;
+                    })"""))
+                    if width == 375:
+                        check("mobile controls and chips have 32px targets", page.locator(
+                            ".pubs button:visible, .pubs .chip:visible, .pubs-view label, .pubs summary:visible"
+                        ).evaluate_all("els => els.every(el => el.getBoundingClientRect().height >= 32)"))
                     switch = page.locator(".pubs-view").bounding_box()
                     header = page.locator(".wrapper-masthead").bounding_box()
                     check(f"view switch visible before Highlights at {width}px", switch["y"] >= header["y"] + header["height"] and
                           switch["y"] + switch["height"] <= page.viewport_size["height"] and
                           switch["y"] < page.locator(".pubs-highlights").bounding_box()["y"])
                     page.screenshot(path=f"{shots}/publications-{width}.png", animations="disabled")
+                    count_titles = """() => {
+                        const bottom = document.querySelector('.wrapper-masthead').getBoundingClientRect().bottom;
+                        return Array.from(document.querySelectorAll('.pub-title')).filter(el => {
+                            const r = el.getBoundingClientRect();
+                            return r.height > 0 && r.top >= bottom && r.bottom <= innerHeight;
+                        }).length;
+                    }"""
+                    print(f"METRIC {width}px initial screen: {page.evaluate(count_titles)} entry titles", flush=True)
+                    if width == 1280:
+                        check("first laptop screen includes list entries", page.evaluate(count_titles) > 0)
                     key = page.locator("li.pub:visible").first.get_attribute("id")
                     page.goto(url + "#" + key)
+                    print(f"METRIC {width}px list screen: {page.evaluate(count_titles)} entry titles", flush=True)
+                    page.screenshot(path=f"{shots}/publications-{width}-list.png", animations="disabled")
                     target_top = page.locator(f'[id="{key}"]').bounding_box()["y"]
                     header = page.locator(".wrapper-masthead").bounding_box()
                     check(f"hash target below header at {width}px", target_top >= header["y"] + header["height"])
-                    nojs.set_viewport_size({"width": width, "height": 900})
+                    nojs.set_viewport_size(page.viewport_size)
                     nojs.goto("about:blank")
                     nojs.goto(url + "#" + key)
                     target = nojs.locator(f'[id="{key}"]')
