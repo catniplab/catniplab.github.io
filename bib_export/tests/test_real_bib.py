@@ -4,12 +4,19 @@ import os
 import random
 import re
 
-import pytest
+import yaml
 
 SITE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BIB = os.path.join(SITE, "bib_export", "catniplab.bib")
 LABELS = os.path.join(SITE, "_data", "publication_labels.yml")
 ROSTER = os.path.join(SITE, "_data", "lab_members.json")
+_HEADER = re.compile(r"^\s*@(?!comment\b|string\b|preamble\b)\w+\s*[{(]", re.I | re.M)
+
+
+def count_entry_headers():
+    """Entry count taken from the bib text, so adding a paper keeps the suite green."""
+    with open(BIB, encoding="utf-8") as fh:
+        return len(_HEADER.findall(fh.read()))
 
 
 def test_real_bib_builds_and_is_deterministic(bp):
@@ -30,7 +37,7 @@ def test_shuffled_real_bib_gives_same_output(bp, tmp_path):
 
 def test_every_entry_has_a_kind_and_members_are_marked(bp):
     entries = bp.build(BIB, LABELS, ROSTER)
-    assert len(entries) == 173
+    assert len(entries) == count_entry_headers()
     assert all(e["kind"] for e in entries)
     assert any(a["member"] for e in entries for a in e["authors"])
 
@@ -48,8 +55,11 @@ def test_specific_roster_matches(bp):
         assert by_name.get(name) == {False}, name
 
 
-@pytest.mark.skip(reason="labels not yet applied to the bib (Task 10 Step 5)")
-def test_tags_are_applied(bp):
+def test_tags_match_vocabulary(bp):
     entries = bp.build(BIB, LABELS, ROSTER)
-    vocab_tags = {t for e in entries for t in e["tags"]}
-    assert vocab_tags, "no tags applied"
+    with open(LABELS, encoding="utf-8") as fh:
+        vocab = yaml.safe_load(fh)
+    defined = {t["id"] for f in vocab["facets"] for t in f["tags"]}
+    used = {t for e in entries for t in e["tags"]}
+    assert used <= defined, f"tags not in vocabulary: {used - defined}"
+    assert defined <= used, f"vocabulary tags used by no entry: {defined - used}"
