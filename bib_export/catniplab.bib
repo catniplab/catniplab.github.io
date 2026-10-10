@@ -63,6 +63,7 @@
   themes = {language},
   tags = {dynamical-archetypes},
   selected = {true},
+  abstract = {The study of neural computation aims to understand the function of a neural system as an information processing machine. Neural systems are undoubtedly complex, necessitating principled and automated tools to abstract away details to organize and incrementally build intuition. We argue that systems with the same effective behavior should be abstracted by their ideal representative, i.e., archetype, defined by its asymptotic dynamical structure. We propose a library of archetypical computations and a new measure of dissimilarity that allows us to group systems based on their effective behavior by explicitly considering both deformations that break topological conjugacy as well as diffeomorphisms that preserve it. The proposed dissimilarity can be estimated from observed trajectories. Numerical experiments demonstrate our method's ability to overcome previously reported fragility of existing (dis)similarity measures for approximate continuous attractors and high-dimensional recurrent neural networks. Although our experiments focus on working memory systems, our theoretical approach naturally extends to general mechanistic interpretation of recurrent dynamics in both biological and artificial neural systems. We argue that abstract dynamical archetypes, rather than detailed dynamical systems, offer a more useful vocabulary for describing neural computation.},
 }
 
 @Unpublished{Park2026a,
@@ -130,6 +131,7 @@
   pubtype = {abstract},
   themes = {inference;integrative},
   tags = {state-space-models;transfer-learning},
+  abstract = {Learning shared structure across environments facilitates rapid learning and adaptive behavior in neural systems. This has been widely demonstrated and applied in machine learning to train models that are capable of generalizing to novel settings. However, there has been limited work exploiting the shared structure in neural activity during similar tasks for learning latent dynamics from neural recordings. Existing approaches are designed to infer dynamics from a single dataset and cannot be readily adapted to account for statistical heterogeneities across recordings. In this work, we hypothesize that similar tasks admit a corresponding family of related solutions and propose a novel approach for meta-learning this solution space from task-related neural activity of trained animals. Specifically, we capture the variabilities across recordings on a low-dimensional manifold which concisely parametrizes this family of dynamics, thereby facilitating rapid learning of latent dynamics given new recordings. We demonstrate the efficacy of our approach on few-shot reconstruction and forecasting of synthetic dynamical systems, and neural recordings from the motor cortex during different arm reaching tasks.},
 }
 
 @InProceedings{Vermani2024b,
@@ -493,6 +495,7 @@ To address these challenges, we propose a real-time closed-loop active sensing f
   pubtype = {abstract},
   themes = {inference},
   tags = {state-space-models;decision-making},
+  abstract = {Latent linear dynamical systems with Bernoulli observations provide a powerful modeling framework for identifying the temporal dynamics underlying binary time series data, which arise in a variety of contexts such as binary decision-making and discrete stochastic processes (e.g., binned neural spike trains). Here we develop a spectral learning method for fast, efficient fitting of probit-Bernoulli latent linear dynamical system (LDS) models. Our approach extends traditional subspace identification methods to the Bernoulli setting via a transformation of the first and second sample moments. This results in a robust, fixed-cost estimator that avoids the hazards of local optima and the long computation time of iterative fitting procedures like the expectation-maximization (EM) algorithm. In regimes where data is limited or assumptions about the statistical structure of the data are not met, we demonstrate that the spectral estimate provides a good initialization for Laplace-EM fitting. Finally, we show that the estimator provides substantial benefits to real world settings by analyzing data from mice performing a sensory decision-making task.},
 }
 
 @article{Stone2023b,
@@ -777,6 +780,7 @@ In this work we show that (1) prediction measures for goodness of learned dynami
   PMID = {36269764},
   PMCID = {9629599},
   tags = {audition},
+  eprint = {2021.04.14.439872},
 }
 
 @PhdThesis{Nassar2022a,
@@ -1120,6 +1124,7 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
     data = {https://doi.org/10.5281/zenodo.3970842},
     note = {(under review)},
   tags = {neural-coding;information-theory;bayesian-inference},
+  abstract = {AbstractThe efficient coding hypothesis, which proposes that neurons are optimized to maximize information about the environment, has provided a guiding theoretical framework for sensory and systems neuroscience. More recently, a theory known as the Bayesian Brain hypothesis has focused on the brain’s ability to integrate sensory and prior sources of information in order to perform Bayesian inference. However, there is as yet no comprehensive theory connecting these two theoretical frameworks. We bridge this gap by formalizing a Bayesian theory of efficient coding. We define Bayesian efficient codes in terms of four basic ingredients: (1) a stimulus prior distribution; (2) an encoding model; (3) a capacity constraint, specifying a neural resource limit; and (4) a loss function, quantifying the desirability or undesirability of various posterior distributions. Classic efficient codes can be seen as a special case in which the loss function is the posterior entropy, leading to a code that maximizes mutual information, but alternate loss functions give solutions that differ dramatically from information-maximizing codes. In particular, we show that decorrelation of sensory inputs, which is optimal under classic efficient codes in low-noise settings, can be disadvantageous for loss functions that penalize large errors. Bayesian efficient coding therefore enlarges the family of normatively optimal codes and provides a more general framework for understanding the design principles of sensory systems. We examine Bayesian efficient codes for linear receptive fields and nonlinear input-output functions, and show that our theory invites reinterpretation of Laughlin’s seminal analysis of efficient coding in the blowfly visual system.One of the primary goals of theoretical neuroscience is to understand the functional organization of neurons in the early sensory pathways and the principles governing them. Why do sensory neurons amplify some signals and filter out others? What can explain the particular configurations and types of neurons found in early sensory system? What general principles can explain the solutions evolution has selected for extracting signals from the sensory environment?Two of the most influential theories for addressing these questions are the “efficient coding” hypothesis and the “Bayesian brain” hypothesis. The efficient coding hypothesis, introduced by Attneave and Barlow more than fifty years ago, uses the ideas from Shannon’s information theory to formulate a theory normatively optimal neural coding [1, 2]. The Bayesian brain hypothesis, on the other hand, focuses on the brain’s ability to perform Bayesian inference, and can be traced back to ideas from Helmholtz about optimal perceptual inference [3–7].A substantial literature has sought to alter or expand the original efficient coding hypothesis [5, 8–18], and a large number of papers have considered optimal codes in the context of Bayesian inference [19–26], However, the two theories have never been formally connected within a single, comprehensive theoretical framework. Here we propose to fill this gap by formulating a general Bayesian theory of efficient coding that unites the two hypotheses. We begin by reviewing the key elements of each theory and then describe a framework for unifying them. Our approach involves combining a prior and model-based likelihood function with a neural resource constraint and a loss functional that quantifies what makes for a “good” posterior distribution. We show that classic efficient codes arise when we use information-theoretic quantities for these ingredients, but that a much larger family of Bayesian efficient codes can be constructed by allowing these ingredients to vary. We explore Bayesian efficient codes for several important cases of interest, namely linear receptive fields and nonlinear response functions. The latter case was examined in an influential paper by Laughlin that examined contrast coding in the blowfly large monopolar cells (LMCs) [27]; we reanalyze data from this paper and argue that LMC responses are in fact better described as minimizing the average square-root error than as maximizing mutual information.},
 }
 
 @Conference{Nassar2020d,
@@ -1130,6 +1135,7 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   url       = {https://www.deepmath-conference.com},
   pubtype = {abstract},
   tags = {neural-network-theory;neural-coding},
+  abstract = {Understanding the nature of representation in neural networks is a goal shared by neuroscience and machine learning. It is therefore exciting that both fields converge not only on shared questions but also on similar approaches. A pressing question in these areas is understanding how the structure of the representation used by neural networks affects both their generalization, and robustness to perturbations. In this work, we investigate the latter by juxtaposing experimental results regarding the covariance spectrum of neural representations in the mouse V1 (Stringer et al) with artificial neural networks. We use adversarial robustness to probe Stringer et al's theory regarding the causal role of a 1/n covariance spectrum. We empirically investigate the benefits such a neural code confers in neural networks, and illuminate its role in multi-layer architectures. Our results show that imposing the experimentally observed structure on artificial neural networks makes them more robust to adversarial attacks. Moreover, our findings complement the existing theory relating wide neural networks to kernel methods, by showing the role of intermediate representations.},
 }
 
 @InProceedings{Nassar2020c,
@@ -1252,6 +1258,7 @@ Fisher geometry and the recently introduced Neural Tangent Kernel.},
   doi = {10.1523/JNEUROSCI.1579-19.2020},
   year = {2020},
   tags = {gustation},
+  abstract = {Studies in visual, auditory, and somatosensory cortices have revealed that different cell types as well as neurons located in different laminae display distinct stimulus response profiles. The extent to which these layer and cell type-specific distinctions generalize to gustatory cortex (GC) remains unknown. In this study, we performed extracellular recordings in adult female mice to monitor the activity of putative pyramidal and inhibitory neurons located in deep and superficial layers of GC. Awake, head-restrained mice were trained to lick different tastants (sucrose, salt, citric acid, quinine, and water) from a lick spout. We found that deep layer neurons show higher baseline firing rates (FRs) in GC with deep-layer inhibitory neurons displaying highest FRs at baseline and following the stimulus. GC's activity shows robust modulations before animals' contact with tastants, and this phenomenon is most prevalent in deep-layer inhibitory neurons. Furthermore, we show that licking activity strongly shapes the spiking pattern of GC pyramidal neurons, eliciting phase-locked spiking across trials and tastants. We demonstrate that there is a greater percentage of taste-coding neurons in deep versus superficial layers with chemosensitive neurons across all categories showing similar breadth of tuning, but different decoding performance. Lastly, we provide evidence for functional convergence in GC, with neurons that can show prestimulus activity, licking-related rhythmicity and taste responses. Overall, our results demonstrate that baseline and stimulus-evoked firing profiles of GC neurons and their processing schemes change as a function of cortical layer and cell type in awake mice.SIGNIFICANCE STATEMENT Sensory cortical areas show a laminar structure, with each layer composed of distinct cell types embedded in different circuits. While studies in other primary sensory areas have elucidated that pyramidal and inhibitory neurons belonging to distinct layers show distinct response properties, whether and how response properties of gustatory cortex (GC) neurons change as a function of their laminar position and cell type remains uninvestigated. Here, we show that there are several notable differences in baseline, prestimulus, and stimulus-evoked response profiles of pyramidal and inhibitory neurons belonging to deep and superficial layers of GC.},
 }
 
 @InProceedings{Arribas2020a,
@@ -1459,6 +1466,7 @@ We showcase TrSLDS' potential of inferring low-dimensional interpretable dynamic
   publisher     = {Society for Neuroscience},
   url           = {https://www.biorxiv.org/content/early/2018/03/25/220558},
   tags = {neural-coding;vision},
+  eprint = {220558},
 }
 
 @InProceedings{Esfahany2018a,
@@ -1468,6 +1476,7 @@ We showcase TrSLDS' potential of inferring low-dimensional interpretable dynamic
   year      = {2018},
   pubtype = {abstract},
   tags = {neural-coding;vision},
+  abstract = {The mammalian visual system consists of several anatomically distinct areas, layers, and cell types. To understand the role of these subpopulations in visual information processing, we analyzed neural signals recorded from excitatory neurons from various anatomical and functional structures. For each of 186 mice, one of six genetically tagged cell-types and one of six visual areas were targeted while the mouse was passively viewing various visual stimuli. We trained linear classifiers to decode one of six visual stimulus categories with distinct spatiotemporal structures from the population neural activity. We found that neurons in both the primary visual cortex and secondary visual areas show varying degrees of stimulus-specific decodability, and neurons in superficial layers tend to be more informative about the stimulus categories. Additional decoding analyses of directional motion were consistent with these findings. We observed synergy in the population code of direction in several visual areas suggesting area-specific organization of information representation across neurons. These differences in decoding capacities shed light on the specialized organization of neural information processing across anatomically distinct subpopulations, and further establish the mouse as a model for understanding visual perception.},
 }
 
 @InProceedings{Bobkov2018a,
@@ -1750,6 +1759,7 @@ and in real neural data.},
   keywords             = {computational-neuroscience, decision-making, glm, lip, monkey, neural-code, neural-decoding},
   tags = {neural-coding;decision-making;glm},
   selected = {true},
+  abstract = {It has been suggested that the lateral intraparietal area (LIP) of macaques plays a fundamental role in sensorimotor decision-making. We examined the neural code in LIP at the level of individual spike trains using a statistical approach based on generalized linear models. We found that LIP responses reflected a combination of temporally overlapping task- and decision-related signals. Our model accounts for the detailed statistics of LIP spike trains and accurately predicts spike trains from task events on single trials. Moreover, we derived an optimal decoder for heterogeneous, multiplexed LIP responses that could be implemented in biologically plausible circuits. In contrast with interpretations of LIP as providing an instantaneous code for decision variables, we found that optimal decoding requires integrating LIP spikes over two distinct timescales. These analyses provide a detailed understanding of neural representations in LIP and a framework for studying the coding of multiplexed signals in higher brain areas.},
 }
 
 @INPROCEEDINGS{Park2014c,
@@ -2641,6 +2651,7 @@ and in real neural data.},
   owner = {memming},
   timestamp = {2009.03.06},
   tags = {functional-connectivity;kernel-methods;information-theory},
+  abstract = {We propose a novel nonlinear extension to Granger causality. It is derived from a nonlinear mapping of a stochastic process using the recently introduced generalized correlation measure called correntropy. The method is demonstrated by detecting the direction of coupling in a chaotic system where the original Granger causality failed.},
 }
 
 @ARTICLE{Park2008a,
@@ -2682,6 +2693,7 @@ and in real neural data.},
   timestamp = {2010.01.20},
   pubtype = {abstract},
   tags = {point-processes;kernel-methods},
+  abstract = {This paper introduces a generalized cross-correlation (GCC) measure for spike train analysis derived from reproducing kernel Hilbert spaces (RKHS) theory. An estimator for GCC is derived that does not depend on binning or a specific kernel and it operates directly and efficiently on spike times. For instantaneous analysis as required for real-time use, an instantaneous estimator is proposed and proved to yield the GCC on average. We finalize with two experiments illustrating the usefulness of the techniques derived.},
 }
 
 @inproceedings{Paiva2008c,
@@ -2706,6 +2718,7 @@ and in real neural data.},
   owner = {memming},
   timestamp = {2008.04.15},
   tags = {point-processes;kernel-methods},
+  abstract = {This paper introduces a generalized cross-correlation (GCC) measure for spike train analysis derived from reproducing kernel Hilbert spaces (RKHS) theory. An estimator for GCC is derived that does not depend on binning or a specific kernel and it operates directly and efficiently on spike times. For instantaneous analysis as required for real-time use, an instantaneous estimator is proposed and proved to yield the GCC on average. We finalize with two experiments illustrating the usefulness of the techniques derived.},
 }
 
 @MastersThesis{ParkMSThesis2007,
@@ -2810,15 +2823,19 @@ and in real neural data.},
 
 @InBook{Paiva2010a,
   title     = {Optimization in Reproducing Kernel {H}ilbert Spaces of Spike Trains},
-  publisher = {Springer},
-  year      = {?},
+  publisher = {Springer New York},
+  year = {2010},
   author    = {Ant\'onio R. C. Paiva and Il Park and Jos\'e C. Pr\'incipe},
   editor    = {W. Art Chaovalitwongse and Panos Pardalos and Petros Xanthopoulos},
-  note      = {(in press)},
+  note = {},
   booktitle = {Computational Neuroscience},
   owner     = {memming},
   timestamp = {2010.01.15},
   tags = {point-processes;kernel-methods},
+  pages = {3--29},
+  doi = {10.1007/978-0-387-88630-5_1},
+  address = {New York, NY},
+  abstract = {This chapter presents a framework based on reproducing kernel Hilbert spaces (RKHS) for optimization with spike trains. To establish the RKHS for optimization we start by introducing kernels for spike trains. It is shown that spike train kernels can be built from ideas of kernel methods or from the intensity functions underlying the spike trains. However, the later approach shall be the main focus of this study. We introduce the memoryless cross-intensity (mCI) kernel as an example of an inner product of spike trains, which defines the RKHS bottom-up as an inner product of intensity functions. Being defined in terms of the intensity functions, this approach toward defining spike train kernels has the advantage that points in the RKHS incorporate a statistical description of the spike trains, and the statistical model is explicitly stated. Some properties of the mCI kernel and the RKHS it induces will be given to show that this RKHS has the necessary structure for optimization. The issue of estimation from data is also addressed. We finalize with an example of optimization in the RKHS by deriving an algorithm for principal component analysis (PCA) of spike trains.},
 }
 
 @Unpublished{Paiva2008d,
@@ -2828,6 +2845,7 @@ and in real neural data.},
   owner = {memming},
   timestamp = {2008.10.08},
   tags = {point-processes;kernel-methods},
+  abstract = {This chapter presents a framework based on reproducing kernel Hilbert spaces (RKHS) for optimization with spike trains. To establish the RKHS for optimization we start by introducing kernels for spike trains. It is shown that spike train kernels can be built from ideas of kernel methods or from the intensity functions underlying the spike trains. However, the later approach shall be the main focus of this study. We introduce the memoryless cross-intensity (mCI) kernel as an example of an inner product of spike trains, which defines the RKHS bottom-up as an inner product of intensity functions. Being defined in terms of the intensity functions, this approach toward defining spike train kernels has the advantage that points in the RKHS incorporate a statistical description of the spike trains, and the statistical model is explicitly stated. Some properties of the mCI kernel and the RKHS it induces will be given to show that this RKHS has the necessary structure for optimization. The issue of estimation from data is also addressed. We finalize with an example of optimization in the RKHS by deriving an algorithm for principal component analysis (PCA) of spike trains.},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
