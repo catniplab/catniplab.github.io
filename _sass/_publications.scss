@@ -1,0 +1,90 @@
+// Publications page: publications.html and js/publications.js.
+
+.pubs {
+  .pubs-intro { color: $gray; }
+
+  .pubs-highlights {
+    border-left: 3px solid $primary;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { margin: 0.4em 0; }
+    .pub-meta { display: block; color: $gray; font-size: 0.9em; }
+  }
+
+  .pubs-controls {
+    margin: 1.5em 0;
+    padding: 0.75em 0;
+    border-top: 1px solid $lightGray;
+    border-bottom: 1px solid $lightGray;
+    input[type="search"] { width: 100%; max-width: 32em; padding: 0.4em 0.6em; font: inherit; }
+    .pubs-q-label { display: block; font-size: 0.85em; color: $gray; }
+  }
+  .chip-group { margin: 0.5em 0; }
+  .chip-group-name { font-size: 0.85em; color: $gray; margin-right: 0.5em; }
+  .more-tags { display: inline; summary { display: inline; cursor: pointer; color: $primary; font-size: 0.85em; } }
+  .pubs-status { margin: 0.5em 0 0; font-size: 0.9em; color: $darkGray; }
+
+  .chip {
+    display: inline-block;
+    margin: 0.15em 0.25em 0.15em 0;
+    padding: 0.05em 0.6em;
+    border: 1px solid $lightGray;
+    border-radius: 1em;
+    background: $white;
+    color: $darkGray;
+    font: inherit;
+    font-size: 0.85em;
+    line-height: 1.6;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover { border-color: $primary; }
+    &[aria-pressed="true"] { background: $primary; border-color: $primary; color: $white; }
+    .n { color: $gray; font-size: 0.85em; }
+    &[aria-pressed="true"] .n { color: $white; }
+  }
+
+  .pubs-year > h2 { margin-top: 1.5em; }
+  ol.pubs-list { list-style: none; padding: 0; margin: 0; }
+  .pub { margin: 0 0 1.2em; }
+  .pub[hidden], .pubs-year[hidden] { display: none; }
+  .pub p { margin: 0.1em 0; }
+  .pub-title { font-weight: 600; }
+  .pub-venue, .pub-note { color: $darkGray; }
+  .pub-kind { margin-left: 0.4em; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.04em; color: $gray; }
+  .pub-links a { margin-right: 0.8em; font-size: 0.9em; }
+  .pub-labels .chip { font-size: 0.75em; }
+  .pub details { margin: 0.2em 0; font-size: 0.9em; }
+  .pub summary { cursor: pointer; color: $primary; }
+  pre.cite-bibtex {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: $mono;
+    font-size: 0.8em;
+    background: $paleLightGray;
+    color: $darkGray;
+    padding: 0.5em;
+  }
+  button.copy { margin-right: 0.5em; font: inherit; font-size: 0.85em; cursor: pointer; }
+  .pub:target { outline: 2px solid $primary; outline-offset: 4px; }
+
+  button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+  }
+}
+
+// Abstract toggle without JS: browsers with :has() hide abstracts (and years
+// holding only abstracts) while the checkbox is unchecked; others show them.
+body:has(#show-abstracts:not(:checked)) .pub[data-kind="abstract"] { display: none; }
+body:has(#show-abstracts:not(:checked)) .pubs-year:not(:has(.pub:not([data-kind="abstract"]))) { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.pubs) { scroll-behavior: auto; }
+  .page:has(.pubs) { animation: none; }
+  .pubs * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .pubs-controls, .pub-cite, .pub-abstract, .pub-labels, .copy { display: none !important; }
+}

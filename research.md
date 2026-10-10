@@ -19,12 +19,16 @@ We are broadly interested in mesoscopic (circuit-level) mechanisms and informati
 
 What is the right abstraction to describe the collective behavior of neurons and their coupling to the environment? Because neural systems exhibit rich temporal structure and memory across many time scales, we view the dynamical-systems perspective as an essential part of any explanation. Rather than trying to recover all biological details, we focus on learning effective dynamical systems from data—models that capture the key structure needed to explain observations and predict the future.
 
+[Publications on this theme](/publications.html?theme=inference)
+
 ### Improving our language for neural computation
 
 > We develop mathematical tools to turn high-dimensional noisy data into interpretable insights.
 {: .research-tagline}
 
 While dynamical-systems theory provides a universal language for studying change, the field often overemphasizes vector-field topology (e.g., fixed points) as the primary interpretive framework. The language we use to describe dynamical mechanisms constrains which solutions we consider plausible and which phenomena we can interpret. We identify and incorporate mathematical concepts that overcome current limitations, and we test them on real neural and behavioral data.
+
+[Publications on this theme](/publications.html?theme=language)
 
 ### Neurotechnology for real-time experiments
 
@@ -33,9 +37,13 @@ While dynamical-systems theory provides a universal language for studying change
 
 In the era of large-scale recordings, the experimenter’s intimate, moment-to-moment interaction with the neural system is often replaced by the hope that post hoc “big data” analysis will answer systems-level questions. The long delay between data collection and analysis is a major bottleneck to neuroscientific progress. We develop sample-efficient, model-based methods for data collection, online analysis, and control that leverage prior knowledge to form a tighter loop between experimentalists and the neural systems they study and perturb.
 
+[Publications on this theme](/publications.html?theme=neurotech)
+
 ### Integrative neuroscience
 
 > We are on a mission to integrate neural data across sessions, context, animals, and species, to discover the organizing principle of how the brain works.
 {: .research-tagline}
 
 What is the right level of abstraction at which organizing principles of the brain can be aligned across diverse datasets? The field currently consists of many groups studying different brain areas and behaviors with distinct experimental and theoretical approaches. We explore “meta-dynamical” descriptions to test whether data-driven integration and discovery of emergent principles is possible beyond neuron-level, latent-state, or single-dynamical-systems descriptions.
+
+[Publications on this theme](/publications.html?theme=integrative)

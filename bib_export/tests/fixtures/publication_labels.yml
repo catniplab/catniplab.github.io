@@ -1,0 +1,13 @@
+themes:
+  - {id: inference, name: Inference of effective dynamical systems}
+  - {id: language, name: Improving our language for neural computation}
+facets:
+  - id: research
+    name: Research topic
+    tags:
+      - {id: continuous-attractors, name: Continuous attractors}
+      - {id: state-space-models, name: State-space models}
+  - id: method
+    name: Method
+    tags:
+      - {id: kernel-methods, name: Kernel methods}

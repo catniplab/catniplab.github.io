@@ -1,0 +1,190 @@
+// Publications page: search, label filters, abstract toggle, URL state and
+// copy buttons. Progressive enhancement: without this script the full list,
+// the Abstract and Cite boxes, and the abstract checkbox (CSS :has) still work.
+(function () {
+  "use strict";
+  var root = document.querySelector(".pubs");
+  if (!root) return;
+
+  var GROUPS = ["theme", "kind", "tag"];
+  var box = document.getElementById("show-abstracts");
+  var q = document.getElementById("pubs-q");
+  var count = document.getElementById("pubs-count");
+  var years = Array.prototype.slice.call(root.querySelectorAll("section.pubs-year"));
+  var chips = Array.prototype.slice.call(root.querySelectorAll(".pubs-controls button.chip"));
+  var state = { q: "", abstracts: false, theme: [], kind: [], tag: [] };
+
+  function fold(s) {
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/\u0142/g, "l").replace(/\u0141/g, "L").toLowerCase();
+  }
+  function words(s) { return s ? s.split(/\s+/).filter(Boolean) : []; }
+
+  var recs = Array.prototype.slice.call(root.querySelectorAll("li.pub")).map(function (li) {
+    var parts = li.querySelectorAll(".pub-title, .pub-authors, .pub-venue, .pub-abstract p");
+    var text = li.id + " " + li.getAttribute("data-year");
+    for (var i = 0; i < parts.length; i++) text += " " + parts[i].textContent;
+    return {
+      li: li,
+      kind: li.getAttribute("data-kind"),
+      text: fold(text),
+      labels: { theme: words(li.getAttribute("data-themes")),
+                kind: [li.getAttribute("data-kind")],
+                tag: words(li.getAttribute("data-tags")) }
+    };
+  });
+
+  function known(group) {
+    return chips.filter(function (c) { return c.dataset.group === group; })
+      .map(function (c) { return c.dataset.value; });
+  }
+
+  function visible(r) {
+    if (!state.abstracts && r.kind === "abstract") return false;
+    for (var g = 0; g < GROUPS.length; g++) {
+      var want = state[GROUPS[g]];
+      var have = r.labels[GROUPS[g]];
+      if (want.length && !want.some(function (v) { return have.indexOf(v) >= 0; })) return false;
+    }
+    return words(fold(state.q)).every(function (t) { return r.text.indexOf(t) >= 0; });
+  }
+
+  function targetRecord() {
+    var id;
+    try { id = decodeURIComponent(location.hash.slice(1)); }
+    catch (err) {
+      if (err instanceof URIError) return null;
+      throw err;
+    }
+    return recs.filter(function (r) { return r.li.id === id; })[0] || null;
+  }
+
+  function writeUrl(preserveTarget) {
+    var p = new URLSearchParams();
+    if (state.q) p.set("q", state.q);
+    if (state.abstracts) p.set("abstracts", "1");
+    GROUPS.forEach(function (g) { if (state[g].length) p.set(g, state[g].join(",")); });
+    var s = p.toString();
+    var hash = location.hash;
+    var target = targetRecord();
+    if (!preserveTarget && target && !visible(target)) hash = "";
+    history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + hash);
+  }
+
+  function readUrl() {
+    var p = new URLSearchParams(location.search);
+    state.q = p.get("q") || "";
+    state.abstracts = p.get("abstracts") === "1";
+    GROUPS.forEach(function (g) {
+      var ok = known(g);
+      state[g] = (p.get(g) || "").split(",").filter(function (v) { return ok.indexOf(v) >= 0; });
+    });
+  }
+
+  function apply(preserveTarget) {
+    var shown = 0;
+    recs.forEach(function (r) {
+      var v = visible(r);
+      r.li.hidden = !v;
+      if (v) shown++;
+    });
+    years.forEach(function (s) { s.hidden = !s.querySelector("li.pub:not([hidden])"); });
+    count.textContent = "Showing " + shown + " of " + recs.length;
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", String(state[c.dataset.group].indexOf(c.dataset.value) >= 0));
+    });
+    box.checked = state.abstracts;
+    q.value = state.q;
+    writeUrl(preserveTarget);
+  }
+
+  function reset() {
+    state.q = "";
+    state.abstracts = false;
+    GROUPS.forEach(function (g) { state[g] = []; });
+  }
+
+  function scrollBelowHeader(el) {
+    var header = document.querySelector(".wrapper-masthead");
+    el.style.scrollMarginTop = ((header ? header.getBoundingClientRect().height : 0) + 16) + "px";
+    el.scrollIntoView();
+  }
+
+  function revealTarget() {
+    var r = targetRecord();
+    if (!r) return;
+    if (r.kind === "abstract") state.abstracts = true;
+    if (!visible(r)) { var keep = state.abstracts; reset(); state.abstracts = keep; }
+    apply(true);
+    scrollBelowHeader(r.li);
+  }
+
+  function selectText(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  root.querySelectorAll("details.pub-cite").forEach(function (d) {
+    [["Copy APA", ".cite-apa"], ["Copy BibTeX", ".cite-bibtex"]].forEach(function (pair) {
+      var src = d.querySelector(pair[1]);
+      if (!src) return;
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "copy";
+      b.textContent = pair[0];
+      b.addEventListener("click", function () {
+        var done = function () {
+          b.textContent = "Copied";
+          setTimeout(function () { b.textContent = pair[0]; }, 1500);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(src.textContent).then(done, function () { selectText(src); });
+        } else {
+          selectText(src);
+        }
+      });
+      d.appendChild(b);
+    });
+  });
+
+  q.addEventListener("input", function () { state.q = q.value; apply(); });
+  box.addEventListener("change", function () { state.abstracts = box.checked; apply(); });
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      var list = state[c.dataset.group];
+      var i = list.indexOf(c.dataset.value);
+      if (i >= 0) list.splice(i, 1); else list.push(c.dataset.value);
+      apply();
+    });
+  });
+  root.querySelectorAll(".pub-labels a.chip").forEach(function (a) {
+    a.addEventListener("click", function (ev) {
+      if (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      if (known(a.dataset.group).indexOf(a.dataset.value) < 0) return;
+      ev.preventDefault();
+      state[a.dataset.group] = [a.dataset.value];
+      apply();
+      scrollBelowHeader(root.querySelector(".pubs-controls"));
+    });
+  });
+  document.getElementById("pubs-clear").addEventListener("click", function () {
+    reset();
+    history.replaceState(null, "", location.pathname);
+    apply();
+  });
+  window.addEventListener("hashchange", revealTarget);
+  window.addEventListener("popstate", function () {
+    readUrl();
+    apply(true);
+    revealTarget();
+  });
+
+  root.querySelector(".pubs-js").hidden = false;
+  readUrl();
+  // Retain an incoming fragment until revealTarget has made its entry visible.
+  apply(true);
+  revealTarget();
+})();
