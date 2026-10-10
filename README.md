@@ -1,3 +1,54 @@
+# CATNIP Lab website
+
+## Publications page
+
+`/publications.html` is rendered by Jekyll from `_data/publications.json`, which
+`bib_export/build_publications.py` generates from `bib_export/catniplab.bib`.
+Editing the bib alone does not change the page; the JSON must be regenerated
+and committed with it.
+
+To add or change a paper:
+
+1. Edit `bib_export/catniplab.bib` (site-specific fields below).
+2. Regenerate: `cd bib_export && ./p.sh` (skip this if the pre-commit hook is
+   installed; it does it for you).
+3. Commit the bib and `_data/publications.json` together, then push.
+
+### Pre-commit hook (recommended, once per clone)
+
+From the repository root:
+
+```bash
+ln -sf "$PWD/bib_export/pre-commit" "$(git rev-parse --git-path hooks)/pre-commit"
+```
+
+When a commit includes `bib_export/catniplab.bib`, `_data/publication_labels.yml`,
+`_data/lab_members.json` or `bib_export/build_publications.py`, the hook builds
+`_data/publications.json` from the staged files and adds it to the commit. If
+the bib has an error (an unknown tag, an unparseable entry, a bad URL), the
+commit is aborted and the generator's message says which entry. It needs
+[uv](https://docs.astral.sh/uv/). To skip it once: `git commit --no-verify`.
+Check that it is installed: `ls -l "$(git rev-parse --git-path hooks)/pre-commit"`.
+
+### Site-specific bib fields
+
+BibTeX ignores these; the page uses them.
+
+- `pubtype`: `abstract` for conference abstracts and extended abstracts (hidden
+  in the default view), `invited`, `patent`, `manuscript`, `other`.
+- `refereed`: `true`/`false`; journal and conference papers default to `true`.
+- `themes`, `tags`: `;`-separated ids from `_data/publication_labels.yml`.
+- `selected = {true}`: listed under Highlights.
+
+arXiv-only papers: `@Unpublished` with `archivePrefix = {arXiv}` and `eprint`.
+
+### Tests
+
+- `bib_export/run_tests.sh`: generator and bib tool unit tests.
+- `bib_export/tests/build_site.sh`: builds the site with the GitHub Pages gem
+  set in Docker. Then run `tests/check_site.py` and `tests/browser_test.py` on
+  its output (usage in each script's header).
+
 # Jekyll Now
 
 **Jekyll** is a static site generator that's perfect for GitHub hosted blogs ([Jekyll Repository](https://github.com/jekyll/jekyll))

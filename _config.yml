@@ -80,6 +80,7 @@ exclude:
     - bib_export/set_fields.py
     - bib_export/run_tests.sh
     - bib_export/p.sh
+    - bib_export/pre-commit
     - bib_export/tests
     - bib_export/__pycache__
 

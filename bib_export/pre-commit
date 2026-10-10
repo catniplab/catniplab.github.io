@@ -1,0 +1,38 @@
+#!/bin/sh
+# Git pre-commit hook: when the bib or another input of the publications page is
+# staged, regenerate _data/publications.json from the STAGED inputs and add it to
+# the commit, so the published page never goes stale. A bib error (unknown tag,
+# unparseable entry, bad URL) aborts the commit with the generator's message.
+#
+# Install (once per clone, from the site repo root):
+#   ln -sf "$PWD/bib_export/pre-commit" "$(git rev-parse --git-path hooks)/pre-commit"
+# Skip once: git commit --no-verify
+set -eu
+
+inputs="bib_export/catniplab.bib _data/publication_labels.yml _data/lab_members.json bib_export/build_publications.py"
+# shellcheck disable=SC2086
+[ -n "$(git diff --cached --name-only -- $inputs)" ] || exit 0
+
+command -v uv >/dev/null 2>&1 || { echo "pre-commit: uv not found; cannot regenerate _data/publications.json" >&2; exit 1; }
+
+root=$(git rev-parse --show-toplevel)
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+# Build from what is being committed, not from the working tree.
+git show :bib_export/catniplab.bib > "$tmp/catniplab.bib"
+git show :_data/publication_labels.yml > "$tmp/labels.yml" 2>/dev/null || : > "$tmp/labels.yml"
+git show :_data/lab_members.json > "$tmp/roster.json" 2>/dev/null || echo "[]" > "$tmp/roster.json"
+
+if ! uv run --quiet --script "$root/bib_export/build_publications.py" \
+     --bib "$tmp/catniplab.bib" --labels "$tmp/labels.yml" --roster "$tmp/roster.json" \
+     --out "$tmp/publications.json" >/dev/null; then
+  echo "pre-commit: the staged bib does not build; commit aborted (fix it, or commit with --no-verify)" >&2
+  exit 1
+fi
+
+if ! git show :_data/publications.json 2>/dev/null | cmp -s - "$tmp/publications.json"; then
+  cp "$tmp/publications.json" "$root/_data/publications.json"
+  git add "$root/_data/publications.json"
+  echo "pre-commit: regenerated _data/publications.json and added it to this commit"
+fi
