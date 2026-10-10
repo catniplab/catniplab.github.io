@@ -577,3 +577,151 @@ def test_apa_journal_issue_without_volume(build_one):
 def test_bibtex_drops_underscore_fields(build_one):
     [e] = build_one("@article{K, title = {T}, _publisher = {X}, _pages = {1}, year = 2020}")
     assert e["bibtex"] == "@article{K,\n  title = {T},\n  year = 2020,\n}"
+
+
+# --- labels -------------------------------------------------------------------
+
+LABELS = """\
+themes:
+  - {id: language, name: Improving our language for neural computation}
+facets:
+  - id: research
+    name: Research topic
+    tags:
+      - {id: continuous-attractors, name: Continuous attractors}
+  - id: method
+    name: Method
+    tags:
+      - {id: kernel-methods, name: Kernel methods}
+"""
+
+
+def test_labels_and_selected(build_one):
+    [e] = build_one("@article{K, title = {T}, themes = {language}, "
+                    "tags = {continuous-attractors; kernel-methods}, selected = {true}}", labels=LABELS)
+    assert e["themes"] == ["language"]
+    assert e["tags"] == ["continuous-attractors", "kernel-methods"]
+    assert e["labels"] == [
+        {"group": "theme", "id": "language", "name": "Improving our language for neural computation"},
+        {"group": "research", "id": "continuous-attractors", "name": "Continuous attractors"},
+        {"group": "method", "id": "kernel-methods", "name": "Kernel methods"}]
+    assert e["selected"] is True
+
+
+def test_unknown_tag_is_error(bp, build_one):
+    with pytest.raises(bp.BibError, match="unknown tag"):
+        build_one("@article{K, title = {T}, tags = {kernel-method}}", labels=LABELS)
+
+
+def test_unknown_theme_is_error(bp, build_one):
+    with pytest.raises(bp.BibError, match="unknown theme"):
+        build_one("@article{K, title = {T}, themes = {langauge}}", labels=LABELS)
+
+
+def test_selected_must_be_boolean(bp, build_one):
+    with pytest.raises(bp.BibError, match="selected"):
+        build_one("@article{K, title = {T}, selected = {yes}}")
+
+
+def test_label_id_defined_twice_is_error(bp, build_one):
+    twice = LABELS + "  - id: area\n    name: Area\n    tags:\n      - {id: kernel-methods, name: X}\n"
+    with pytest.raises(bp.BibError, match="defined twice"):
+        build_one("@article{K, title = {T}}", labels=twice)
+
+
+def test_label_ids_must_be_kebab_case(bp, build_one):
+    bad = LABELS.replace("kernel-methods", 'kernel" onfocus="x')
+    with pytest.raises(bp.BibError, match="kebab-case"):
+        build_one("@article{K, title = {T}}", labels=bad)
+
+
+def test_no_labels_file_means_no_labels(build_one):
+    [e] = build_one("@article{K, title = {T}}")
+    assert (e["themes"], e["tags"], e["labels"], e["selected"]) == ([], [], [], False)
+
+
+def test_bare_ampersand_is_kept(bp):
+    assert bp.tex_to_text("Theory & Practice") == "Theory & Practice"
+    assert bp.tex_to_html("Theory & Practice") == "Theory &amp; Practice"
+    assert bp.tex_to_text(r"Theory \& Practice") == "Theory & Practice"
+
+
+# --- roster -------------------------------------------------------------------
+
+ROSTER = [
+    {"name": "\u00c1bel S\u00e1godi", "family": "S\u00e1godi", "given": "\u00c1bel", "aliases": []},
+    {"name": "Piotr A. Sok\u00f3\u0142", "family": "Sok\u00f3\u0142", "given": "Piotr A.", "aliases": []},
+    {"name": "Il Memming Park", "family": "Park", "given": "Il Memming", "aliases": []},
+    {"name": "A. Carolina Filipe", "family": "Filipe", "given": "A. Carolina", "aliases": []},
+    {"name": "Yuan Zhao", "family": "Zhao", "given": "Yuan",
+     "aliases": [{"family": "Zhao", "given": "Y"}]},
+]
+
+
+def test_member_marking(build_one):
+    [e] = build_one("@article{K, author = {Sagodi, Abel and Sokol, Piotr and Park, Il and "
+                    "Park, Jane and Zhao, Y.}, title = {T}, year = 2020}", roster=ROSTER)
+    assert [a["member"] for a in e["authors"]] == [True, True, True, False, True]
+    assert e["authors_html"].startswith('<strong class="member">Sagodi, A.</strong>, ')
+
+
+@pytest.mark.parametrize("author, member", [
+    ("Park, Il Memming", True), ("Park, I. Memming", True), ("Park, Memming", True),
+    ("Park, Il", True), ("Park, Mijung", False), ("Park, Jong C.", False),
+    ("Filipe, Carolina", True), ("Filipe, A. Carolina", True), ("Sokol, Piotr Aleksander", True),
+    ("Liang, Justine", False),
+])
+def test_member_name_variants(build_one, author, member):
+    [e] = build_one("@article{K, author = {" + author + "}, title = {T}, year = 2020}", roster=ROSTER)
+    assert e["authors"][0]["member"] is member
+
+
+def test_fold(bp):
+    assert bp.fold("Sok\u00f3\u0142") == "sokol"
+    assert bp.fold("S\u00c1GODI") == "sagodi"
+
+
+# --- ordering, CLI, determinism -----------------------------------------------
+
+def test_sort_order(build_one):
+    entries = build_one("@article{A, title = {T}, year = 2020, month = mar}\n"
+                        "@article{B, title = {T}, year = 2021}\n"
+                        "@article{C, title = {T}, year = 2021, month = may}\n"
+                        "@article{D, title = {T}}\n"
+                        "@article{E, title = {T}, year = 2021, month = may}\n")
+    assert [e["key"] for e in entries] == ["C", "E", "B", "A", "D"]
+
+
+BIB_TWO = "@article{K1, title = {One}, year = 2020}\n@article{K2, title = {Two}, year = 2021}\n"
+
+
+def test_main_writes_deterministic_json(bp, tmp_path):
+    bib = tmp_path / "x.bib"
+    bib.write_text(BIB_TWO, encoding="utf-8")
+    out = tmp_path / "out.json"
+    args = ["--bib", str(bib), "--labels", str(tmp_path / "none.yml"),
+            "--roster", str(tmp_path / "none.json"), "--out", str(out)]
+    assert bp.main(args) == 0
+    first = out.read_bytes()
+    assert bp.main(args) == 0
+    assert out.read_bytes() == first
+    assert first.endswith(b"\n")
+
+
+def test_entry_order_in_bib_does_not_matter(bp, tmp_path):
+    a = tmp_path / "a.bib"
+    b = tmp_path / "b.bib"
+    a.write_text(BIB_TWO, encoding="utf-8")
+    b.write_text("\n".join(reversed(BIB_TWO.strip().split("\n"))) + "\n", encoding="utf-8")
+    none = str(tmp_path / "none")
+    assert bp.build(str(a), none, none) == bp.build(str(b), none, none)
+
+
+def test_main_leaves_output_untouched_on_error(bp, tmp_path):
+    bib = tmp_path / "x.bib"
+    bib.write_text("@article{K1, title = {a {b}, year = 2020}\n", encoding="utf-8")
+    out = tmp_path / "out.json"
+    out.write_text("OLD", encoding="utf-8")
+    none = str(tmp_path / "none")
+    assert bp.main(["--bib", str(bib), "--labels", none, "--roster", none, "--out", str(out)]) == 1
+    assert out.read_text(encoding="utf-8") == "OLD"

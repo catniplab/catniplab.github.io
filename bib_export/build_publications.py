@@ -54,14 +54,15 @@ _L2T = LatexNodes2Text()
 # One level of nested braces is allowed inside the italic argument.
 _ARG = r"((?:[^{}]|\{[^{}]*\})*)"
 _ITALIC = re.compile(r"\{\\(?:it|em|itshape)\s+" + _ARG + r"\}|\\(?:textit|emph)\{" + _ARG + r"\}")
-_BARE_PERCENT = re.compile(r"(?<!\\)%")
+_BARE_SPECIAL = re.compile(r"(?<!\\)([%&])")
 # Control characters that pylatexenc passes through untouched;
 # they mark italics across the decode and become <i> after HTML escaping.
 _I_OPEN, _I_CLOSE = "\x02", "\x03"
 
 
 def _decode(tex, keep_italics):
-    tex = _BARE_PERCENT.sub(r"\\%", tex)  # a bare % would start a LaTeX comment
+    # A bare % would start a LaTeX comment; a bare & is the alignment character and would be dropped.
+    tex = _BARE_SPECIAL.sub(r"\\\1", tex)
     if keep_italics:
         tex = _ITALIC.sub(lambda m: _I_OPEN + (m.group(1) or m.group(2) or "") + _I_CLOSE, tex)
     text = unicodedata.normalize("NFC", _L2T.latex_to_text(tex))
@@ -478,13 +479,118 @@ def bibtex_of(entry):
     return "\n".join(lines)
 
 
-def entry_json(entry):
+# --- labels and roster --------------------------------------------------------
+
+# Letters that NFKD does not decompose; mapped so 'Sok\u00f3\u0142' folds to 'sokol'.
+_FOLD = str.maketrans({"\u0142": "l", "\u0141": "L", "\u00f8": "o", "\u00d8": "O",
+                       "\u0111": "d", "\u0110": "D", "\u00df": "ss"})
+_KEBAB = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+
+
+def fold(s):
+    """Accent- and case-insensitive key for name matching."""
+    s = unicodedata.normalize("NFKD", s.translate(_FOLD))
+    return "".join(c for c in s if not unicodedata.combining(c)).casefold()
+
+
+def load_labels(path):
+    """-> ({theme id: name}, {tag id: (facet id, name)}); empty when the file is absent."""
+    if not os.path.exists(path):
+        return {}, {}
+    with open(path, encoding="utf-8") as fh:
+        data = yaml.safe_load(fh) or {}
+    themes, tags = {}, {}
+
+    def check(id_):
+        if not isinstance(id_, str) or not _KEBAB.fullmatch(id_):
+            raise BibError(f"{path}: label id {id_!r} must be kebab-case")
+
+    for t in data.get("themes", []):
+        check(t["id"])
+        if t["id"] in themes:
+            raise BibError(f"{path}: label id {t['id']!r} defined twice")
+        themes[t["id"]] = t["name"]
+    for facet in data.get("facets", []):
+        check(facet["id"])
+        for t in facet.get("tags", []):
+            check(t["id"])
+            if t["id"] in tags or t["id"] in themes:
+                raise BibError(f"{path}: label id {t['id']!r} defined twice")
+            tags[t["id"]] = (facet["id"], t["name"])
+    return themes, tags
+
+
+def _ids(value):
+    return [x.strip() for x in (value or "").split(";") if x.strip()]
+
+
+def labels_of(key, f, themes, tags):
+    th, tg = _ids(f.get("themes")), _ids(f.get("tags"))
+    labels = []
+    for t in th:
+        if t not in themes:
+            raise BibError(f"{key}: unknown theme {t!r}")
+        labels.append({"group": "theme", "id": t, "name": themes[t]})
+    for t in tg:
+        if t not in tags:
+            raise BibError(f"{key}: unknown tag {t!r}")
+        labels.append({"group": tags[t][0], "id": t, "name": tags[t][1]})
+    return th, tg, labels
+
+
+def selected_of(key, f):
+    v = f.get("selected", "false").strip().lower()
+    if v not in ("true", "false"):
+        raise BibError(f"{key}: selected must be true or false, got {v!r}")
+    return v == "true"
+
+
+def load_roster(path):
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _given_words(given):
+    """Folded given-name words, initials reduced to one letter: 'I. Memming' -> ['i', 'memming']."""
+    return fold(given).replace(".", " ").replace("-", " ").split()
+
+
+def roster_index(roster):
+    """{folded family name: [given-name word lists]} for every member and alias."""
+    index = {}
+    for m in roster:
+        for n in [m] + list(m.get("aliases", [])):
+            index.setdefault(fold(n["family"]), []).append(_given_words(n["given"]))
+    return index
+
+
+def is_member(author, index):
+    """Same family name, and the author's first given word matches any of the
+    member's given words: exactly, or as an initial ('I.' ~ 'Il', 'Memming' ~
+    'Il Memming', but 'Mijung' !~ 'Il Memming')."""
+    words = _given_words(author["given"])
+    if not author["family"] or not words:
+        return False
+    g = words[0]
+    for member_words in index.get(fold(author["family"]), []):
+        for r in member_words:
+            if g[0] == r[0] and (len(g) == 1 or len(r) == 1 or g == r):
+                return True
+    return False
+
+
+def entry_json(entry, themes, tags, members):
     f = fields_of(entry)
     key = entry.key
     kind = kind_of(key, entry.entry_type, f)
     year = year_of(key, f)
-    authors = persons(f.get("author", ""))
     month = month_of(f)
+    authors = persons(f.get("author", ""))
+    for a in authors:
+        a["member"] = is_member(a, members)
+    th, tg, labels = labels_of(key, f, themes, tags)
     apa = apa_html(key, kind, entry.entry_type, f, authors, year, month)
     return {
         "key": key,
@@ -501,6 +607,10 @@ def entry_json(entry):
         "note_html": tex_to_html(f.get("note", "")),
         "abstract_html": tex_to_html(f.get("abstract", "")),
         "links": links_of(key, f),
+        "themes": th,
+        "tags": tg,
+        "labels": labels,
+        "selected": selected_of(key, f),
         "apa_html": apa,
         "apa_text": html.unescape(re.sub(r"</?i>", "", apa)),
         "bibtex": bibtex_of(entry),
@@ -508,4 +618,42 @@ def entry_json(entry):
 
 
 def build(bib_path, labels_path, roster_path):
-    return [entry_json(e) for e in parse_bib(bib_path)]
+    themes, tags = load_labels(labels_path)
+    members = roster_index(load_roster(roster_path))
+    entries = [entry_json(e, themes, tags, members) for e in parse_bib(bib_path)]
+    entries.sort(key=lambda e: (e["year"] is None, -(e["year"] or 0),
+                                e["month"] is None, -(e["month"] or 0), e["key"]))
+    return entries
+
+
+def write_json(entries, out_path):
+    """Atomic write: the old file survives any failure before os.replace."""
+    tmp = out_path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(json.dumps(entries, ensure_ascii=False, indent=2) + "\n")
+    os.replace(tmp, out_path)
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Render catniplab.bib into _data/publications.json.")
+    ap.add_argument("--bib", default=DEFAULT_BIB)
+    ap.add_argument("--labels", default=DEFAULT_LABELS)
+    ap.add_argument("--roster", default=DEFAULT_ROSTER)
+    ap.add_argument("--out", default=DEFAULT_OUT)
+    args = ap.parse_args(argv)
+    try:
+        entries = build(args.bib, args.labels, args.roster)
+    except BibError as err:
+        print(f"error: {err}", file=sys.stderr)
+        return 1
+    write_json(entries, args.out)
+    counts = {}
+    for e in entries:
+        counts[e["kind"]] = counts.get(e["kind"], 0) + 1
+    summary = ", ".join(f"{k} {n}" for k, n in sorted(counts.items()))
+    print(f"wrote {len(entries)} entries to {args.out} ({summary})")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
