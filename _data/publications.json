@@ -836,7 +836,7 @@
     "authors_html": "<strong class=\"member\">Nassar, J.</strong>, <strong class=\"member\">Zhao, Y.</strong>, <strong class=\"member\">Jordan, I.</strong>, &amp; <strong class=\"member\">Park, I. M.</strong>",
     "title": "System and method of model-based machine learning for non-episodic state space exploration",
     "title_html": "System and method of model-based machine learning for non-episodic state space exploration",
-    "venue_html": "United States Patent and Trademark Office, 20250209344:A1",
+    "venue_html": "United States Patent and Trademark Office, 20250209344 A1",
     "note_html": "",
     "abstract_html": "A system and method of conducting non-episodic state space exploration of a world, the world being a real-world system having one or more dimensions, including: receiving a current state of an agent observed in relation to its interaction with the world; updating one or more parameters of a dynamic model that approximates the world based on the current state of the agent, wherein the parameters as updated improve approximation of the world; generating an intrinsic reward associated with the exploration by the agent based on a closest distance of the current state of the agent in relation to a previous state of one or more previous states of the agent in its exploration of the world; and generating a control from a sequence of actions based on the dynamic model to maximize the intrinsic reward, wherein execution of the control perturbs the current state of the agent in its exploration of the world.",
     "links": [
