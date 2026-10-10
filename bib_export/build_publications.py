@@ -16,7 +16,7 @@ import os
 import re
 import sys
 import unicodedata
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import bibtexparser
 import yaml
@@ -173,22 +173,27 @@ def fields_of(entry):
 
 MONTHS = ["jan", "feb", "mar", "apr", "may", "jun",
           "jul", "aug", "sep", "oct", "nov", "dec"]
+MONTH_NAMES = ["january", "february", "march", "april", "may", "june", "july",
+               "august", "september", "october", "november", "december"]
 URL_HOST_LABELS = {"openreview.net": "OpenReview", "neurips.cc": "NeurIPS"}
 
 
 def year_of(key, f):
     raw = f.get("year", "").strip()
-    if raw.isdigit():
+    if re.fullmatch(r"[0-9]+", raw):  # not str.isdigit(): that accepts Unicode digits int() rejects
         return int(raw)
-    warn(f"{key}: year {raw!r} is not a number; shown as n.d.")
+    warn(f"{key}: " + (f"year {raw!r} is not a number" if raw else "missing year") + "; shown as n.d.")
     return None
 
 
 def month_of(f):
     raw = f.get("month", "").strip().lower()
-    if raw.isdigit() and 1 <= int(raw) <= 12:
+    if re.fullmatch(r"[0-9]+", raw) and 1 <= int(raw) <= 12:
         return int(raw)
-    return MONTHS.index(raw[:3]) + 1 if raw[:3] in MONTHS else None
+    for names in (MONTHS, MONTH_NAMES):
+        if raw in names:
+            return names.index(raw) + 1
+    return None
 
 
 def normalize_doi(doi):
@@ -200,6 +205,8 @@ def checked_url(key, url):
     url = url.strip()
     for esc, ch in (("\\_", "_"), ("\\%", "%"), ("\\&", "&"), ("\\#", "#")):
         url = url.replace(esc, ch)
+    if re.search(r"[\x00-\x1f\x7f\\]", url):  # browsers read /\ as //
+        raise BibError(f"{key}: URL contains a backslash or control character: {url!r}")
     if url.startswith("/") and not url.startswith("//"):
         return url
     p = urlparse(url)
@@ -217,7 +224,7 @@ def url_label(url):
 
 def eprint_link(key, f):
     """(label, url) for the eprint, or None. Never invented from archivePrefix alone."""
-    eid = f.get("eprint", "").strip()
+    eid = re.sub(r"^arxiv:\s*", "", f.get("eprint", "").strip(), flags=re.I)
     prefix = f.get("archiveprefix", "").strip() or "arXiv"
     if not eid:
         if f.get("archiveprefix"):
@@ -230,11 +237,26 @@ def eprint_link(key, f):
     raise BibError(f"{key}: unknown archivePrefix {prefix!r}")
 
 
+def dedupe_key(url):
+    """Equal for DOI / arXiv-abs / plain URLs that differ only in scheme, host case, version."""
+    p = urlparse(url)
+    host = p.netloc.lower()
+    if p.scheme in ("http", "https"):
+        if host in ("doi.org", "dx.doi.org"):
+            return "doi:" + unquote(p.path.lstrip("/")).lower()
+        if host in ("arxiv.org", "www.arxiv.org") and p.path.startswith("/abs/"):
+            return "arxiv:" + re.sub(r"v\d+$", "", p.path[5:]).lower()
+    return f"{host}{p.path}?{p.query}"
+
+
 def links_of(key, f):
-    """Display-ordered links; the first occurrence of a URL wins."""
+    """Display-ordered links; the first occurrence of a (normalized) URL wins."""
     raw = []
     if f.get("pdf"):
-        raw.append(("PDF", "/publications/" + f["pdf"].strip()))
+        name = f["pdf"].strip()
+        if re.search(r"[/\\]|\.\.", name):
+            raise BibError(f"{key}: pdf must be a bare file name, got {name!r}")
+        raw.append(("PDF", "/publications/" + name))
     ep = eprint_link(key, f)
     if ep:
         raw.append(ep)
@@ -250,8 +272,9 @@ def links_of(key, f):
     out, seen = [], set()
     for label, url in raw:
         url = checked_url(key, url)
-        if url not in seen:
-            seen.add(url)
+        dk = dedupe_key(url)
+        if dk not in seen:
+            seen.add(dk)
             out.append({"label": label, "url": url})
     return out
 

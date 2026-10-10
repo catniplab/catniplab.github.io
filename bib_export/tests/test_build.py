@@ -251,3 +251,58 @@ def test_note_and_abstract_html(build_one):
     [e] = build_one("@article{K, title = {T}, note = {(in press)}, abstract = {We show $x$ and 5% \\& <y>.}}")
     assert e["note_html"] == "(in press)"
     assert e["abstract_html"] == "We show x and 5% &amp; &lt;y&gt;."
+
+
+# --- fix round 1: dedupe, URL safety, parsing ---------------------------------
+
+def test_dedupe_doi_variants(build_one):
+    assert _links(build_one, "url = {http://dx.doi.org/10.1/X}, doi = {10.1/x}") == [
+        ("DOI", "https://doi.org/10.1/x")]
+
+
+def test_dedupe_arxiv_variants(build_one):
+    assert _links(build_one, "url = {http://arxiv.org/abs/1302.5964v2}, eprint = {1302.5964}") == [
+        ("arXiv", "https://arxiv.org/abs/1302.5964")]
+    assert _links(build_one, "url = {https://www.arxiv.org/abs/1302.5964}, eprint = {arXiv:1302.5964}") == [
+        ("arXiv", "https://arxiv.org/abs/1302.5964")]
+
+
+def test_dedupe_other_urls_scheme_and_host_case(build_one):
+    assert _links(build_one, "url = {https://Example.org/a?b=1}, code = {http://example.ORG/a?b=1}") == [
+        ("Link", "https://Example.org/a?b=1")]
+
+
+@pytest.mark.parametrize("doi", ["https://dx.doi.org/10.1/x", "https://doi.org/10.1/x"])
+def test_doi_url_forms_normalized(build_one, doi):
+    assert _links(build_one, "doi = {" + doi + "}") == [("DOI", "https://doi.org/10.1/x")]
+
+
+@pytest.mark.parametrize("field", [
+    r"url = {/\evil.com}", "url = {//evil.com}", "url = {ftp://x}", "url2 = {javascript:alert(1)}",
+    "code = {javascript:alert(1)}", "data = {ftp://x/y}", "youtube = {javascript:alert(1)}",
+    "url = {https://x/a\\tb}", "pdf = {../x.pdf}", "pdf = {https://x/y.pdf}", r"pdf = {a\b.pdf}",
+])
+def test_unsafe_links_rejected(bp, build_one, field):
+    with pytest.raises(bp.BibError):
+        build_one("@article{K, title = {T}, " + field + "}")
+
+
+def test_unknown_archiveprefix_raises(bp, build_one):
+    with pytest.raises(bp.BibError, match="archivePrefix"):
+        build_one("@article{K, title = {T}, archivePrefix = {foo}, eprint = {1}}")
+
+
+def test_unicode_digits_do_not_crash(build_one):
+    [e] = build_one("@article{K, title = {T}, year = {\u00b2}, month = {\u00b2}}")
+    assert (e["year"], e["year_label"], e["month"]) == (None, "n.d.", None)
+
+
+def test_month_names_exact(build_one):
+    for month, expect in (("{March}", 3), ("{SEPTEMBER}", 9), ("{marvel}", None), ("{ma}", None)):
+        [e] = build_one("@article{K, title = {T}, year = 2020, month = " + month + "}")
+        assert e["month"] == expect
+
+
+def test_missing_year_warning(build_one, capsys):
+    build_one("@article{K, title = {T}}")
+    assert "missing year; shown as n.d." in capsys.readouterr().err
