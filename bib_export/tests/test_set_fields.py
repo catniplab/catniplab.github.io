@@ -119,3 +119,12 @@ def test_refuse_field_sharing_a_line():
         sf.set_field(lines, "A", "year", "2021")
     with pytest.raises(SystemExit, match="shares a line"):
         sf.set_field(lines, "A", "title", "N")
+
+
+def test_latex_escape_text_tilde_and_caret():
+    assert sf.latex_escape_text("a~b^c") == r"a\textasciitilde{}b\textasciicircum{}c"
+
+
+def test_escape_round_trips_through_generator_decode(bp):
+    s = "a~b^c 50% & #1"
+    assert bp.tex_to_text(sf.latex_escape_text(s)) == s

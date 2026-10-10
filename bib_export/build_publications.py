@@ -22,7 +22,8 @@ import bibtexparser
 import yaml
 from bibtexparser.middlewares.names import (parse_single_name_into_parts,
                                             split_multiple_persons_names)
-from pylatexenc.latex2text import LatexNodes2Text
+from pylatexenc.latex2text import (LatexNodes2Text, MacroTextSpec,
+                                   get_default_latex_context_db)
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SITE_ROOT = os.path.dirname(SCRIPT_DIR)
@@ -53,7 +54,11 @@ def warn(msg):
 
 # --- text: LaTeX -> Unicode, HTML-escaped ------------------------------------
 
-_L2T = LatexNodes2Text()
+# pylatexenc decodes \textasciicircum to U+02C6; text-mode escaping needs a literal "^".
+_CTX = get_default_latex_context_db()
+_CTX.add_context_category("literal-caret", prepend=True,
+                          macros=[MacroTextSpec("textasciicircum", simplify_repl="^")])
+_L2T = LatexNodes2Text(latex_context=_CTX)
 # One level of nested braces is allowed inside the italic argument.
 _ARG = r"((?:[^{}]|\{[^{}]*\})*)"
 _ITALIC = re.compile(r"\{\\(?:it|em|itshape)\s+" + _ARG + r"\}|\\(?:textit|emph)\{" + _ARG + r"\}")

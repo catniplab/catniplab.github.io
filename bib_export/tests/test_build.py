@@ -840,3 +840,8 @@ def test_missing_pdf_file_warns(bp, build_one, tmp_path, monkeypatch, capsys):
     assert capsys.readouterr().err == ""
     build_one("@article{K, title = {T}, pdf = {gone.pdf}, year = 2020}")
     assert "gone.pdf" in capsys.readouterr().err
+
+
+def test_textasciicircum_decodes_to_caret(bp):
+    assert bp.tex_to_text(r"x\textasciicircum{}2") == "x^2"
+    assert bp.tex_to_html(r"x\textasciicircum{}2") == "x^2"

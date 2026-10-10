@@ -30,7 +30,8 @@ import bibtexparser
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_BIB = os.path.join(SCRIPT_DIR, "catniplab.bib")
 _SPECIALS = {"\\": r"\textbackslash{}", "{": r"\{", "}": r"\}", "%": r"\%",
-             "&": r"\&", "#": r"\#", "_": r"\_", "$": r"\$"}
+             "&": r"\&", "#": r"\#", "_": r"\_", "$": r"\$",
+             "~": r"\textasciitilde{}", "^": r"\textasciicircum{}"}
 
 
 def latex_escape_text(s):
