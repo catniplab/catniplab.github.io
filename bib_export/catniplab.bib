@@ -1,3 +1,17 @@
+@Unpublished{Jeon2026a,
+    author = {Hyungju Jeon and Il Memming Park},
+    title = {Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics},
+    journal = {bioRxiv},
+    year = {2026},
+    month = oct,
+    doi = {10.64898/2026.10.05.756678},
+    url = {https://www.biorxiv.org/content/10.64898/2026.10.05.756678v1},
+    keywords = {active learning, system identification, closed-loop stimulation, PALDI},
+    abstract = {Online identification of nonlinear dynamical systems faces two challenges. Noisy, partial observations make the latent state difficult to estimate. Local attractors can also keep passive trajectories in regions that reveal little about the unknown dynamics. Both challenges commonly arise in closed-loop neural experiments where stimulation must be chosen from noisy spike counts, while neural activity may remain near a stable state unless stimulation drives it elsewhere. We address this problem by actively selecting inputs to collect informative observations during the experiment. We introduce PALDI (Planning-based Active Latent Dynamics Identification), which combines extended-Kalman state prediction, single-step Laplace state updates, blockwise Gaussian parameter updates, and finite-horizon planning. Its parameter expected-information-gain surrogate combines dynamics sensitivity with state Fisher information and discounts apparent parameter information when latent states are uncertain. We compare PALDI with nonadaptive inputs, a myopic policy, and two active baselines: the one-step D-optimal method FLEX and receding-horizon curiosity with uncertainty sampling. On a bistable Wilson-Cowan model of excitatory and inhibitory populations, PALDI approaches the true-model reference and remains strongest as the observation signal-to-noise ratio decreases or the readout geometry becomes biased. We then test identification in a spiking decision network where we use a reduced dynamics and observation model to approximate the data-generating process. PALDI reaches a median held-out prediction $R^2$ of 0.90, close to a fitted reference, and its model gives the highest change-of-mind success among identification policies. Information-guided finite-horizon planning is a practical strategy for identifying neural circuit dynamics with closed-loop stimulation.},
+  themes = {neurotech},
+  tags = {neural-control;real-time;active-learning;state-space-models},
+}
+
 @Misc{Kepple2023a,
   title    = {Jointly learning visual motion and confidence from local patches in event cameras},
   author   = {Kepple, Daniel Robert and Lee, Dae Won and Isler, Ibrahim Volkan and Rajan, Kanaka and Park, Il Memming and Lee, Daniel Dongyuel},

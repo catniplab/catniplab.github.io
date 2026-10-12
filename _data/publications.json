@@ -87,6 +87,89 @@
     "bibtex": "@inproceedings{Sagodi2026b,\n  author = {S\\'agodi, \\'Abel and Park, Il Memming},\n  title = {Universal Approximation Theorems for Dynamical Systems with Infinite-Time Horizon Guarantees},\n  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},\n  year = 2026,\n  month = dec,\n  url = {https://openreview.net/forum?id=JFUIDA4w6C},\n  url2 = {https://neurips.cc/virtual/2026/loc/sydney/poster/153723},\n  eprint = {2602.08640},\n  archiveprefix = {arXiv},\n  primaryclass = {math.DS},\n  abstract = {Universal approximation theorems establish the expressive capacity of neural network architectures. For dynamical systems, existing results are limited to finite time horizons or systems with a globally stable equilibrium, leaving multistability and limit cycles unaddressed. We prove that Neural ODEs achieve $\\varepsilon$-$\\delta$ closeness -- trajectories within error $\\varepsilon$ except for initial conditions of measure $< \\delta$ -- over the infinite time horizon $[0,\\infty)$ for three target classes: (1) Morse-Smale systems (a structurally stable class) with hyperbolic fixed points, (2) Morse-Smale systems with hyperbolic limit cycles via exact period matching, and (3) systems with normally hyperbolic continuous attractors via discretization. We further establish a temporal generalization bound: $\\varepsilon$-$\\delta$ closeness implies Lp error $\\leq \\varepsilon^p + \\delta \\cdot D^p$ for all $t \\geq 0$, bridging topological guarantees to training metrics. These results provide the first universal approximation framework for multistable infinite-horizon dynamics.},\n}"
   },
   {
+    "key": "Jeon2026a",
+    "kind": "preprint",
+    "kind_name": "Preprint",
+    "refereed": false,
+    "year": 2026,
+    "month": 10,
+    "year_label": "2026",
+    "authors": [
+      {
+        "family": "Jeon",
+        "von": "",
+        "given": "Hyungju",
+        "jr": "",
+        "display": "Jeon, H.",
+        "member": true
+      },
+      {
+        "family": "Park",
+        "von": "",
+        "given": "Il Memming",
+        "jr": "",
+        "display": "Park, I. M.",
+        "member": true
+      }
+    ],
+    "authors_html": "<strong class=\"member\">Jeon, H.</strong>, &amp; <strong class=\"member\">Park, I. M.</strong>",
+    "title": "Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics",
+    "title_html": "Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics",
+    "venue_html": "bioRxiv",
+    "note_html": "",
+    "abstract_html": "Online identification of nonlinear dynamical systems faces two challenges. Noisy, partial observations make the latent state difficult to estimate. Local attractors can also keep passive trajectories in regions that reveal little about the unknown dynamics. Both challenges commonly arise in closed-loop neural experiments where stimulation must be chosen from noisy spike counts, while neural activity may remain near a stable state unless stimulation drives it elsewhere. We address this problem by actively selecting inputs to collect informative observations during the experiment. We introduce PALDI (Planning-based Active Latent Dynamics Identification), which combines extended-Kalman state prediction, single-step Laplace state updates, blockwise Gaussian parameter updates, and finite-horizon planning. Its parameter expected-information-gain surrogate combines dynamics sensitivity with state Fisher information and discounts apparent parameter information when latent states are uncertain. We compare PALDI with nonadaptive inputs, a myopic policy, and two active baselines: the one-step D-optimal method FLEX and receding-horizon curiosity with uncertainty sampling. On a bistable Wilson-Cowan model of excitatory and inhibitory populations, PALDI approaches the true-model reference and remains strongest as the observation signal-to-noise ratio decreases or the readout geometry becomes biased. We then test identification in a spiking decision network where we use a reduced dynamics and observation model to approximate the data-generating process. PALDI reaches a median held-out prediction R^2 of 0.90, close to a fitted reference, and its model gives the highest change-of-mind success among identification policies. Information-guided finite-horizon planning is a practical strategy for identifying neural circuit dynamics with closed-loop stimulation.",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.64898/2026.10.05.756678"
+      },
+      {
+        "label": "Link",
+        "url": "https://www.biorxiv.org/content/10.64898/2026.10.05.756678v1"
+      }
+    ],
+    "themes": [
+      "neurotech"
+    ],
+    "tags": [
+      "neural-control",
+      "real-time",
+      "active-learning",
+      "state-space-models"
+    ],
+    "labels": [
+      {
+        "group": "theme",
+        "id": "neurotech",
+        "name": "Neurotechnology for real-time experiments"
+      },
+      {
+        "group": "research",
+        "id": "neural-control",
+        "name": "Control of neural dynamics"
+      },
+      {
+        "group": "method",
+        "id": "real-time",
+        "name": "Real-time and closed-loop methods"
+      },
+      {
+        "group": "method",
+        "id": "active-learning",
+        "name": "Active learning and experimental design"
+      },
+      {
+        "group": "research",
+        "id": "state-space-models",
+        "name": "State-space models"
+      }
+    ],
+    "selected": false,
+    "apa_html": "Jeon, H., & Park, I. M. (2026). <i>Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics</i>. https://doi.org/10.64898/2026.10.05.756678",
+    "apa_text": "Jeon, H., & Park, I. M. (2026). Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics. https://doi.org/10.64898/2026.10.05.756678",
+    "bibtex": "@unpublished{Jeon2026a,\n  author = {Hyungju Jeon and Il Memming Park},\n  title = {Beyond the attractor: closed-loop stimulation design for learning multistable neural dynamics},\n  journal = {bioRxiv},\n  year = 2026,\n  month = oct,\n  doi = {10.64898/2026.10.05.756678},\n  url = {https://www.biorxiv.org/content/10.64898/2026.10.05.756678v1},\n  abstract = {Online identification of nonlinear dynamical systems faces two challenges. Noisy, partial observations make the latent state difficult to estimate. Local attractors can also keep passive trajectories in regions that reveal little about the unknown dynamics. Both challenges commonly arise in closed-loop neural experiments where stimulation must be chosen from noisy spike counts, while neural activity may remain near a stable state unless stimulation drives it elsewhere. We address this problem by actively selecting inputs to collect informative observations during the experiment. We introduce PALDI (Planning-based Active Latent Dynamics Identification), which combines extended-Kalman state prediction, single-step Laplace state updates, blockwise Gaussian parameter updates, and finite-horizon planning. Its parameter expected-information-gain surrogate combines dynamics sensitivity with state Fisher information and discounts apparent parameter information when latent states are uncertain. We compare PALDI with nonadaptive inputs, a myopic policy, and two active baselines: the one-step D-optimal method FLEX and receding-horizon curiosity with uncertainty sampling. On a bistable Wilson-Cowan model of excitatory and inhibitory populations, PALDI approaches the true-model reference and remains strongest as the observation signal-to-noise ratio decreases or the readout geometry becomes biased. We then test identification in a spiking decision network where we use a reduced dynamics and observation model to approximate the data-generating process. PALDI reaches a median held-out prediction $R^2$ of 0.90, close to a fitted reference, and its model gives the highest change-of-mind success among identification policies. Information-guided finite-horizon planning is a practical strategy for identifying neural circuit dynamics with closed-loop stimulation.},\n  keywords = {active learning, system identification, closed-loop stimulation, PALDI},\n}"
+  },
+  {
     "key": "Sagodi2026c",
     "kind": "abstract",
     "kind_name": "Conference abstract",
