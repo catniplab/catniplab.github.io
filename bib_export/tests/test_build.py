@@ -308,6 +308,12 @@ def test_note_and_abstract_html(build_one):
     assert e["abstract_html"] == "We show x and 5% &amp; &lt;y&gt;."
 
 
+def test_in_press_flag(build_one):
+    for note, expected in (("In press", True), ("(in press)", True), ("(oral presentation)", False), ("", False)):
+        [e] = build_one(f"@article{{K, title = {{T}}, note = {{{note}}}}}")
+        assert e["in_press"] is expected, note
+
+
 # --- fix round 1: dedupe, URL safety, parsing ---------------------------------
 
 def test_dedupe_doi_variants(build_one):

@@ -102,6 +102,8 @@ body:has(.pubs) .wrapper-masthead { margin-bottom: 12px; }
   .pub p:not(.pub-title), .pub details, .pub-meta, .pubs-search,
   .pubs-review-legend, .pubs-status, .chip { font-size: 13px; }
   .pub-venue, .pub-review { color: $darkGray; }
+  .pub-in-press { color: $secondary; }
+  span + .pub-in-press::before { color: $darkGray; }
   .pub-kind { margin-left: 0.4em; color: $gray; }
   .pub-review { font-weight: 600; white-space: nowrap; }
   .pub-kind:first-child { margin-left: 0; }

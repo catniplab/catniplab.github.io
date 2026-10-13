@@ -42,6 +42,7 @@ KIND_NAMES = {
 }
 PUBTYPES = {"abstract", "patent", "manuscript", "other", "invited"}
 _PREPRINT_VENUE = re.compile(r"arxiv|biorxiv|e-?prints?|preprint", re.I)
+_IN_PRESS = re.compile(r"\bin press\b", re.I)
 
 
 class BibError(Exception):
@@ -415,7 +416,7 @@ def apa_html(key, kind, entry_type, f, authors, year, month):
         raise BibError(f"{key}: unknown archivePrefix {f.get('archiveprefix', '').strip()!r}")
     title = h("title")
     when = str(year) if year else "n.d."
-    if re.search(r"\bin press\b", f.get("note", ""), re.I):
+    if _IN_PRESS.search(f.get("note", "")):
         when = "in press"
     elif kind == "abstract" and month and year:
         when += ", " + MONTH_NAMES[month - 1].capitalize()
@@ -639,6 +640,7 @@ def entry_json(entry, themes, tags, members):
         "title_html": tex_to_html(f.get("title", "")),
         "venue_html": venue_html(key, kind, entry.entry_type, f),
         "note_html": tex_to_html(f.get("note", "")),
+        "in_press": bool(_IN_PRESS.search(f.get("note", ""))),
         "abstract_html": tex_to_html(f.get("abstract", "")),
         "links": links_of(key, f),
         "themes": th,
