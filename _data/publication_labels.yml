@@ -21,7 +21,7 @@ facets:
     tags:
       - {id: point-processes, name: Point processes and spike trains}
       - {id: state-space-models, name: State-space models}
-      - {id: neural-coding, name: Neural coding and decoding}
+      - {id: neural-coding, name: Neural coding}
       - {id: oscillations, name: Oscillations and limit cycles}
       - {id: functional-connectivity, name: Functional connectivity}
       - {id: latent-variable-models, name: Latent variable models}
