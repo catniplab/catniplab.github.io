@@ -21,7 +21,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
         <input type="radio" name="publication-view" id="show-abstracts" value="all">
         <label for="show-abstracts">All, with abstracts ({{ pubs.size | escape }})</label>
       </fieldset>
-      <p class="pubs-review-legend">Bar and label: peer-reviewed</p>
+      <p class="pubs-review-legend">Bar: peer-reviewed</p>
     </div>
     <label for="pubs-q" class="pubs-search pubs-js" hidden><span>Search</span>
       <input type="search" id="pubs-q" placeholder="Title, author, venue, abstract..." autocomplete="off">
@@ -82,7 +82,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
   <ul>
   {%- for p in highlights %}
     <li data-refereed="{{ p.refereed | escape }}"><a href="#{{ p.key | escape }}">{{ p.title_html }}</a>
-      <span class="pub-meta"><span class="pub-meta-venue">{{ p.year_label | escape }}{% if p.venue_html != "" %} {{ p.venue_html }}{% endif %}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</span></li>
+      <span class="pub-meta"><span class="pub-meta-venue">{{ p.year_label | escape }}{% if p.venue_html != "" %} {{ p.venue_html }}{% endif %}</span>{% if p.refereed and p.kind != "journal" %} <span class="pub-review">peer-reviewed</span>{% endif %}</span></li>
   {%- endfor %}
   </ul>
 </section>
@@ -97,7 +97,7 @@ description: Publications of the CATNIP Lab (Il Memming Park) with search, topic
     <li id="{{ p.key | escape }}" class="pub" data-kind="{{ p.kind | escape }}" data-refereed="{{ p.refereed | escape }}" data-themes="{{ p.themes | join: ' ' | escape }}" data-tags="{{ p.tags | join: ' ' | escape }}" data-year="{{ p.year_label | escape }}">
       <p class="pub-title">{{ p.title_html }}</p>
       {%- if p.authors_html != "" %}<p class="pub-authors">{{ p.authors_html }}</p>{% endif %}
-      <p class="pub-venue">{% if p.venue_html != "" %}<span>{{ p.venue_html }}</span> {% endif %}{% if p.note_html != "" %}<span class="pub-note{% if p.in_press %} pub-in-press{% endif %}">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed %} <span class="pub-review">peer-reviewed</span>{% endif %}</p>
+      <p class="pub-venue">{% if p.venue_html != "" %}<span>{{ p.venue_html }}</span> {% endif %}{% if p.note_html != "" %}<span class="pub-note{% if p.in_press %} pub-in-press{% endif %}">{{ p.note_html }}</span> {% endif %}<span class="pub-kind">{{ p.kind_name | escape }}</span>{% if p.refereed and p.kind != "journal" %} <span class="pub-review">peer-reviewed</span>{% endif %}</p>
       {%- if p.links.size > 0 %}
       <p class="pub-links">{% for l in p.links %}{% unless forloop.first %}&#32;{% endunless %}<a href="{{ l.url | escape }}">{{ l.label | escape }}</a>{% endfor %}</p>&#32;
       {%- endif %}

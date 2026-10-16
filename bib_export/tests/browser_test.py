@@ -86,6 +86,10 @@ def main(site, data_path, shots=None):
                      e["kind"] == c["value"] if c["group"] == "kind" else c["value"] in e[c["group"] + "s"])
                     for e in data) for c in chips)
 
+            # journals are always refereed, so only the bar marks them; the label is for the rest
+            def labeled_review(e):
+                return e["refereed"] and e["kind"] != "journal"
+
             def markers_match(target_page):
                 entries = target_page.locator("li.pub, .pubs-highlights li").evaluate_all("""els => {
                     const primary = getComputedStyle(document.querySelector('.pubs-view input:checked + label')).backgroundColor;
@@ -97,9 +101,10 @@ def main(site, data_path, shots=None):
                     }));
                 }""")
                 expected = {e["key"]: e["refereed"] for e in data}
+                labeled = {e["key"] for e in data if labeled_review(e)}
                 return len(entries) == total + sum(e["selected"] for e in data) and all(
                     e["flag"] == str(expected[e["key"]]).lower() and e["bar"] == expected[e["key"]] and
-                    e["labels"] == (["peer-reviewed"] if expected[e["key"]] else []) for e in entries)
+                    e["labels"] == (["peer-reviewed"] if e["key"] in labeled else []) for e in entries)
 
             page.goto(url)
             check("default hides abstracts", shown() == default_n, f"{shown()} != {default_n}")
@@ -481,15 +486,15 @@ def main(site, data_path, shots=None):
             check("no-JS: controls hidden", not nojs.locator(".pubs-js").first.is_visible())
             check("no-JS: abstracts hidden by CSS", nojs.locator("li.pub:visible").count() == default_n)
             check("no-JS: peer-reviewed paper labels visible", nojs.locator("li.pub:visible .pub-review:visible").count() ==
-                  sum(e["refereed"] and e["kind"] != "abstract" for e in data))
+                  sum(labeled_review(e) and e["kind"] != "abstract" for e in data))
             select_view(nojs, True)
             check("no-JS: All shows every entry and year", nojs.locator("li.pub:visible").count() == total and
                   nojs.locator(".pubs-year:visible").count() == len({e["year_label"] for e in data}))
             check("no-JS: all peer-reviewed labels visible", nojs.locator("li.pub:visible .pub-review:visible").count() ==
-                  sum(e["refereed"] for e in data))
+                  sum(labeled_review(e) for e in data))
             nojs.emulate_media(media="print")
             check("print retains peer-reviewed labels", nojs.locator("li.pub:visible .pub-review:visible").count() ==
-                  sum(e["refereed"] for e in data))
+                  sum(labeled_review(e) for e in data))
             nojs.emulate_media(media="screen")
             select_view(nojs, False)
             check("no-JS: Papers hides abstracts and empty years", nojs.locator("li.pub:visible").count() == default_n and
