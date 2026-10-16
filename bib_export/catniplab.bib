@@ -17,6 +17,7 @@
     abstract = {Online identification of nonlinear dynamical systems faces two challenges. Noisy, partial observations make the latent state difficult to estimate. Local attractors can also keep passive trajectories in regions that reveal little about the unknown dynamics. Both challenges commonly arise in closed-loop neural experiments where stimulation must be chosen from noisy spike counts, while neural activity may remain near a stable state unless stimulation drives it elsewhere. We address this problem by actively selecting inputs to collect informative observations during the experiment. We introduce PALDI (Planning-based Active Latent Dynamics Identification), which combines extended-Kalman state prediction, single-step Laplace state updates, blockwise Gaussian parameter updates, and finite-horizon planning. Its parameter expected-information-gain surrogate combines dynamics sensitivity with state Fisher information and discounts apparent parameter information when latent states are uncertain. We compare PALDI with nonadaptive inputs, a myopic policy, and two active baselines: the one-step D-optimal method FLEX and receding-horizon curiosity with uncertainty sampling. On a bistable Wilson-Cowan model of excitatory and inhibitory populations, PALDI approaches the true-model reference and remains strongest as the observation signal-to-noise ratio decreases or the readout geometry becomes biased. We then test identification in a spiking decision network where we use a reduced dynamics and observation model to approximate the data-generating process. PALDI reaches a median held-out prediction $R^2$ of 0.90, close to a fitted reference, and its model gives the highest change-of-mind success among identification policies. Information-guided finite-horizon planning is a practical strategy for identifying neural circuit dynamics with closed-loop stimulation.},
   themes = {neurotech},
   tags = {neural-control;real-time;active-learning;state-space-models},
+  note = {bioRxiv preprint, doi: 10.64898/2026.10.05.756678},
 }
 
 @Misc{Kepple2023a,
@@ -151,6 +152,7 @@
     keywords = {state-space models, sequence models, Bayesian filtering, associative memory},
     abstract = {We introduce the design-model framework: a way to derive efficient recurrent sequence maps from explicit assumptions about memory. A design model writes evidence into memory by exact Bayesian filtering; a query-dependent readout produces a predictive distribution whose mean is the layer output. In our linear-Gaussian instantiation, the Bayesian Layer propagates both a mean and a covariance: the covariance tracks uncertainty over stored associations, steering writes toward uncertain directions, attenuating gains as evidence accumulates, and preserving confident memories. The same framework unifies several sub-quadratic recurrences. Linear attention, GLA, and Mamba-2/SSD are exact filters under one design model, whereas DeltaNet and related Delta-rule models arise as covariance-reset reductions under another. Restoring the covariance yields closed-form predictions for retrieval dynamics, verified empirically, and improves robustness beyond the training regime across controlled collision studies, learned associative recall, and the Zoology MQAR benchmark; distilling Bayesian Layers into a pretrained 340M Gated DeltaNet improves RULER long-context retrieval at matched compute.},
   tags = {state-space-models;machine-learning},
+  note = {arXiv preprint arXiv:2605.31163},
 }
 
 @PhdThesis{Vermani2025b,
@@ -247,6 +249,7 @@
   themes = {language},
   tags = {continuous-attractors;dynamical-archetypes;working-memory;recurrent-neural-networks},
   selected = {true},
+  note = {arXiv preprint arXiv:2507.05505},
 }
 
 @InProceedings{Sagodi2025a,
