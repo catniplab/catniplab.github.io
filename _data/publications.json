@@ -538,20 +538,20 @@
         "member": true
       },
       {
-        "family": "Vermani",
-        "von": "",
-        "given": "Ayesha",
-        "jr": "",
-        "display": "Vermani, A.",
-        "member": true
-      },
-      {
         "family": "de Polavieja",
         "von": "de",
         "given": "Gonzalo G.",
         "jr": "",
         "display": "de Polavieja, G. G.",
         "member": false
+      },
+      {
+        "family": "Vermani",
+        "von": "",
+        "given": "Ayesha",
+        "jr": "",
+        "display": "Vermani, A.",
+        "member": true
       },
       {
         "family": "Gallego",
@@ -575,6 +575,14 @@
         "given": "Shreya",
         "jr": "",
         "display": "Saxena, S.",
+        "member": false
+      },
+      {
+        "family": "Hennequin",
+        "von": "",
+        "given": "Guillaume",
+        "jr": "",
+        "display": "Hennequin, G.",
         "member": false
       },
       {
@@ -626,23 +634,23 @@
         "member": false
       },
       {
-        "family": "Paton",
-        "von": "",
-        "given": "Joseph J.",
-        "jr": "",
-        "display": "Paton, J. J.",
-        "member": false
-      },
-      {
         "family": "Renart",
         "von": "",
         "given": "Alfonso",
         "jr": "",
         "display": "Renart, A.",
         "member": false
+      },
+      {
+        "family": "Paton",
+        "von": "",
+        "given": "Joseph J.",
+        "jr": "",
+        "display": "Paton, J. J.",
+        "member": false
       }
     ],
-    "authors_html": "<strong class=\"member\">Park, I. M.</strong>, <strong class=\"member\">Vermani, A.</strong>, de Polavieja, G. G., Gallego, J. Á., Esfahany, K., Saxena, S., Orger, M., Ijspeert, A., <strong class=\"member\">Dowling, M.</strong>, McNamee, D., Turaga, S. C., Mainen, Z., Paton, J. J., &amp; Renart, A.",
+    "authors_html": "<strong class=\"member\">Park, I. M.</strong>, de Polavieja, G. G., <strong class=\"member\">Vermani, A.</strong>, Gallego, J. Á., Esfahany, K., Saxena, S., Hennequin, G., Orger, M., Ijspeert, A., <strong class=\"member\">Dowling, M.</strong>, McNamee, D., Turaga, S. C., Mainen, Z., Renart, A., &amp; Paton, J. J.",
     "title": "Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience",
     "title_html": "Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience",
     "venue_html": "arXiv:2604.23903",
@@ -692,9 +700,9 @@
       }
     ],
     "selected": true,
-    "apa_html": "Park, I. M., Vermani, A., de Polavieja, G. G., Gallego, J. Á., Esfahany, K., Saxena, S., Orger, M., Ijspeert, A., Dowling, M., McNamee, D., Turaga, S. C., Mainen, Z., Paton, J. J., & Renart, A. (2026). <i>Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience</i>. arXiv. https://doi.org/10.48550/arXiv.2604.23903",
-    "apa_text": "Park, I. M., Vermani, A., de Polavieja, G. G., Gallego, J. Á., Esfahany, K., Saxena, S., Orger, M., Ijspeert, A., Dowling, M., McNamee, D., Turaga, S. C., Mainen, Z., Paton, J. J., & Renart, A. (2026). Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience. arXiv. https://doi.org/10.48550/arXiv.2604.23903",
-    "bibtex": "@unpublished{Park2026a,\n  author = {I. Memming Park and Ayesha Vermani and Gonzalo G. de Polavieja and Juan \\'Alvaro Gallego and Kathleen Esfahany and Shreya Saxena and Michael Orger and Auke Ijspeert and Matthew Dowling and Daniel McNamee and Srinivas C. Turaga and Zachary Mainen and Joseph J. Paton and Alfonso Renart},\n  title = {Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience},\n  year = 2026,\n  url = {http://arxiv.org/abs/2604.23903},\n  eprint = {2604.23903},\n  archiveprefix = {arXiv},\n  primaryclass = {q-bio.NC},\n  abstract = {Large-scale neuroscience is generating rich datasets across animals, brain areas and behavioral contexts, yet our modeling efforts remains fragmented across isolated experiments. We argue that understanding behavior requires integrative neurocybernetic models: understandable dynamical models that capture the closed-loop coupling of brain, body and environment, treat the brain as a controller pursuing latent objectives, represent structured variation across scales, and scale to heterogeneous datasets. Such models shift the goal from predicting neural recordings in isolation to inferring the organizing principles that govern neural and behavioral dynamics. We outline a practical route toward this goal by combining nonlinear state-space models and meta-dynamical extensions with scalable inference, knowledge distillation, mixed open- and closed-loop training, and connectomics-informed architectures. By pooling complementary constraints from recordings, behavior, perturbations and anatomy, integrative neurocybernetic models can provide statistical amplification, few-shot generalization, and mechanistic insight into shared dynamical structure, individual variation, and the control objectives that govern behavior. This agenda offers a model-centric path from fragmented data to a mechanistic science of how brains produce behavior.},\n  keywords = {neurocybernetics, cybernetics, perspective},\n}"
+    "apa_html": "Park, I. M., de Polavieja, G. G., Vermani, A., Gallego, J. Á., Esfahany, K., Saxena, S., Hennequin, G., Orger, M., Ijspeert, A., Dowling, M., McNamee, D., Turaga, S. C., Mainen, Z., Renart, A., & Paton, J. J. (2026). <i>Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience</i>. arXiv. https://doi.org/10.48550/arXiv.2604.23903",
+    "apa_text": "Park, I. M., de Polavieja, G. G., Vermani, A., Gallego, J. Á., Esfahany, K., Saxena, S., Hennequin, G., Orger, M., Ijspeert, A., Dowling, M., McNamee, D., Turaga, S. C., Mainen, Z., Renart, A., & Paton, J. J. (2026). Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience. arXiv. https://doi.org/10.48550/arXiv.2604.23903",
+    "bibtex": "@unpublished{Park2026a,\n  author = {I. Memming Park and Gonzalo G. de Polavieja and Ayesha Vermani and Juan \\'Alvaro Gallego and Kathleen Esfahany and Shreya Saxena and Guillaume Hennequin and Michael Orger and Auke Ijspeert and Matthew Dowling and Daniel McNamee and Srinivas C. Turaga and Zachary Mainen and Alfonso Renart and Joseph J. Paton},\n  title = {Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience},\n  year = 2026,\n  url = {http://arxiv.org/abs/2604.23903},\n  eprint = {2604.23903},\n  archiveprefix = {arXiv},\n  primaryclass = {q-bio.NC},\n  abstract = {Large-scale neuroscience is generating rich datasets across animals, brain areas and behavioral contexts, yet our modeling efforts remains fragmented across isolated experiments. We argue that understanding behavior requires integrative neurocybernetic models: understandable dynamical models that capture the closed-loop coupling of brain, body and environment, treat the brain as a controller pursuing latent objectives, represent structured variation across scales, and scale to heterogeneous datasets. Such models shift the goal from predicting neural recordings in isolation to inferring the organizing principles that govern neural and behavioral dynamics. We outline a practical route toward this goal by combining nonlinear state-space models and meta-dynamical extensions with scalable inference, knowledge distillation, mixed open- and closed-loop training, and connectomics-informed architectures. By pooling complementary constraints from recordings, behavior, perturbations and anatomy, integrative neurocybernetic models can provide statistical amplification, few-shot generalization, and mechanistic insight into shared dynamical structure, individual variation, and the control objectives that govern behavior. This agenda offers a model-centric path from fragmented data to a mechanistic science of how brains produce behavior.},\n  keywords = {neurocybernetics, cybernetics, perspective},\n}"
   },
   {
     "key": "Sagodi2026a",
