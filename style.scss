@@ -429,6 +429,30 @@ nav {
     margin-top: 20px;
   }
 
+  // Boxed definitions in a post: <div class="math-box" markdown="1"> ... </div>
+  .math-box {
+    margin: 1.5em 0;
+    padding: 0.8em 1.2em;
+    border: 1px solid rgba($primary, 0.2);
+    border-radius: 6px;
+    background: rgba($primary, 0.03);
+    overflow-x: auto;  // wide display equations scroll on phones instead of spilling out
+
+    p {
+      margin: 0.5em 0;
+    }
+  }
+
+  // AI authorship note at the end of a post: `{: .ai-attribution}` on a paragraph
+  .ai-attribution {
+    margin-top: 2.5em;
+    padding-top: 0.6em;
+    border-top: 1px solid $lightGray;
+    color: $gray;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
   .read-more {
     text-transform: uppercase;
     font-size: 0.85rem;
