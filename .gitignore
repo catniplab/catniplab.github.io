@@ -12,3 +12,5 @@ vendor/
 *~
 __pycache__/
 .pytest_cache/
+# local symlink to AGENTS.md
+CLAUDE.md
