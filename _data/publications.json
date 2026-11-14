@@ -777,9 +777,9 @@
       {
         "family": "Schaffer",
         "von": "",
-        "given": "Evan",
+        "given": "Evan S.",
         "jr": "",
-        "display": "Schaffer, E.",
+        "display": "Schaffer, E. S.",
         "member": false
       },
       {
@@ -825,9 +825,9 @@
       {
         "family": "Olivos-Castillo",
         "von": "",
-        "given": "Itzel",
+        "given": "Itzel C.",
         "jr": "",
-        "display": "Olivos-Castillo, I.",
+        "display": "Olivos-Castillo, I. C.",
         "member": false
       },
       {
@@ -863,14 +863,23 @@
         "member": false
       }
     ],
-    "authors_html": "Schaffer, E., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I., <strong class=\"member\">Park, I. M.</strong>, Perich, M. G., Pitkow, X., &amp; Turaga, S. C.",
+    "authors_html": "Schaffer, E. S., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I. C., <strong class=\"member\">Park, I. M.</strong>, Perich, M. G., Pitkow, X., &amp; Turaga, S. C.",
     "title": "Embodied Computation: How does embodiment impact sensorimotor and cognitive processing?",
     "title_html": "Embodied Computation: How does embodiment impact sensorimotor and cognitive processing?",
-    "venue_html": "The Journal of Neuroscience",
-    "note_html": "In press",
-    "in_press": true,
-    "abstract_html": "",
-    "links": [],
+    "venue_html": "The Journal of Neuroscience, 46(45), e1188262026",
+    "note_html": "",
+    "in_press": false,
+    "abstract_html": "Animals act on the world through a physical body and continually adjust behavior in response to the sensory feedback their actions produce. This closed loop between brain, body, and environment is central to motor control, but its role in other neural computations remains less clear. This review focuses on embodied computation: how the physical body shapes neural activity and behavior across functions ranging from motor control to cognitive processes. We examine the impact of embodiment in several domains, including compositional reuse, intrinsic motivation, metabolic costs, and connectome-constrained computation, with the broader aim of asking when the body can be abstracted away and when it is essential for explaining what the brain computes.",
+    "links": [
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1523/JNEUROSCI.1188-26.2026"
+      },
+      {
+        "label": "Link",
+        "url": "https://www.jneurosci.org/content/46/45/e1188262026"
+      }
+    ],
     "themes": [],
     "tags": [
       "sensorimotor"
@@ -883,9 +892,9 @@
       }
     ],
     "selected": false,
-    "apa_html": "Schaffer, E., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I., Park, I. M., Perich, M. G., Pitkow, X., & Turaga, S. C. (in press). Embodied Computation: How does embodiment impact sensorimotor and cognitive processing? <i>The Journal of Neuroscience</i>.",
-    "apa_text": "Schaffer, E., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I., Park, I. M., Perich, M. G., Pitkow, X., & Turaga, S. C. (in press). Embodied Computation: How does embodiment impact sensorimotor and cognitive processing? The Journal of Neuroscience.",
-    "bibtex": "@article{Schaffer2026a,\n  author = {Evan Schaffer and Shreya Saxena and Reece Keller and John Lazzari and Mason McGill and Aran Nayebi and Itzel Olivos-Castillo and Il Memming Park and Matthew G. Perich and Xaq Pitkow and Srinivas C. Turaga},\n  title = {Embodied Computation: How does embodiment impact sensorimotor and cognitive processing?},\n  journal = {The Journal of Neuroscience},\n  year = 2026,\n  note = {In press},\n  keywords = {embodiment, sensorimotor, cognition, review, symposium},\n}"
+    "apa_html": "Schaffer, E. S., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I. C., Park, I. M., Perich, M. G., Pitkow, X., & Turaga, S. C. (2026). Embodied Computation: How does embodiment impact sensorimotor and cognitive processing? <i>The Journal of Neuroscience</i>, <i>46</i>(45), Article e1188262026. https://doi.org/10.1523/JNEUROSCI.1188-26.2026",
+    "apa_text": "Schaffer, E. S., Saxena, S., Keller, R., Lazzari, J., McGill, M., Nayebi, A., Olivos-Castillo, I. C., Park, I. M., Perich, M. G., Pitkow, X., & Turaga, S. C. (2026). Embodied Computation: How does embodiment impact sensorimotor and cognitive processing? The Journal of Neuroscience, 46(45), Article e1188262026. https://doi.org/10.1523/JNEUROSCI.1188-26.2026",
+    "bibtex": "@article{Schaffer2026a,\n  author = {Evan S. Schaffer and Shreya Saxena and Reece Keller and John Lazzari and Mason McGill and Aran Nayebi and Itzel C. Olivos-Castillo and Il Memming Park and Matthew G. Perich and Xaq Pitkow and Srinivas C. Turaga},\n  title = {Embodied Computation: How does embodiment impact sensorimotor and cognitive processing?},\n  journal = {The Journal of Neuroscience},\n  year = 2026,\n  volume = {46},\n  number = {45},\n  pages = {e1188262026},\n  doi = {10.1523/JNEUROSCI.1188-26.2026},\n  url = {https://www.jneurosci.org/content/46/45/e1188262026},\n  abstract = {Animals act on the world through a physical body and continually adjust behavior in response to the sensory feedback their actions produce. This closed loop between brain, body, and environment is central to motor control, but its role in other neural computations remains less clear. This review focuses on embodied computation: how the physical body shapes neural activity and behavior across functions ranging from motor control to cognitive processes. We examine the impact of embodiment in several domains, including compositional reuse, intrinsic motivation, metabolic costs, and connectome-constrained computation, with the broader aim of asking when the body can be abstracted away and when it is essential for explaining what the brain computes.},\n  keywords = {embodiment, sensorimotor, cognition, review, symposium},\n}"
   },
   {
     "key": "Sagodi2025b",
