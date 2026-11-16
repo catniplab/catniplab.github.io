@@ -68,6 +68,8 @@ Park, I. M. and Pillow, J. W. (2026). Bayesian efficient coding. *PLOS Computati
 
 The Python code on Zenodo reproduces Figs 3-6 and Figs A-D of S1 Appendix.
 
+[Bluesky post](https://bsky.app/profile/memming.bsky.social/post/3n2gy6pcn2c2v)
+
 Written primarily by AI agents under Memming's direction.
 Agents: Claude Opus 5.5 (claude-opus-5-5) via Claude Code 2.1.318 - drafted. 2026-11-06
 {: .ai-attribution}
