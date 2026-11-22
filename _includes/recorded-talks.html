@@ -42,6 +42,11 @@
   margin: 0.25rem 0;
 }
 
+.talk-speaker {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
 .talk-institution {
   color: #6b7280;
   font-size: 0.95em;
@@ -54,14 +59,21 @@
 }
 </style>
 
+<!-- Dr. Park's talks (talks.yml, mirrored from the CV) merged with lab members' (lab_talks.yml), newest first -->
+{% assign all_talks = site.data.talks | concat: site.data.lab_talks | sort: "date" | reverse %}
 <ul class="recorded-talks-list">
-{% for talk in site.data.talks %}
+{% for talk in all_talks %}
+  {% if site.data.talks_page_hide contains talk.id %}{% continue %}{% endif %}
   {% if talk.url contains 'youtube' or talk.url2 contains 'youtube' %}
   <li class="recorded-talk-item">
     <div class="talk-info">
-      <div class="talk-date">{{ talk.date | date: "%B %Y" }}</div>
+      <!-- dates are YYYY-MM, which the date filter cannot parse; add a day -->
+      <div class="talk-date">{{ talk.date | append: "-01" | date: "%B %Y" }}</div>
       {% if talk.title %}
         <div class="talk-title">{{ talk.title }}</div>
+      {% endif %}
+      {% if talk.speaker %}
+        <div class="talk-speaker">{{ talk.speaker }}</div>
       {% endif %}
       <div class="talk-institution">
         {{ talk.type }}

@@ -2,15 +2,112 @@
 # Fields: id, date (YYYY-MM), type, title (optional), institution, city (optional), country, url (optional), selected
 # selected: true means it appears in both short (selected5) and full CV; false means full CV only
 
+- id: "2026-08-ccn-gac"
+  date: "2026-08"
+  type: "Panelist"
+  institution: "Conference on Cognitive Computational Neuroscience (CCN) 2026"
+  city: "New York"
+  country: "USA"
+  title: "Representations or Transformations: What Should Models of Neural Population Activity Explain?"
+  url: "https://sites.google.com/ccneuro.org/gac2020/gacs-by-year/2026-gacs/2026-3"
+  url2: "https://www.youtube.com/watch?v=MHOBhrQyoRU"
+  selected: false
+  latex_description: "in the Generative Adversarial Collaboration (GAC) debate ``Representations or Transformations: What Should Models of Neural Population Activity Explain?'', Conference on Cognitive Computational Neuroscience (CCN) 2026, New York, USA"
+
+- id: "2026-06-munich-bci-summit"
+  date: "2026-06"
+  type: "Panelist"
+  title: "Round-table discussion: Enabling BCI Scaling through AI"
+  institution: "Munich Implantable BCI Summit"
+  city: "Munich"
+  country: "Germany"
+  selected: false
+  latex_description: "in a round-table discussion on ``Enabling BCI Scaling through AI'' at the Munich Implantable BCI Summit (Blackrock Neurotech \\& FUTRUE Neurosciences), Munich, Germany"
+
+- id: "2026-05-flatiron-control"
+  date: "2026-05"
+  type: "Invited talk"
+  title: "Long Temporal Dependence and Inherent Sequentiality"
+  institution: "Control Theory and Neuroscience Workshop"
+  city: "New York"
+  country: "USA"
+  url: "https://www.simonsfoundation.org/event/ccn_control-workshop-2026/"
+  selected: false
+  latex_description: "``Long Temporal Dependence and Inherent Sequentiality'' at the Control Theory and Neuroscience Workshop (Simons Foundation / Flatiron Institute), New York, USA"
+
+- id: "2026-05-sbu-neurocybernetic"
+  date: "2026-05"
+  type: "Seminar"
+  title: "Integrative Neurocybernetic Modeling: the Era of Large-scale Neuroscience"
+  institution: "Stony Brook University"
+  city: "Stony Brook, New York"
+  country: "USA"
+  selected: false
+  latex_description: "``Integrative Neurocybernetic Modeling: the Era of Large-scale Neuroscience'' at the Department of Neurobiology and Behavior, Stony Brook University, New York, USA"
+
+- id: "2026-10-cambridge"
+  date: "2026-10"
+  type: "Seminar"
+  institution: "University of Cambridge"
+  city: "Cambridge"
+  country: "UK"
+  selected: false
+
+- id: "2026-11-penn-cni"
+  date: "2026-11"
+  type: "Seminar"
+  institution: "Computational Neuroscience Initiative, University of Pennsylvania"
+  city: "Philadelphia"
+  country: "USA"
+  selected: false
+
+- id: "2026-11-sfn-embodied-cognition"
+  date: "2026-11"
+  type: "Invited talk"
+  institution: "SfN Symposium"
+  title: "Motor Control as a Cascade of Cybernetic Systems"
+  city: "Washington, D.C."
+  country: "USA"
+  selected: false
+  latex_description: "``Motor Control as a Cascade of Cybernetic Systems'' at the SfN Symposium (MIN99) ``Embodied Computation: How Does Embodiment Impact Sensorimotor and Cognitive Processing'', Washington, D.C., USA"
+
+- id: "2027-04-gatsby-ucl"
+  date: "2027-04"
+  type: "Seminar"
+  institution: "Gatsby Computational Neuroscience Unit, University College London"
+  city: "London"
+  country: "UK"
+  selected: false
+
+- id: "2026-03-ncbs-cybernetic"
+  date: "2026-03"
+  type: "Seminar"
+  institution: "National Centre for Biological Sciences"
+  title: "Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience"
+  city: "Bangalore"
+  country: "India"
+  selected: false
+  latex_description: "``Integrative Neurocybernetic Modeling in the Era of Large-Scale Neuroscience'' at National Centre for Biological Sciences (NCBS), Bangalore, India"
+
+- id: "2026-03-ncbs-dynamics"
+  date: "2026-03"
+  type: "Seminar"
+  institution: "National Centre for Biological Sciences"
+  title: "Effective, not Qualitative, Neural Dynamics"
+  city: "Bangalore"
+  country: "India"
+  selected: false
+  latex_description: "``Effective, not Qualitative, Neural Dynamics'' at National Centre for Biological Sciences (NCBS), Bangalore, India"
+
 - id: "2026-03-cosyne-closed-loop"
   date: "2026-03"
   type: "Invited talk"
   institution: "COSYNE workshop"
-  title: "Edge of Tomorrow: Theory and Practice of Closed-Loop Neural Control"
+  title: "Planning to Learn Neural Dynamics in Real Time (jointly with Hyungju Jeon)"
   country: "Portugal"
   url: "https://closed-loop-2026.github.io/"
   selected: false
-  latex_description: "at the COSYNE workshop ``Edge of Tomorrow: Theory and Practice of Closed-Loop Neural Control'', Portugal"
+  latex_description: "``Planning to Learn Neural Dynamics in Real Time'' (jointly presented with Hyungju Jeon) at the COSYNE workshop ``Edge of Tomorrow: Theory and Practice of Closed-Loop Neural Control'', Portugal"
 
 - id: "2025-11-umd"
   date: "2025-11"
@@ -59,21 +156,21 @@
 - id: "2025-05-cumplicidades-ideas-future"
   date: "2025-05"
   type: "Panelist"
-  title: "Ideias para o Futuro (Ideas for the future)"
+  title: "Ideias para o Futuro (Ideas for the Future)"
   institution: "Festival Cumplicidades, Champalimaud Foundation"
   country: "Portugal"
   selected: false
-  latex_description: "Ideias para o Futuro (Ideas for the future), Festival Cumplicidades, Champalimaud Foundation, Portugal"
+  latex_description: "Ideias para o Futuro (Ideas for the Future), Festival Cumplicidades, Champalimaud Foundation, Portugal"
 
 - id: "2025-03-cosyne-foundation-model"
   date: "2025-03"
   type: "Panelist"
-  title: "Building a foundation model for the brain: datasets, theory, and models"
+  title: "Building a Foundation Model for the Brain: Datasets, Theory, and Models"
   institution: "COSYNE workshop"
   city: "Montreal"
   country: "Canada"
   selected: false
-  latex_description: "COSYNE workshop, ``Building a foundation model for the brain: datasets, theory, and models'', Montreal, Canada"
+  latex_description: "COSYNE workshop, ``Building a Foundation Model for the Brain: Datasets, Theory, and Models'', Montreal, Canada"
 
 - id: "2025-03-funml-data61"
   date: "2025-03"
@@ -129,7 +226,7 @@
 - id: "2024-09-bernstein-plenary"
   date: "2024-09"
   type: "Plenary lecture"
-  title: "Forecasting motor cortex activity with a nonlinear latent dynamical system model"
+  title: "Forecasting Motor Cortex Activity with a Nonlinear Latent Dynamical System Model"
   institution: "Bernstein Conference"
   city: "Frankfurt"
   country: "Germany"
@@ -138,7 +235,7 @@
 - id: "2024-08-eusipco"
   date: "2024-08"
   type: "Invited talk"
-  title: "Real-time machine learning strategies for a new kind of neuroscience experiments"
+  title: "Real-Time Machine Learning Strategies for a New Kind of Neuroscience Experiments"
   institution: "EUSIPCO special session"
   city: "Lyon"
   country: "France"
@@ -199,7 +296,7 @@
 - id: "2023-07-izn-retreat-heidelberg"
   date: "2023-07"
   type: "Invited talk"
-  title: "Persistent learning signals and memory in recurrent networks"
+  title: "Persistent Learning Signals and Memory in Recurrent Networks"
   institution: "IZN retreat, University of Heidelberg"
   country: "Germany"
   selected: false
@@ -214,7 +311,7 @@
 - id: "2023-03-mpml-lisbon"
   date: "2023-03"
   type: "Invited seminar"
-  title: "On learning signals in recurrent networks"
+  title: "On Learning Signals in Recurrent Networks"
   institution: "Seminar in Mathematics, Physics and Machine Learning (MPML) at University of Lisbon"
   url: "https://mpml.tecnico.ulisboa.pt/seminars?id=6933"
   url2: "https://www.youtube.com/watch?v=bVCzqR8Oe40"
@@ -223,7 +320,7 @@
 - id: "2022-11-janelia"
   date: "2022-11"
   type: "Invited seminar"
-  title: "On learning signals in recurrent networks"
+  title: "On Learning Signals in Recurrent Networks"
   institution: "HHMI Janelia Research Campus"
   selected: false
 
@@ -236,10 +333,10 @@
 - id: "2022-11-ist-lisbon"
   date: "2022-11"
   type: "Seminar"
-  title: "Real-time neuroscience tools: An exploration"
+  title: "Real-Time Neuroscience Tools: An Exploration"
   institution: "Instituto Superior Tecnico, University of Lisbon"
   selected: false
-  latex_description: "``Real-time neuroscience tools: An exploration'', Instituto Superior T\\'ecnico, University of Lisbon"
+  latex_description: "``Real-Time Neuroscience Tools: An Exploration'', Instituto Superior T\\'ecnico, University of Lisbon"
 
 - id: "2022-05-columbia"
   date: "2022-05"
@@ -250,29 +347,29 @@
 - id: "2022-03-cosyne-illuminating"
   date: "2022-03"
   type: "Invited talk"
-  title: "Illuminating neural computation through perturbations and adaptive experimental designs"
+  title: "Illuminating Neural Computation through Perturbations and Adaptive Experimental Designs"
   institution: "COSYNE workshop"
   country: "Portugal"
   selected: false
-  latex_description: "COSYNE workshop, ``Illuminating neural computation through perturbations and adaptive experimental designs'', Portugal"
+  latex_description: "COSYNE workshop, ``Illuminating Neural Computation through Perturbations and Adaptive Experimental Designs'', Portugal"
 
 - id: "2021-11-kscn-realtime"
   date: "2021-11"
   type: "Invited talk"
-  title: "Real-time neuroscience"
+  title: "Real-Time Neuroscience"
   institution: "Annual Symposium of 2021 Korean Society for Computational Neuroscience"
   url: "https://www.youtube.com/watch?v=_S8qojT5XIM"
   selected: false
-  latex_description: "Real-time neuroscience, Annual Symposium of 2021 Korean Society for Computational Neuroscience"
+  latex_description: "Real-Time Neuroscience, Annual Symposium of 2021 Korean Society for Computational Neuroscience"
 
 - id: "2021-10-crcns-flatiron"
   date: "2021-10"
   type: "Invited talk"
-  title: "Challenges and perspectives on large-scale neural data analysis"
+  title: "Challenges and Perspectives on Large-Scale Neural Data Analysis"
   institution: "CRCNS workshop, Flatiron institute"
   city: "New York"
   selected: true
-  latex_description: "CRCNS workshop, ``Challenges and perspectives on large-scale neural data analysis'', Flatiron institute, New York"
+  latex_description: "CRCNS workshop, ``Challenges and Perspectives on Large-Scale Neural Data Analysis'', Flatiron institute, New York"
 
 - id: "2021-08-postech-ai"
   date: "2021-08"
@@ -317,12 +414,12 @@
 - id: "2020-03-cosyne-interpretable"
   date: "2020-03"
   type: "Invited talk"
-  title: "Interpretable computational neuroscience: What are we modeling and what does it have to do with the brain?"
+  title: "Interpretable Computational Neuroscience: What Are We Modeling and What Does It Have to Do with the Brain?"
   institution: "COSYNE 2020 Workshop"
   url: "https://youtube.com/watch?v=AAfslStLYBo"
   selected: true
   url_full_only: true
-  latex_description: "COSYNE 2020 Workshop ``Interpretable computational neuroscience: What are we modeling and what does it have to do with the brain?''"
+  latex_description: "COSYNE 2020 Workshop ``Interpretable Computational Neuroscience: What Are We Modeling and What Does It Have to Do with the Brain?''"
 
 - id: "2020-02-nyu-cns"
   date: "2020-02"
@@ -414,11 +511,11 @@
 - id: "2018-12-eitn-effective-connectivity"
   date: "2018-12"
   type: "Invited talk"
-  institution: "European Institute for Theoretical Neuroscience (EITN) workshop: The many flavor of 'Effective Connectivity': from neuronal cultures to fMRI"
+  institution: "European Institute for Theoretical Neuroscience (EITN) workshop: The many flavors of 'Effective Connectivity': from neuronal cultures to fMRI"
   city: "Paris"
   country: "France"
   selected: true
-  latex_description: "European Institute for Theoretical Neuroscience (EITN) workshop: The many flavor of `Effective Connectivity': from neuronal cultures to fMRI, Paris, France"
+  latex_description: "European Institute for Theoretical Neuroscience (EITN) workshop: The many flavors of `Effective Connectivity': from neuronal cultures to fMRI, Paris, France"
 
 - id: "2018-10-asilomar"
   date: "2018-10"
@@ -429,10 +526,10 @@
 - id: "2018-03-cosyne-closed-loop"
   date: "2018-03"
   type: "Invited talk"
-  title: "Closed-loop control of neural systems and circuits for scientific discovery"
+  title: "Closed-Loop Control of Neural Systems and Circuits for Scientific Discovery"
   institution: "COSYNE 2018 workshop"
   selected: false
-  latex_description: "COSYNE 2018 workshop ``Closed-loop control of neural systems and circuits for scientific discovery''"
+  latex_description: "COSYNE 2018 workshop ``Closed-Loop Control of Neural Systems and Circuits for Scientific Discovery''"
 
 - id: "2018-01-caltech-new-directions"
   date: "2018-01"
@@ -522,89 +619,89 @@
 - id: "2015-11-laufer-sbu"
   date: "2015-11"
   type: "Invited seminar"
-  title: "Universal binary models: distribution and entropy estimation for population spike words"
+  title: "Universal Binary Models: Distribution and Entropy Estimation for Population Spike Words"
   institution: "Laufer Center, Stony Brook University"
   selected: false
-  latex_description: "Universal binary models: distribution and entropy estimation for population spike words. Laufer Center, Stony Brook University"
+  latex_description: "Universal Binary Models: Distribution and Entropy Estimation for Population Spike Words. Laufer Center, Stony Brook University"
 
 - id: "2015-11-uconn"
   date: "2015-11"
   type: "Invited seminar"
-  title: "Dynamic correlations between visual and decision areas during perceptual decision-making"
+  title: "Dynamic Correlations between Visual and Decision Areas during Perceptual Decision-Making"
   institution: "University of Connecticut"
   selected: false
-  latex_description: "Dynamic correlations between visual and decision areas during perceptual decision-making. University of Connecticut"
+  latex_description: "Dynamic Correlations between Visual and Decision Areas during Perceptual Decision-Making. University of Connecticut"
 
 - id: "2015-03-columbia"
   date: "2015-03"
   type: "Invited seminar"
-  title: "Multiplexing and dynamic correlations in visual and decision areas during perceptual decision-making"
+  title: "Multiplexing and Dynamic Correlations in Visual and Decision Areas during Perceptual Decision-Making"
   institution: "Columbia University"
   selected: false
-  latex_description: "Multiplexing and dynamic correlations in visual and decision areas during perceptual decision-making. Columbia University"
+  latex_description: "Multiplexing and Dynamic Correlations in Visual and Decision Areas during Perceptual Decision-Making. Columbia University"
 
 - id: "2014-06-milano"
   date: "2014-06"
   type: "Invited seminar"
-  title: "Universal binary models: distribution and entropy estimation for population spike words"
+  title: "Universal Binary Models: Distribution and Entropy Estimation for Population Spike Words"
   institution: "Universita degli studi di Milano"
   country: "Italy"
   selected: false
-  latex_description: "Universal binary models: distribution and entropy estimation for population spike words. Universit\\`a degli studi di Milano, Italy"
+  latex_description: "Universal Binary Models: Distribution and Entropy Estimation for Population Spike Words. Universit\\`a degli studi di Milano, Italy"
 
 - id: "2014-06-iit-genova"
   date: "2014-06"
   type: "Invited seminar"
-  title: "Deciphering the code for sensorimotor decision-making of single-neurons in parietal cortex"
+  title: "Deciphering the Code for Sensorimotor Decision-Making of Single-Neurons in Parietal Cortex"
   institution: "Istituto Italiano di Tecnologia (IIT)"
   city: "Genova"
   country: "Italy"
   selected: false
-  latex_description: "Deciphering the code for sensorimotor decision-making of single-neurons in parietal cortex. Istituto Italiano di Tecnologia (IIT), Genova, Italy"
+  latex_description: "Deciphering the Code for Sensorimotor Decision-Making of Single-Neurons in Parietal Cortex. Istituto Italiano di Tecnologia (IIT), Genova, Italy"
 
 - id: "2014-05-sbu"
   date: "2014-05"
   type: "Invited seminar"
-  title: "Deciphering the code for sensorimotor decision-making in parietal cortex"
+  title: "Deciphering the Code for Sensorimotor Decision-Making in Parietal Cortex"
   institution: "Stony Brook University"
   selected: false
-  latex_description: "Deciphering the code for sensorimotor decision-making in parietal cortex. Stony Brook University"
+  latex_description: "Deciphering the Code for Sensorimotor Decision-Making in Parietal Cortex. Stony Brook University"
 
 - id: "2014-02-cosyne-scaling"
   date: "2014-02"
   type: "Workshop talk"
-  title: "Scaling up with Bayes"
+  title: "Scaling Up with Bayes"
   institution: "Computational Systems Neuroscience (COSYNE) 2014 workshop"
   city: "Salt Lake City"
   country: "Utah"
   selected: false
-  latex_description: "Scaling up with Bayes. Computational Systems Neuroscience (COSYNE) 2014 workshop, Salt Lake City, Utah"
+  latex_description: "Scaling Up with Bayes. Computational Systems Neuroscience (COSYNE) 2014 workshop, Salt Lake City, Utah"
 
 - id: "2013-07-cns-paris-kernel"
   date: "2013-07"
   type: "Invited talk"
-  title: "Kernel methods for spike trains"
+  title: "Kernel Methods for Spike Trains"
   institution: "Organization for Computational Neuroscience (CNS) workshop"
   city: "Paris"
   country: "France"
   selected: false
-  latex_description: "Kernel methods for spike trains. Organization for Computational Neuroscience (CNS) workshop ``New approaches to spike train analysis and neuronal coding'', 2013, Paris, France"
+  latex_description: "Kernel Methods for Spike Trains. Organization for Computational Neuroscience (CNS) workshop ``New approaches to spike train analysis and neuronal coding'', 2013, Paris, France"
 
 - id: "2012-12-kist"
   date: "2012-12"
   type: "Invited seminar"
-  title: "Deciphering the code for sensorimotor decision-making at the level of single neurons in parietal cortex"
+  title: "Deciphering the Code for Sensorimotor Decision-Making at the Level of Single Neurons in Parietal Cortex"
   institution: "Korea Institute of Science and Technology (KIST)"
   selected: false
-  latex_description: "Deciphering the code for sensorimotor decision-making at the level of single neurons in parietal cortex. Korea Institute of Science and Technology (KIST)"
+  latex_description: "Deciphering the Code for Sensorimotor Decision-Making at the Level of Single Neurons in Parietal Cortex. Korea Institute of Science and Technology (KIST)"
 
 - id: "2012-12-postech"
   date: "2012-12"
   type: "Invited seminar"
-  title: "Deciphering the code for sensorimotor decision-making at the level of single neurons in parietal cortex"
+  title: "Deciphering the Code for Sensorimotor Decision-Making at the Level of Single Neurons in Parietal Cortex"
   institution: "Pohang University of Science and Technology (POSTECH)"
   selected: false
-  latex_description: "Deciphering the code for sensorimotor decision-making at the level of single neurons in parietal cortex. Pohang University of Science and Technology (POSTECH)"
+  latex_description: "Deciphering the Code for Sensorimotor Decision-Making at the Level of Single Neurons in Parietal Cortex. Pohang University of Science and Technology (POSTECH)"
 
 - id: "2012-07-cns-olfactory"
   date: "2012-07"
@@ -620,6 +717,6 @@
   date: "2011-03"
   type: "Invited seminar"
   title: "A Plausible Population Code for Interval Timing in Olfaction"
-  institution: "Whitney Marinbiology Laboratory"
+  institution: "Whitney Laboratory for Marine Bioscience"
   selected: false
-  latex_description: "A Plausible Population Code for Interval Timing in Olfaction. Whitney Marinbiology Laboratory"
+  latex_description: "A Plausible Population Code for Interval Timing in Olfaction. Whitney Laboratory for Marine Bioscience"

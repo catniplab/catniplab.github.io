@@ -1,0 +1,13 @@
+# Recorded talks by lab members, shown on /talks/ next to _data/talks.yml.
+# Kept separate because _data/talks.yml is a copy of the CV's data/talks.yml
+# (Dr. Park's own talks); nothing here reaches the CV.
+# Fields as in talks.yml, plus speaker. url must contain "youtube"
+# (use the watch?v= form, not youtu.be) or the talk is not listed.
+
+- id: "2026-11-lab-meeting-gp-glm"
+  date: "2026-11"
+  speaker: "Germán Abrevaya"
+  type: "Lab meeting"
+  title: "Improving non-parametric (baseless) GLM"
+  institution: "CATNIP Lab, Champalimaud Centre for the Unknown"
+  url: "https://www.youtube.com/watch?v=0smhoM5zQeU"
